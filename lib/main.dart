@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/common/login/login.dart';
+import 'package:online_market/util/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +15,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Emarket',
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        darkTheme: customDarkTheme(),
+        theme: customLightTheme(),
         home: Login());
   }
 }
