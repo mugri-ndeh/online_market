@@ -7,7 +7,7 @@ ThemeData customLightTheme() {
   TextTheme _customLightThemesTextTheme(TextTheme base) {
     return base.copyWith(
       headline1: base.headline1?.copyWith(
-        fontSize: 32.0,
+        fontSize: 40.0,
         color: Palette.black,
       ),
       headline2: base.headline1?.copyWith(
@@ -55,7 +55,7 @@ ThemeData customLightTheme() {
         lightTheme.buttonTheme.copyWith(buttonColor: Palette.buttonColor),
     errorColor: Colors.red,
     colorScheme:
-        ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFFFF8E1)),
+        ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFFFFF8E1)),
   );
 }
 
@@ -109,7 +109,7 @@ ThemeData customDarkTheme() {
     buttonTheme:
         darkTheme.buttonTheme.copyWith(buttonColor: Palette.buttonColor),
     errorColor: Colors.red,
-    colorScheme:
-        ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFFFF8E1)),
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red)
+        .copyWith(secondary: Color(0xFFFFF8E1)),
   );
 }

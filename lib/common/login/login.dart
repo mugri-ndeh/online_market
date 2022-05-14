@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
                   child: TextFormField(
                       decoration: Constants.inputDecoration('email')),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 10),
                 Constants.formBox(
                   child: TextFormField(
                       obscureText: true,
