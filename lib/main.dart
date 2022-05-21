@@ -23,10 +23,24 @@ void main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (Theme.of(context).brightness == Brightness.dark) {
+    } else {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
