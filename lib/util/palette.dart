@@ -9,4 +9,21 @@ class Palette {
   static const success = Color(0XFF2AA952);
   static const grey = Color(0XFF9B9B9B);
   static const black = Color(0XFF000000);
+  static const error = Color.fromARGB(255, 252, 0, 0);
+
+  static const MaterialColor primarySwatchColor = MaterialColor(
+    0XFFDB3022, // 0% comes in here, this will be color picked if no shade is selected when defining a Color property which doesn’t require a swatch.
+    <int, Color>{
+      50: const Color(0XFFDB3022), //10%
+      100: const Color(0XFFDB3022), //20%
+      200: const Color(0XFF1FE5BD), //30%
+      300: const Color(0XFF1FE5BD), //40%
+      400: const Color(0XFF1FE5BD), //50%
+      500: const Color(0XFF1FE5BD), //60%
+      600: const Color(0XFF1FE5BD), //70%
+      700: const Color(0XFF1FE5BD), //80%
+      800: const Color(0XFF1FE5BD), //90%
+      900: const Color(0XFF1FE5BD), //100%
+    },
+  );
 }
