@@ -1,8 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:online_market/auth/login/login.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/firebase_options.dart';
+import 'package:online_market/root/index.dart';
+import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -37,8 +40,26 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if (Theme.of(context).brightness == Brightness.dark) {
-    } else {}
+    if (Theme.of(context).brightness == Brightness.light) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.black,
+        systemNavigationBarIconBrightness:
+            Brightness.light, // navigation bar color
+        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+
+        statusBarIconBrightness: Brightness.dark,
+      ));
+    } else if (Theme.of(context).brightness == Brightness.dark) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: Palette.white,
+        // systemNavigationBarColor: Colors.transparent,
+
+        systemNavigationBarIconBrightness:
+            Brightness.dark, // navigation bar color
+        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
+        statusBarIconBrightness: Brightness.dark,
+      ));
+    }
   }
 
   @override
@@ -48,6 +69,6 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         darkTheme: customDarkTheme(),
         theme: customLightTheme(),
-        home: Login());
+        home: const AuthRoot());
   }
 }
