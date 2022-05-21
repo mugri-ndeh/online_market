@@ -40,6 +40,20 @@ String? validateDob(String? value) {
   return null;
 }
 
+String? validateLocation(String? value, String type) {
+  if (type == 'region') {
+    if (value?.isEmpty ?? true) {
+      return "Please input your region";
+    }
+  } else if (type == 'town') {
+    if (value?.isEmpty ?? true) {
+      return "Please input your town";
+    }
+  } else {}
+
+  return null;
+}
+
 String? validateMobile(String? value) {
   String pattern = r'(^\+?[0-9]*$)';
   RegExp regExp = RegExp(pattern);
