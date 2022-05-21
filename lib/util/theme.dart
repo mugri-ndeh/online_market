@@ -14,7 +14,8 @@ ThemeData customLightTheme() {
         color: Palette.black,
         fontWeight: FontWeight.bold,
       ),
-      headline6: base.headline6?.copyWith(fontSize: 16.0, color: Palette.black),
+      headline6: base.headline6?.copyWith(
+          fontSize: 18.0, color: Palette.black, fontWeight: FontWeight.bold),
       headline4: base.headline1?.copyWith(
           fontSize: 20.0, color: Colors.black, fontWeight: FontWeight.bold),
       headline3: base.headline1?.copyWith(
@@ -94,7 +95,8 @@ ThemeData customDarkTheme() {
         fontSize: 28.0,
         color: Palette.white,
       ),
-      headline6: base.headline6?.copyWith(fontSize: 16.0, color: Palette.white),
+      headline6: base.headline6?.copyWith(
+          fontSize: 18.0, color: Palette.black, fontWeight: FontWeight.bold),
       headline4: base.headline1?.copyWith(
         fontSize: 20.0,
         color: Colors.white,
