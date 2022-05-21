@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'palette.dart';
 
-class Assets {}
+class Assets {
+  static const String logo = '';
+}
 
 class Constants {
   static const double bodyHorizontalpadding = 16.0;
