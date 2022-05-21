@@ -16,14 +16,14 @@ class Palette {
     <int, Color>{
       50: const Color(0XFFDB3022), //10%
       100: const Color(0XFFDB3022), //20%
-      200: const Color(0XFF1FE5BD), //30%
-      300: const Color(0XFF1FE5BD), //40%
-      400: const Color(0XFF1FE5BD), //50%
-      500: const Color(0XFF1FE5BD), //60%
-      600: const Color(0XFF1FE5BD), //70%
-      700: const Color(0XFF1FE5BD), //80%
-      800: const Color(0XFF1FE5BD), //90%
-      900: const Color(0XFF1FE5BD), //100%
+      200: const Color(0XFFDB3022), //30%
+      300: const Color(0XFFDB3022), //40%
+      400: const Color(0XFFDB3022), //50%
+      500: const Color(0XFFDB3022), //60%
+      600: const Color(0XFFDB3022), //70%
+      700: const Color(0XFFDB3022), //80%
+      800: const Color(0XFFDB3022), //90%
+      900: const Color(0XFFDB3022), //100%
     },
   );
 }
