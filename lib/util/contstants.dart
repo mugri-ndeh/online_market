@@ -9,6 +9,7 @@ class Assets {
 class Constants {
   static const double bodyHorizontalpadding = 16.0;
   static const double bigAuthSpace = 100.0;
+  static const double authWidgetSpace = 10;
   static InputDecoration inputDecoration(String label) {
     return InputDecoration(
       label: Text(label),
@@ -20,10 +21,11 @@ class Constants {
     );
   }
 
-  static Container formBox({required Widget child}) {
+  static Container formBox(
+      {required Widget child, required BuildContext context}) {
     return Container(
       decoration: BoxDecoration(
-          color: Palette.white,
+          color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(4),
           boxShadow: [
             BoxShadow(
