@@ -70,7 +70,7 @@ class _BaseScreenState extends State<BaseScreen> {
               BoxShadow(
                   color: Palette.primaryColor.withOpacity(0.5),
                   spreadRadius: 2,
-                  blurRadius: 8,
+                  blurRadius: 1,
                   offset: Offset(1, 2))
             ],
             borderRadius: const BorderRadius.only(
