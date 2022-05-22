@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
+import 'package:online_market/profile/orders/orders.dart';
 import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
@@ -35,7 +37,9 @@ class _ProfileState extends State<Profile> {
             _profileHead(),
             const SizedBox(height: 20),
             _profileCard(
-                title: 'My orders', subtitle: 'Already have 12 orders'),
+                title: 'My orders',
+                subtitle: 'Already have 12 orders',
+                destination: Orders()),
             const SizedBox(height: 10),
             _profileCard(title: 'Edit profile', subtitle: 'Edit user details'),
             const SizedBox(height: 10),
@@ -86,11 +90,13 @@ class _ProfileState extends State<Profile> {
   Widget _profileCard(
       {required String title, required String subtitle, Widget? destination}) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        push(context, destination!);
+      },
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
@@ -104,7 +110,10 @@ class _ProfileState extends State<Profile> {
         ),
         child: ListTile(
           selectedTileColor: Colors.white,
-          title: Text(title),
+          title: Text(
+            title,
+            style: Theme.of(context).textTheme.headline6,
+          ),
           trailing: Icon(Icons.arrow_forward_ios),
           subtitle: Text(subtitle),
         ),
