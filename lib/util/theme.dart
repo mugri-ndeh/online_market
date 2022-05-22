@@ -96,7 +96,7 @@ ThemeData customDarkTheme() {
         color: Palette.white,
       ),
       headline6: base.headline6?.copyWith(
-          fontSize: 18.0, color: Palette.black, fontWeight: FontWeight.bold),
+          fontSize: 18.0, color: Palette.white, fontWeight: FontWeight.bold),
       headline4: base.headline1?.copyWith(
         fontSize: 20.0,
         color: Colors.white,
