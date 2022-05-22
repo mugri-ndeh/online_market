@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 elevatedContainer({
   required BuildContext context,
   required Widget child,
+  double? padding,
 }) =>
     Container(
-      padding: EdgeInsets.all(16),
+      padding: padding == null ? EdgeInsets.all(16) : EdgeInsets.all(padding),
       decoration: BoxDecoration(
         color: Theme.of(context).backgroundColor,
         borderRadius: BorderRadius.circular(10),
