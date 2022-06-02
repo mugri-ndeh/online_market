@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:online_market/auth/complete_profile/complete_profile.dart';
 import 'package:online_market/auth/login/login.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
+import 'package:online_market/auth/signup/signup.dart';
 import 'package:online_market/firebase_options.dart';
 import 'package:online_market/root/index.dart';
 import 'package:online_market/util/palette.dart';
