@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/auth/complete_profile/complete_profile.dart';
 import 'package:online_market/auth/login/login.dart';
+import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/auth/signup/signup.dart';
 import 'package:online_market/home/base.dart';
+import 'package:online_market/profile/index.dart';
 import 'package:provider/provider.dart';
 
 class AuthRoot extends StatelessWidget {
@@ -18,7 +20,11 @@ class AuthRoot extends StatelessWidget {
       print(auth.loginState);
       switch (auth.loginState) {
         case AuthState.loggedIn:
-          return BaseScreen();
+          if (auth.loggedUser!.accountType == AccountType.customer.toString()) {
+            return BaseScreen();
+          } else {
+            return BaseScreen();
+          }
         case AuthState.loggedOut:
           return Login();
         case AuthState.incomplete:
