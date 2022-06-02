@@ -1,3 +1,5 @@
+enum AccountType { customer, seller, both }
+
 class UserModel {
   String uid;
   String firstName;
