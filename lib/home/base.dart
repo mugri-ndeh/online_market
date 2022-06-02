@@ -68,9 +68,9 @@ class _BaseScreenState extends State<BaseScreen> {
             color: Theme.of(context).backgroundColor,
             boxShadow: [
               BoxShadow(
-                  color: Palette.primaryColor.withOpacity(0.5),
-                  spreadRadius: 2,
-                  blurRadius: 1,
+                  color: Palette.primaryColor.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
                   offset: Offset(1, 2))
             ],
             borderRadius: const BorderRadius.only(
@@ -80,6 +80,8 @@ class _BaseScreenState extends State<BaseScreen> {
           ),
           padding: const EdgeInsets.all(8),
           child: GNav(
+              tabBackgroundColor:
+                  Palette.primaryColor.withOpacity(0.5).withOpacity(0.1),
               haptic: false, // haptic feedback
               tabBorderRadius: 30, // tab button border
               curve: Curves.bounceIn, // tab animation curves
