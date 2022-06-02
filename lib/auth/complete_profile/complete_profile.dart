@@ -5,6 +5,7 @@ import 'package:online_market/auth/models/location.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
+import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
@@ -26,11 +27,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
   final TextEditingController _townController = TextEditingController();
   final TextEditingController _quarterController = TextEditingController();
 
+  AccountType accountType = AccountType.customer;
+  bool customerCheck = true;
+  bool sellerCheck = false;
+  bool bothCheck = false;
+
   String initialCountry = 'CM';
   String? locale;
   String number = '';
 
-  String accounttype = '';
   final _formKey = GlobalKey<FormState>();
   late Authentication auth;
   late UserModel userModel;
@@ -45,6 +50,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -103,6 +109,81 @@ class _CompleteProfileState extends State<CompleteProfile> {
                         print('Country changed to: ' + country.name);
                       },
                     ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Row(
+                      //mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: size.width * 0.05,
+                          height: 2,
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: Palette.primaryColor),
+                          ),
+                        ),
+                        const Text(
+                          'Choose account type',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: size.width * 0.05,
+                          height: 2,
+                          child: Container(
+                            decoration:
+                                BoxDecoration(color: Palette.primaryColor),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('Customer', style: TextStyle(fontSize: 20)),
+                      Checkbox(
+                        activeColor: Palette.primaryColor,
+                        value: customerCheck,
+                        onChanged: (val) {
+                          setState(() {
+                            customerCheck = true;
+                            bothCheck = false;
+                            sellerCheck = false;
+                            accountType = AccountType.customer;
+                          });
+                        },
+                      ),
+                      const Text('Seller', style: TextStyle(fontSize: 20)),
+                      Checkbox(
+                        activeColor: Palette.primaryColor,
+                        value: sellerCheck,
+                        onChanged: (val) {
+                          setState(() {
+                            sellerCheck = true;
+                            bothCheck = false;
+                            customerCheck = false;
+                            accountType = AccountType.seller;
+                          });
+                        },
+                      ),
+                      const Text('Both', style: TextStyle(fontSize: 20)),
+                      Checkbox(
+                          activeColor: Palette.primaryColor,
+                          value: bothCheck,
+                          onChanged: (val) {
+                            setState(() {
+                              bothCheck = true;
+                              customerCheck = false;
+                              sellerCheck = false;
+                              accountType = AccountType.both;
+                            });
+                          }),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   Constants.formBox(
@@ -167,6 +248,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             userModel.phoneNumber = _phoneNumberController.text;
                             userModel.completedProfile = true;
                             userModel.location = location.toJson();
+                            userModel.accountType = accountType.toString();
                             showProgress(context, 'Saving data.. ', true);
                             auth
                                 .completeProfile(userModel)
