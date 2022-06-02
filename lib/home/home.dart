@@ -54,12 +54,17 @@ class _HomeState extends State<Home> {
           itemBuilder: ((context, index) => Padding(
                 padding: const EdgeInsets.only(right: 12.0),
                 child: Container(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        blurRadius: 2.0,
-                        spreadRadius: 1)
-                  ]),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            blurRadius: 2.0,
+                            spreadRadius: 1)
+                      ]),
                   child: Stack(
                     // alignment: Alignment.centerRight,
                     children: [
@@ -103,8 +108,8 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Positioned(
-                          left: 120,
-                          top: 170,
+                          left: 130,
+                          top: 160,
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
