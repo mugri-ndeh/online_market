@@ -94,17 +94,17 @@ class _ProfileState extends State<Profile> {
         push(context, destination!);
       },
       child: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              offset: Offset(1, 2),
+              offset: const Offset(1, 2),
               blurStyle: BlurStyle.outer,
               blurRadius: 3,
               spreadRadius: 1,
-              color: Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
+              color: const Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
             ),
           ],
         ),
@@ -114,7 +114,7 @@ class _ProfileState extends State<Profile> {
             title,
             style: Theme.of(context).textTheme.headline6,
           ),
-          trailing: Icon(Icons.arrow_forward_ios),
+          trailing: const Icon(Icons.arrow_forward_ios),
           subtitle: Text(subtitle),
         ),
       ),

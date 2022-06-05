@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -121,7 +123,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           height: 2,
                           child: Container(
                             decoration:
-                                BoxDecoration(color: Palette.primaryColor),
+                                const BoxDecoration(color: Palette.primaryColor),
                           ),
                         ),
                         const Text(
@@ -136,7 +138,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           height: 2,
                           child: Container(
                             decoration:
-                                BoxDecoration(color: Palette.primaryColor),
+                                const BoxDecoration(color: Palette.primaryColor),
                           ),
                         ),
                       ],

@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_const
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -113,6 +115,7 @@ class SideBar extends StatelessWidget {
                       color: Palette.white.withOpacity(0.3),
                       elevation: 0,
                       child: Column(
+                        // ignore: prefer_const_literals_to_create_immutables
                         children: [
                           const ListTile(
                             leading: const Icon(

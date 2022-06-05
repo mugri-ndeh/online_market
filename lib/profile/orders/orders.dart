@@ -75,11 +75,11 @@ class _OrdersState extends State<Orders> {
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(1, 2),
+                    offset: const Offset(1, 2),
                     blurStyle: BlurStyle.outer,
                     blurRadius: 3,
                     spreadRadius: 1,
-                    color: Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
+                    color: const Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
                   ),
                 ],
               )
@@ -90,11 +90,11 @@ class _OrdersState extends State<Orders> {
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(1, 2),
+                    offset: const Offset(1, 2),
                     blurStyle: BlurStyle.outer,
                     blurRadius: 3,
                     spreadRadius: 1,
-                    color: Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
+                    color: const Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
                   ),
                 ],
               ),
@@ -151,13 +151,13 @@ class _OrdersState extends State<Orders> {
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    push(context, OrderDetails());
+                    push(context, const OrderDetails());
                   },
                   style: OutlinedButton.styleFrom(
                     primary: Theme.of(context).iconTheme.color,
                     side: BorderSide(color: Theme.of(context).iconTheme.color!),
                   ),
-                  child: Text('Details'),
+                  child: const Text('Details'),
                 ),
               ],
             ),

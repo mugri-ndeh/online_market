@@ -10,6 +10,6 @@ class FavouritesIndex extends StatefulWidget {
 class _FavouritesIndexState extends State<FavouritesIndex> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

@@ -71,7 +71,7 @@ class _BaseScreenState extends State<BaseScreen> {
                   color: Palette.primaryColor.withOpacity(0.2),
                   spreadRadius: 1,
                   blurRadius: 2,
-                  offset: Offset(1, 2))
+                  offset: const Offset(1, 2))
             ],
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(16),
