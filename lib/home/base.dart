@@ -10,7 +10,7 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/wish_list/index.dart';
 
 class BaseScreen extends StatefulWidget {
-  BaseScreen({Key? key}) : super(key: key);
+  const BaseScreen({Key? key}) : super(key: key);
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();

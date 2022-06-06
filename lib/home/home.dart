@@ -16,6 +16,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  bool _isFavorited = false;
   int _current = 0;
   final CarouselController _controller = CarouselController();
   final List<String> imgList = [
@@ -65,7 +66,7 @@ class _HomeState extends State<Home> {
                         BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             blurRadius: 2.0,
-                            spreadRadius: 1)
+                            spreadRadius: 0.8)
                       ]),
                   child: Stack(
                     // alignment: Alignment.centerRight,
@@ -114,17 +115,27 @@ class _HomeState extends State<Home> {
                           top: 160,
                           child: Container(
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(80),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
+                                      color: Colors.black.withOpacity(0.5),
                                       blurRadius: 2.0,
                                       spreadRadius: 1)
                                 ]),
                             child: CircleAvatar(
                                 backgroundColor:
                                     Theme.of(context).backgroundColor,
-                                child: Icon(FontAwesomeIcons.heart)),
+                                child: IconButton(
+                                  icon: Icon(_isFavorited ? Icons.favorite: Icons.favorite_border),
+                                  iconSize: 30,
+                                  
+                                  color: Colors.red[400],
+                                  onPressed: (){
+                                    setState(() {
+                                      _isFavorited = !_isFavorited;
+                                    });
+                                  }
+                                )),
                           )),
                     ],
                   ),
