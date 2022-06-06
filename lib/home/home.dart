@@ -9,7 +9,7 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 
 class Home extends StatefulWidget {
-  Home({Key? key}) : super(key: key);
+ const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -114,14 +114,14 @@ class _HomeState extends State<Home> {
                           left: 130,
                           top: 160,
                           child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(80),
+                             decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
                                 boxShadow: [
                                   BoxShadow(
-                                      color: Colors.black.withOpacity(0.5),
-                                      blurRadius: 2.0,
+                                      color: Colors.grey.withOpacity(0.5),
+                                      blurRadius: 1.0,
                                       spreadRadius: 1)
-                                ]),
+                                ]), 
                             child: CircleAvatar(
                                 backgroundColor:
                                     Theme.of(context).backgroundColor,
@@ -145,7 +145,9 @@ class _HomeState extends State<Home> {
   }
 
   Widget _heading(BuildContext context,
-      {required String heading, required String caption, Widget? destination}) {
+      {required String heading,
+       required String caption,
+        Widget? destination}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
