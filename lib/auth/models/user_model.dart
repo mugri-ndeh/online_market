@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 enum AccountType { customer, seller, both }
 
 class UserModel {
@@ -49,6 +51,21 @@ class UserModel {
       'firstName': firstName,
       'lastName': lastName,
       'location': location,
+      'password': password,
+      'completedProfile': completedProfile,
+      'accountType': accountType,
+    };
+  }
+
+  Map<String, dynamic> toDbJson() {
+    return {
+      'email': email,
+      'username': username,
+      'phoneNumber': phoneNumber,
+      'uid': uid,
+      'firstName': firstName,
+      'lastName': lastName,
+      'location': jsonEncode(location),
       'password': password,
       'completedProfile': completedProfile,
       'accountType': accountType,
