@@ -4,7 +4,7 @@ import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/palette.dart';
 
 class ShopIndex extends StatefulWidget {
-  ShopIndex({Key? key}) : super(key: key);
+  const ShopIndex({Key? key}) : super(key: key);
 
   @override
   State<ShopIndex> createState() => _ShopIndexState();
@@ -12,7 +12,6 @@ class ShopIndex extends StatefulWidget {
 
 class _ShopIndexState extends State<ShopIndex> {
   bool _isFavorited = false;
-  int _current = 0;
    final List<String> imgList = [
     'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
@@ -23,19 +22,18 @@ class _ShopIndexState extends State<ShopIndex> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(
-            horizontal: Constants.bodyHorizontalpadding / 1.5),
+            vertical: Constants.bodyHorizontalpadding / 1.5),
         child: SingleChildScrollView(
             child: Column(
           children: [
-            _jumbotron(context),
             _heading(context, heading: 'Sale', caption: 'Super promotion sale'),
             const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[2]),
+            _imageCardSlider(url: imgList[1]),
             const SizedBox(height: 20),
             _heading(context,
                 heading: 'New ', caption: 'you\'ve never seen it before'),
-            const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[1]),
+            const SizedBox(height: 20),
+            _imageCardSlider(url: imgList[2]),
           ],
         )),
       ),
@@ -49,7 +47,7 @@ class _ShopIndexState extends State<ShopIndex> {
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemBuilder: ((context, index) => Padding(
-                padding: const EdgeInsets.only(right: 12.0),
+                padding: const EdgeInsets.only(left:12.0),
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -60,7 +58,7 @@ class _ShopIndexState extends State<ShopIndex> {
                         BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             blurRadius: 2.0,
-                            spreadRadius: 0.8)
+                            spreadRadius: 1.0)
                       ]),
                   child: Stack(
                     // alignment: Alignment.centerRight,
@@ -81,9 +79,9 @@ class _ShopIndexState extends State<ShopIndex> {
                       Positioned(
                         top: 180,
                         child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          padding: const EdgeInsets.symmetric(vertical: 1),
                           color: Theme.of(context).backgroundColor,
-                          height: 100,
+                          height: 130,
                           width: 175,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +103,7 @@ class _ShopIndexState extends State<ShopIndex> {
                         ),
                       ),
                       Positioned(
-                          left: 130,
+                          left: 140,
                           top: 160,
                           child: Container(
                              decoration: BoxDecoration(
@@ -138,15 +136,102 @@ class _ShopIndexState extends State<ShopIndex> {
         ));
   }
 
-  Widget _jumbotron(BuildContext context) {
-    return IntrinsicHeight(
-      child: Stack(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        alignment: Alignment.bottomCenter,
-       
-      ),
-    );
-  }
+  // Widget buildGridView({String? url})=> GridView.builder(
+    
+  //   gridDelegate: SilverGridDelegateWithFixedCrossAxisCount(
+  //     crossAxisCount:2,
+  //     childAspectRatio:1,
+  //     mainAxisSpacing: 8,
+  //     crossAxisSpacing: 8,
+  //   ),
+  //   itemBuilder: ((context, index) => Padding(
+  //               padding: const EdgeInsets.only(top: 12.0, left: 12.0),
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                     borderRadius: const BorderRadius.only(
+  //                       topLeft: Radius.circular(10),
+  //                       topRight: Radius.circular(10),
+  //                     ),
+  //                     boxShadow: [
+  //                       BoxShadow(
+  //                           color: Colors.grey.withOpacity(0.5),
+  //                           blurRadius: 2.0,
+  //                           spreadRadius: 0.8)
+  //                     ]),
+  //                 child: Stack(
+  //                   // alignment: Alignment.centerRight,
+  //                   children: [
+  //                     SizedBox(
+  //                       height: 180,
+  //                       width: 175,
+  //                       child: ClipRRect(
+  //                           borderRadius: const BorderRadius.only(
+  //                             topLeft: Radius.circular(8),
+  //                             topRight: Radius.circular(8),
+  //                           ),
+  //                           child: CachedNetworkImage(
+  //                             imageUrl: url!,
+  //                             fit: BoxFit.fill,
+  //                           )),
+  //                     ),
+  //                     Positioned(
+  //                       top: 180,
+  //                       child: Container(
+  //                         padding: const EdgeInsets.symmetric(vertical: 4),
+  //                         color: Theme.of(context).backgroundColor,
+  //                         height: 100,
+  //                         width: 175,
+  //                         child: Column(
+  //                           crossAxisAlignment: CrossAxisAlignment.start,
+  //                           children: [
+  //                             Text(
+  //                               'Shop owner',
+  //                               style: Theme.of(context).textTheme.caption,
+  //                             ),
+  //                             Text(
+  //                               'Evening dress',
+  //                               style: Theme.of(context).textTheme.headline6,
+  //                             ),
+  //                             Text(
+  //                               '10000XAF',
+  //                               style: Theme.of(context).textTheme.bodyText1,
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Positioned(
+  //                         left: 130,
+  //                         top: 160,
+  //                         child: Container(
+  //                            decoration: BoxDecoration(
+  //                               borderRadius: BorderRadius.circular(100),
+  //                               boxShadow: [
+  //                                 BoxShadow(
+  //                                     color: Colors.grey.withOpacity(0.5),
+  //                                     blurRadius: 1.0,
+  //                                     spreadRadius: 1)
+  //                               ]), 
+  //                           child: CircleAvatar(
+  //                               backgroundColor:
+  //                                   Theme.of(context).backgroundColor,
+  //                               child: IconButton(
+  //                                 icon: Icon(_isFavorited ? Icons.favorite: Icons.favorite_border),
+  //                                 iconSize: 30,
+                                  
+  //                                 color: Colors.red[400],
+  //                                 onPressed: (){
+  //                                   setState(() {
+  //                                     _isFavorited = !_isFavorited;
+  //                                   });
+  //                                 }
+  //                               )),
+  //                         )),
+  //                   ],
+  //                 ),
+  //               ),
+  //             )),
+  //       );
 
   Widget _heading(BuildContext context,
       {required String heading,
@@ -169,8 +254,12 @@ class _ShopIndexState extends State<ShopIndex> {
             ),
           ],
         ),
-        TextButton(onPressed: () {}, child: Text('View all'))
+        TextButton(onPressed: () {}, child: const Text('View all'))
       ],
     );
   }
 }
+
+// class SilverGridDelegateWithFixedCrossAxisCount {
+//   CrossAxisAlignment;
+// }
