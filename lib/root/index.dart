@@ -22,9 +22,9 @@ class AuthRoot extends StatelessWidget {
       switch (auth.loginState) {
         case AuthState.loggedIn:
           if (auth.loggedUser!.accountType == AccountType.customer.toString()) {
-            return const SellerBase();
-          } else {
             return const BaseScreen();
+          } else {
+            return const SellerBase();
           }
         case AuthState.loggedOut:
           return Login();
