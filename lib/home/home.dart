@@ -4,12 +4,21 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/home/product_detail.dart';
+import 'package:online_market/home/widgets/product_card.dart';
+import 'package:online_market/home/widgets/sidebar.dart';
+import 'package:online_market/model/product.dart';
+import 'package:online_market/services/common/common_api.dart';
+import 'package:online_market/services/customer/customer_api.dart';
+import 'package:online_market/shop/details.dart';
 import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 
 class Home extends StatefulWidget {
- const Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -24,9 +33,71 @@ class _HomeState extends State<Home> {
     'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
     'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
   ];
+
+  List<Product> promo = [];
+  List<Product> products = [];
+
+  getProducts() async {
+    products = (await UserApi.getProducts())!;
+    setState(() {});
+  }
+
+  getPromo() async {
+    promo = (await UserApi.getPromo())!;
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getProducts();
+    getPromo();
+  }
+
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: const SideBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                showCustomSearch(context, size);
+              },
+              icon: Icon(
+                Icons.search,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Palette.white
+                    : Palette.black,
+              ))
+        ],
+        centerTitle: true,
+        title: GestureDetector(
+          onTap: () {
+            getPromo();
+          },
+          child: Text(
+            'eMarket',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.menu,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Palette.white
+                : Palette.black,
+          ),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+            print("TAOPPED");
+          },
+        ),
+        elevation: 0,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: Constants.bodyHorizontalpadding / 1.5),
@@ -36,118 +107,41 @@ class _HomeState extends State<Home> {
             _jumbotron(context),
             _heading(context, heading: 'Sale', caption: 'Super promotion sale'),
             const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[2]),
+            _imageCardSlider(url: imgList[2], prods: promo),
             const SizedBox(height: 20),
             _heading(context,
                 heading: 'New ', caption: 'you\'ve never seen it before'),
             const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[1]),
+            _imageCardSlider(url: imgList[1], prods: products),
           ],
         )),
       ),
     );
   }
 
-  Widget _imageCardSlider({String? url}) {
+  Widget _imageCardSlider({
+    String? url,
+    required List<Product> prods,
+  }) {
     return SizedBox(
         // color: Colors.red,
         height: 282,
         child: ListView.builder(
+          itemCount: prods.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: ((context, index) => Padding(
                 padding: const EdgeInsets.only(right: 12.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 2.0,
-                            spreadRadius: 0.8)
-                      ]),
-                  child: Stack(
-                    // alignment: Alignment.centerRight,
-                    children: [
-                      SizedBox(
-                        height: 180,
-                        width: 175,
-                        child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: url!,
-                              fit: BoxFit.fill,
-                            )),
-                      ),
-                      Positioned(
-                        top: 180,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          color: Theme.of(context).backgroundColor,
-                          height: 100,
-                          width: 175,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Shop owner',
-                                style: Theme.of(context).textTheme.caption,
-                              ),
-                              Text(
-                                'Evening dress',
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                              Text(
-                                '10000XAF',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                          left: 130,
-                          top: 160,
-                          child: Container(
-                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      blurRadius: 1.0,
-                                      spreadRadius: 1)
-                                ]), 
-                            child: CircleAvatar(
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                child: IconButton(
-                                  icon: Icon(_isFavorited ? Icons.favorite: Icons.favorite_border),
-                                  iconSize: 30,
-                                  
-                                  color: Colors.red[400],
-                                  onPressed: (){
-                                    setState(() {
-                                      _isFavorited = !_isFavorited;
-                                    });
-                                  }
-                                )),
-                          )),
-                    ],
-                  ),
-                ),
+                child: GestureDetector(
+                    onTap: () {
+                      push(context, ProductDetail(product: prods[index]));
+                    },
+                    child: ProductCard(product: prods[index])),
               )),
         ));
   }
 
   Widget _heading(BuildContext context,
-      {required String heading,
-       required String caption,
-        Widget? destination}) {
+      {required String heading, required String caption, Widget? destination}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,

@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+<<<<<<< HEAD
 import 'package:online_market/shop/item_model.dart';
+=======
+import 'package:online_market/model/product.dart';
+import 'package:online_market/model/shop.dart';
+import 'package:online_market/services/customer/customer_api.dart';
+import 'package:online_market/shop/details.dart';
+>>>>>>> fde44d64b9e930f6d81d83aa7e587f7be768b43e
 import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
+<<<<<<< HEAD
 import 'package:online_market/shop/additem.dart';
+=======
+import 'package:online_market/util/widgets/custom_buttons.dart';
+>>>>>>> fde44d64b9e930f6d81d83aa7e587f7be768b43e
 
 class ShopIndex extends StatefulWidget {
   const ShopIndex({Key? key}) : super(key: key);
@@ -13,6 +25,7 @@ class ShopIndex extends StatefulWidget {
 }
 
 class _ShopIndexState extends State<ShopIndex> {
+<<<<<<< HEAD
    final List<Widget> _children = [
     AddItem(),
   ];
@@ -55,224 +68,175 @@ class _ShopIndexState extends State<ShopIndex> {
       
        ) ,
     );
+=======
+  final _controller = TextEditingController();
+  late List<Shop> shops = [];
+  List<Map<String, dynamic>> prod = [];
+
+  Future<List<Shop>> getShops() async {
+    shops = (await UserApi.getStores())!;
+    print('OK');
+    return shops;
   }
 
-  Widget _imageCardSlider({String? url}) {
-    return SizedBox(
-        // color: Colors.red,
-        height: 282,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemBuilder: ((context, index) => Padding(
-                padding: const EdgeInsets.only(left:12.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        topRight: Radius.circular(10),
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            blurRadius: 2.0,
-                            spreadRadius: 1.0)
-                      ]),
-                  child: Stack(
-                    // alignment: Alignment.centerRight,
-                    children: [
-                      SizedBox(
-                        height: 180,
-                        width: 175,
-                        child: ClipRRect(
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(8),
-                              topRight: Radius.circular(8),
-                            ),
-                            child: CachedNetworkImage(
-                              imageUrl: url!,
-                              fit: BoxFit.fill,
-                            )),
-                      ),
-                      Positioned(
-                        top: 180,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 1),
-                          color: Theme.of(context).backgroundColor,
-                          height: 130,
-                          width: 175,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Shop owner',
-                                style: Theme.of(context).textTheme.caption,
+  Future<List<Product>> getShopProducts(int id) async {
+    List<Product> products = (await UserApi.getShopProducts(id))!;
+    return products;
+  }
+
+  // init(){
+  //   for
+  // }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getShops().then((stores) {
+      setState(() {});
+      for (var store in stores) {
+        var list = getShopProducts(store.id);
+
+        prod.add({"id": store.id, "list": list});
+      }
+    });
+>>>>>>> fde44d64b9e930f6d81d83aa7e587f7be768b43e
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text(
+      //     'Shops',
+      //     style: Theme.of(context).textTheme.bodyText2,
+      //   ),
+      //   elevation: 0,
+      //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      // ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: Constants.bodyHorizontalpadding / 1.5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Explore all Shops',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              Text(
+                'Find the right products for you',
+                style: Theme.of(context).textTheme.bodyText2,
+              ),
+              SizedBox(height: 10),
+              Constants.formBox(
+                context: context,
+                child: TextFormField(
+                    style: Theme.of(context).textTheme.bodyText2,
+                    controller: _controller,
+                    obscureText: true,
+                    decoration: Constants.inputDecoration('search')),
+              ),
+              const SizedBox(height: 10),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 1.1,
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 12,
+                    ),
+                    scrollDirection: Axis.vertical,
+                    itemCount: shops.length,
+                    itemBuilder: (c, i) => IntrinsicHeight(
+                      child: Column(
+                        children: [
+                          Constants.formBox(
+                              child: ShopCard(
+                                shop: shops[i],
+                                products: prod[i]['list'],
+                                onTap: () {
+                                  getShopProducts(shops[i].id);
+                                  push(
+                                      context,
+                                      ShopDetail(
+                                          products: prod[i]["products"]));
+                                },
                               ),
-                              Text(
-                                'Evening dress',
-                                style: Theme.of(context).textTheme.headline6,
-                              ),
-                              Text(
-                                '10000XAF',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                            ],
-                          ),
-                        ),
+                              context: context),
+                        ],
                       ),
-                      Positioned(
-                          left: 140,
-                          top: 160,
-                          child: Container(
-                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.grey.withOpacity(0.5),
-                                      blurRadius: 1.0,
-                                      spreadRadius: 1)
-                                ]), 
-                            child: CircleAvatar(
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                child: IconButton(
-                                  icon: Icon(_isFavorited ? Icons.favorite: Icons.favorite_border),
-                                  iconSize: 30,
-                                  
-                                  color: Colors.red[400],
-                                  onPressed: (){
-                                    setState(() {
-                                      _isFavorited = !_isFavorited;
-                                    });
-                                  }
-                                )),
-                          )),
-                    ],
+                    ),
                   ),
                 ),
-              )),
-        ));
-  }
-
-  // Widget buildGridView({String? url})=> GridView.builder(
-    
-  //   gridDelegate: SilverGridDelegateWithFixedCrossAxisCount(
-  //     crossAxisCount:2,
-  //     childAspectRatio:1,
-  //     mainAxisSpacing: 8,
-  //     crossAxisSpacing: 8,
-  //   ),
-  //   itemBuilder: ((context, index) => Padding(
-  //               padding: const EdgeInsets.only(top: 12.0, left: 12.0),
-  //               child: Container(
-  //                 decoration: BoxDecoration(
-  //                     borderRadius: const BorderRadius.only(
-  //                       topLeft: Radius.circular(10),
-  //                       topRight: Radius.circular(10),
-  //                     ),
-  //                     boxShadow: [
-  //                       BoxShadow(
-  //                           color: Colors.grey.withOpacity(0.5),
-  //                           blurRadius: 2.0,
-  //                           spreadRadius: 0.8)
-  //                     ]),
-  //                 child: Stack(
-  //                   // alignment: Alignment.centerRight,
-  //                   children: [
-  //                     SizedBox(
-  //                       height: 180,
-  //                       width: 175,
-  //                       child: ClipRRect(
-  //                           borderRadius: const BorderRadius.only(
-  //                             topLeft: Radius.circular(8),
-  //                             topRight: Radius.circular(8),
-  //                           ),
-  //                           child: CachedNetworkImage(
-  //                             imageUrl: url!,
-  //                             fit: BoxFit.fill,
-  //                           )),
-  //                     ),
-  //                     Positioned(
-  //                       top: 180,
-  //                       child: Container(
-  //                         padding: const EdgeInsets.symmetric(vertical: 4),
-  //                         color: Theme.of(context).backgroundColor,
-  //                         height: 100,
-  //                         width: 175,
-  //                         child: Column(
-  //                           crossAxisAlignment: CrossAxisAlignment.start,
-  //                           children: [
-  //                             Text(
-  //                               'Shop owner',
-  //                               style: Theme.of(context).textTheme.caption,
-  //                             ),
-  //                             Text(
-  //                               'Evening dress',
-  //                               style: Theme.of(context).textTheme.headline6,
-  //                             ),
-  //                             Text(
-  //                               '10000XAF',
-  //                               style: Theme.of(context).textTheme.bodyText1,
-  //                             ),
-  //                           ],
-  //                         ),
-  //                       ),
-  //                     ),
-  //                     Positioned(
-  //                         left: 130,
-  //                         top: 160,
-  //                         child: Container(
-  //                            decoration: BoxDecoration(
-  //                               borderRadius: BorderRadius.circular(100),
-  //                               boxShadow: [
-  //                                 BoxShadow(
-  //                                     color: Colors.grey.withOpacity(0.5),
-  //                                     blurRadius: 1.0,
-  //                                     spreadRadius: 1)
-  //                               ]), 
-  //                           child: CircleAvatar(
-  //                               backgroundColor:
-  //                                   Theme.of(context).backgroundColor,
-  //                               child: IconButton(
-  //                                 icon: Icon(_isFavorited ? Icons.favorite: Icons.favorite_border),
-  //                                 iconSize: 30,
-                                  
-  //                                 color: Colors.red[400],
-  //                                 onPressed: (){
-  //                                   setState(() {
-  //                                     _isFavorited = !_isFavorited;
-  //                                   });
-  //                                 }
-  //                               )),
-  //                         )),
-  //                   ],
-  //                 ),
-  //               ),
-  //             )),
-  //       );
-
-  Widget _heading(BuildContext context,
-      {required String heading,
-       required String caption,
-        Widget? destination}) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              heading,
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            Text(
-              caption,
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ],
+              )
+            ],
+          ),
         ),
-        TextButton(onPressed: () {}, child: const Text('View all'))
-      ],
+      ),
+    );
+  }
+}
+
+class ShopCard extends StatelessWidget {
+  const ShopCard({
+    Key? key,
+    required this.shop,
+    this.onTap,
+    required this.products,
+  }) : super(key: key);
+
+  final Shop shop;
+  final Function()? onTap;
+  final List<Product> products;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 100,
+            child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8),
+                  topRight: Radius.circular(8),
+                ),
+                child: CachedNetworkImage(
+                  imageUrl: '',
+                  fit: BoxFit.fill,
+                )),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            color: Theme.of(context).backgroundColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '10 Products',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                Text(
+                  shop.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                Text(
+                  shop.sellerName,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

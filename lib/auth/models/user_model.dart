@@ -3,7 +3,7 @@ import 'dart:convert';
 enum AccountType { customer, seller, both }
 
 class UserModel {
-  String uid;
+  int uid;
   String firstName;
   String lastName;
   String username;
@@ -16,7 +16,7 @@ class UserModel {
 
   UserModel({
     this.completedProfile = false,
-    this.uid = '',
+    this.uid = 0,
     this.firstName = '',
     this.lastName = '',
     this.username = '',
@@ -36,7 +36,7 @@ class UserModel {
       firstName: json['firstName'],
       lastName: json['lastName'],
       location: json['location'],
-      completedProfile: json['completedProfile'],
+      completedProfile: json['completedProfile'] == 1 ? true : false,
       phoneNumber: json['phoneNumber'],
       accountType: json['accountType'],
     );
@@ -47,7 +47,7 @@ class UserModel {
       'email': email,
       'username': username,
       'phoneNumber': phoneNumber,
-      'uid': uid,
+      'uid': uid.toString(),
       'firstName': firstName,
       'lastName': lastName,
       'location': location,

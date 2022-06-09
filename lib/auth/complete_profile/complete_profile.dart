@@ -122,8 +122,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           width: size.width * 0.05,
                           height: 2,
                           child: Container(
-                            decoration:
-                                const BoxDecoration(color: Palette.primaryColor),
+                            decoration: const BoxDecoration(
+                                color: Palette.primaryColor),
                           ),
                         ),
                         const Text(
@@ -137,8 +137,8 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           width: size.width * 0.05,
                           height: 2,
                           child: Container(
-                            decoration:
-                                const BoxDecoration(color: Palette.primaryColor),
+                            decoration: const BoxDecoration(
+                                color: Palette.primaryColor),
                           ),
                         ),
                       ],
@@ -241,7 +241,7 @@ class _CompleteProfileState extends State<CompleteProfile> {
                             showSnackBar(context, quarterGood);
                           } else {
                             UserLocation location = UserLocation(
-                                id: userModel.uid,
+                                id: userModel.uid.toString(),
                                 region: _regionController.text,
                                 town: _townController.text,
                                 quarter: _quarterController.text);

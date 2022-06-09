@@ -7,26 +7,29 @@ import 'package:online_market/favourites/favourites.dart';
 import 'package:online_market/home/home.dart';
 import 'package:online_market/home/widgets/sidebar.dart';
 import 'package:online_market/profile/index.dart';
+import 'package:online_market/seller/home/seller_home.dart';
+import 'package:online_market/seller/orders/seller_orders.dart';
+import 'package:online_market/seller/profile/seller_profile.dart';
+import 'package:online_market/seller/shop/seller_shops.dart';
 import 'package:online_market/shop/index.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/wish_list/index.dart';
 import 'package:provider/provider.dart';
 
-class BaseScreen extends StatefulWidget {
-  const BaseScreen({Key? key}) : super(key: key);
+class SellerBase extends StatefulWidget {
+  const SellerBase({Key? key}) : super(key: key);
 
   @override
-  State<BaseScreen> createState() => _BaseScreenState();
+  State<SellerBase> createState() => _SellerBase();
 }
 
-class _BaseScreenState extends State<BaseScreen> {
+class _SellerBase extends State<SellerBase> {
   final List<Widget> _children = [
-    Home(),
-    ShopIndex(),
-    WishListIndex(),
-    Favourites(),
-    Profile(),
+    SellerHome(),
+    SellerShop(),
+    SellerOrders(),
+    SellerProfile(),
   ];
   int _selectedIndex = 0;
   @override
@@ -34,32 +37,6 @@ class _BaseScreenState extends State<BaseScreen> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: Consumer<CartHelper>(builder: (_, cart, __) {
-          return Stack(
-            children: [
-              FloatingActionButton(
-                backgroundColor: Palette.primaryColor,
-                onPressed: () {
-                  push(context, const CartPage());
-                },
-                child: Icon(
-                  Icons.shopping_cart_outlined,
-                  color: Palette.white,
-                ),
-                tooltip: 'Cart',
-              ),
-              Positioned(
-                  right: 0,
-                  child: CircleAvatar(
-                    radius: 10,
-                    child: Text(
-                      '${cart.cartItems.length}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ))
-            ],
-          );
-        }),
         body: IndexedStack(
           index: _selectedIndex,
           children: _children,
@@ -124,23 +101,13 @@ class _BaseScreenState extends State<BaseScreen> {
                     });
                   },
                   icon: FontAwesomeIcons.bagShopping,
-                  text: 'Wish List',
+                  text: 'Orders',
                 ),
                 GButton(
                   padding: const EdgeInsets.all(10),
                   onPressed: () {
                     setState(() {
                       _selectedIndex = 3;
-                    });
-                  },
-                  icon: FontAwesomeIcons.heart,
-                  text: 'Favourites',
-                ),
-                GButton(
-                  padding: const EdgeInsets.all(10),
-                  onPressed: () {
-                    setState(() {
-                      _selectedIndex = 4;
                     });
                   },
                   icon: Icons.person_outlined,

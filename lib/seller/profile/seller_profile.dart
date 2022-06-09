@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/profile/edit_profile.dart';
-import 'package:online_market/profile/orders/orders.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
 
-class Profile extends StatefulWidget {
-  Profile({Key? key}) : super(key: key);
+class SellerProfile extends StatefulWidget {
+  SellerProfile({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<SellerProfile> createState() => _SellerProfileState();
 }
 
-class _ProfileState extends State<Profile> {
+class _SellerProfileState extends State<SellerProfile> {
   late Authentication auth;
   late UserModel userModel;
 
@@ -38,15 +37,9 @@ class _ProfileState extends State<Profile> {
             _profileHead(),
             const SizedBox(height: 20),
             _profileCard(
-                title: 'My orders',
-                subtitle: 'See all orders',
-                destination: Orders()),
-            const SizedBox(height: 10),
-            _profileCard(
                 title: 'Edit profile',
                 subtitle: 'Edit user details',
                 destination: EditProfile()),
-            const SizedBox(height: 10),
             const SizedBox(height: 10),
             _profileCard(title: 'My reviews', subtitle: 'See your reviews'),
             const SizedBox(height: 10),

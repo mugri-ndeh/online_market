@@ -28,6 +28,9 @@ dependencies:
   google_nav_bar: ^5.0.5
   intl_phone_field: ^3.0.1
   image_picker: ^0.8.5+3
+  http: ^0.13.4
+  shared_preferences: ^2.0.15
+  localstorage: ^4.0.0+1
 
 
 
@@ -44,6 +47,5 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+assets:
+  - assets/images/
