@@ -6,6 +6,7 @@ import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/auth/signup/signup.dart';
 import 'package:online_market/home/base.dart';
 import 'package:online_market/profile/index.dart';
+import 'package:online_market/seller/base.dart';
 import 'package:provider/provider.dart';
 
 class AuthRoot extends StatelessWidget {
@@ -21,9 +22,9 @@ class AuthRoot extends StatelessWidget {
       switch (auth.loginState) {
         case AuthState.loggedIn:
           if (auth.loggedUser!.accountType == AccountType.customer.toString()) {
-            return BaseScreen();
+            return const SellerBase();
           } else {
-            return BaseScreen();
+            return const BaseScreen();
           }
         case AuthState.loggedOut:
           return Login();
