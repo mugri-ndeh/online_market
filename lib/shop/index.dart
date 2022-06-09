@@ -10,7 +10,7 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 
 class ShopIndex extends StatefulWidget {
-  ShopIndex({Key? key}) : super(key: key);
+  const ShopIndex({Key? key}) : super(key: key);
 
   @override
   State<ShopIndex> createState() => _ShopIndexState();
@@ -187,3 +187,7 @@ class ShopCard extends StatelessWidget {
     );
   }
 }
+
+// class SilverGridDelegateWithFixedCrossAxisCount {
+//   CrossAxisAlignment;
+// }
