@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'palette.dart';
 
 ThemeData customLightTheme() {
-  TextTheme poppins = GoogleFonts.poppinsTextTheme();
+  TextTheme poppins = GoogleFonts.montserratTextTheme();
   TextTheme _customLightThemesTextTheme(TextTheme base) {
     return base.copyWith(
       headline1: base.headline1?.copyWith(
