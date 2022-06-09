@@ -53,10 +53,6 @@ class Authentication with ChangeNotifier {
       print('USER LOGGED OUT');
       setAuthState(AuthState.loggedOut);
       notifyListeners();
-    } else if (!complete) {
-      print('INCOMPLETE');
-      loggedUser = await CommonApi.getUser(uid);
-      setAuthState(AuthState.login);
     } else {
       print('ACCOUNT IS');
       print(uid);
