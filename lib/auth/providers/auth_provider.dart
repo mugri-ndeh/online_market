@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/services/common/common_api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 enum AuthState {
   loggedIn,
@@ -24,6 +26,7 @@ class Authentication with ChangeNotifier {
   String? verificationCode;
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
+  late SharedPreferences preferences;
 
   late AuthState _loginState;
   get loginState => _loginState;
@@ -40,63 +43,47 @@ class Authentication with ChangeNotifier {
   Future<void> init() async {
     setAuthState(AuthState.loading);
 
-    var firebaseuser = FirebaseAuth.instance.currentUser;
-    // print(firebaseuser!.uid);
+    preferences = await SharedPreferences.getInstance();
+    int uid = preferences.getInt('userId') ?? -1;
+    bool complete = preferences.getBool('completed') ?? false;
 
-    if (firebaseuser != null) {
-      loggedUser = await returnUser(auth.currentUser!.uid);
-      print('USER LOGGED IN');
-      if (!loggedUser!.completedProfile) {
-        setAuthState(AuthState.incomplete);
-        notifyListeners();
-      } else {
-        setAuthState(AuthState.loggedIn);
-        notifyListeners();
-      }
-    } else {
+    print(uid);
+
+    if (uid == -1) {
       print('USER LOGGED OUT');
       setAuthState(AuthState.loggedOut);
+      notifyListeners();
+    } else if (!complete) {
+      print('INCOMPLETE');
+      loggedUser = await CommonApi.getUser(uid);
+      setAuthState(AuthState.login);
+    } else {
+      print('ACCOUNT IS');
+      print(uid);
+      loggedUser = await CommonApi.getUser(uid);
+      print('USER LOGGED IN');
+      setAuthState(AuthState.loggedIn);
       notifyListeners();
     }
   }
 
   Future<UserModel?> login(String email, String password) async {
-    isLoading = true;
-    notifyListeners();
     try {
-      UserCredential userCredential = await auth.signInWithEmailAndPassword(
-          email: email, password: password);
-      print('Success ${userCredential.user!.displayName}');
-      loggedUser = await returnUser(userCredential.user!.uid);
-      print(loggedUser!.completedProfile);
-      if (!loggedUser!.completedProfile) {
-        setAuthState(AuthState.incomplete);
-        print(_loginState);
-        notifyListeners();
-      } else {
-        setAuthState(AuthState.loggedIn);
-        print(_loginState);
+      loggedUser = await CommonApi.login(email, password);
+      await preferences.setInt('userId', loggedUser!.uid);
 
-        notifyListeners();
+      if (loggedUser!.completedProfile == true) {
+        setAuthState(AuthState.loggedIn);
+      } else {
+        setAuthState(AuthState.incomplete);
       }
       return loggedUser;
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-
+    } catch (e) {
+      print(e);
       return null;
     } finally {
-      isLoading = false;
       notifyListeners();
     }
-  }
-
-  UserModel? getUser(User? user) {
-    return user == null ? null : UserModel(uid: user.uid);
-  }
-
-  Stream<UserModel?> onAuthStateChanged() {
-    var auth = FirebaseAuth.instance;
-    return auth.authStateChanges().map(getUser);
   }
 
   Future<dynamic> register(
@@ -106,60 +93,44 @@ class Authentication with ChangeNotifier {
   ) async {
     try {
       UserModel _user = UserModel();
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      _user.uid = userCredential.user!.uid;
-      _user.email = userCredential.user!.email!;
-      _user.username = username;
-      // _loginState = AuthState.loggedIn;
-      loggedUser = _user;
-      createUser(_user);
-      print('Success ${userCredential.user!.displayName}');
+      var userid = await CommonApi.signUp(username, email, password);
+      await preferences.setInt('userId', int.parse(userid));
+
+      await preferences.setBool('completed', false);
       setAuthState(AuthState.incomplete);
       notifyListeners();
       return _user;
-    } on FirebaseAuthException catch (e) {
-      return e.message;
+    } catch (e) {
+      return e;
     }
-  }
-
-  Future<String> createUser(UserModel user) async {
-    String retValue = 'error';
-    try {
-      await _firestore.collection("users").doc(user.uid).set(user.toJson());
-      await _auth.currentUser!.updateDisplayName(user.username);
-
-      retValue = 'success';
-    } on FirebaseException catch (e) {
-      print(e.message);
-    }
-
-    return Future.value(retValue);
   }
 
   Future<String> completeProfile(UserModel user) async {
     String retValue = 'error';
     try {
-      await _firestore.collection("users").doc(user.uid).update(user.toJson());
-      retValue = 'success';
+      await CommonApi.completeProfile(user);
+      loggedUser = await CommonApi.getUser(user.uid);
+      preferences.setBool('completed', true);
       setAuthState(AuthState.loggedIn);
       notifyListeners();
-    } on FirebaseException catch (e) {
-      print(e.message);
+    } catch (e) {
+      print(e);
     }
 
     return Future.value(retValue);
   }
 
-  Future<UserModel?> returnUser(String id) async {
-    var user = UserModel();
+  Future<UserModel?> returnUser(int id) async {
+    UserModel? user = UserModel();
 
     try {
-      var userDoc = await _firestore.collection("users").doc(id).get();
-      print(userDoc.data()!);
-      user = UserModel.fromJson(userDoc.data()!);
-      print(user.uid);
-      print('USER RETURNED');
+      user = (await CommonApi.getUser(id));
+      if (user == null) {
+        return null;
+      } else {
+        print('USER RETURNED');
+      }
+
       return user;
     } catch (e) {
       print('There was an error');
@@ -169,11 +140,10 @@ class Authentication with ChangeNotifier {
 
   void logout() async {
     try {
-      FirebaseAuth auth = FirebaseAuth.instance;
-      await auth.signOut();
+      await preferences.clear();
       setAuthState(AuthState.loggedOut);
       notifyListeners();
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       print(e);
     }
   }
