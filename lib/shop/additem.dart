@@ -16,19 +16,17 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
-class SignUp extends StatefulWidget {
-  SignUp({Key? key}) : super(key: key);
+class AddItem extends StatefulWidget {
+  AddItem({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<AddItem> createState() => _AddItemState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _AddItemState extends State<AddItem> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   late Authentication auth;
@@ -87,7 +85,7 @@ class _SignUpState extends State<SignUp> {
                     context: context,
                     child: TextFormField(
                         style: Theme.of(context).textTheme.bodyText2,
-                        controller: _confirmPasswordController,
+                        //controller: _confirmPasswordController,
                         obscureText: true,
                         decoration:
                             Constants.inputDecoration('confirm password')),
@@ -103,9 +101,9 @@ class _SignUpState extends State<SignUp> {
                             validatePassword(_passwordController.text);
                         var goodUsername =
                             validateName(_usernameController.text);
-                        var goodConfirmPassword = validateConfirmPassword(
-                            _passwordController.text,
-                            _confirmPasswordController.text);
+                        // var goodConfirmPassword = validateConfirmPassword(
+                        //     _passwordController.text,
+                        //     );
                         // auth.setAuthState(AuthState.loggedIn);
                         if (goodUsername != null) {
                           showSnackBar(context, goodUsername);
@@ -113,9 +111,7 @@ class _SignUpState extends State<SignUp> {
                           showSnackBar(context, emailGood);
                         } else if (passwordGood != null) {
                           showSnackBar(context, passwordGood);
-                        } else if (goodConfirmPassword != null) {
-                          showSnackBar(context, goodConfirmPassword);
-                        } else {
+                         } else {
                           showSnackBar(context, 'Done');
                           showProgress(context, 'Adding product to list.....', true);
                           auth
