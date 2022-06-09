@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:online_market/favourites/index.dart';
+import 'package:online_market/cart/cart_provider.dart';
+import 'package:online_market/cart/cart_screen.dart';
+import 'package:online_market/favourites/favourites.dart';
 import 'package:online_market/home/home.dart';
 import 'package:online_market/home/widgets/sidebar.dart';
 import 'package:online_market/profile/index.dart';
 import 'package:online_market/shop/index.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/wish_list/index.dart';
+import 'package:provider/provider.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -21,7 +25,7 @@ class _BaseScreenState extends State<BaseScreen> {
     Home(),
     ShopIndex(),
     WishListIndex(),
-    FavouritesIndex(),
+    Favourites(),
     Profile(),
   ];
   int _selectedIndex = 0;
@@ -30,35 +34,32 @@ class _BaseScreenState extends State<BaseScreen> {
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-        drawer: const SideBar(),
-        // appBar: AppBar(
-        //   actions: [
-        //     IconButton(
-        //         onPressed: () {
-        //           showCustomSearch(context, size, false);
-        //           // showSearch(context, size, pickup)
-        //         },
-        //         icon: Icon(
-        //           Icons.search,
-        //           color: Theme.of(context).iconTheme.color,
-        //         )),
-        //     const SizedBox(width: 16),
-        //     Icon(
-        //       Icons.camera_alt_outlined,
-        //       color: Theme.of(context).iconTheme.color,
-        //     ),
-        //     const SizedBox(width: 16),
-        //   ],
-        //   elevation: 0,
-        //   backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        //   leading: Icon(Icons.menu, color: Theme.of(context).iconTheme.color),
-        //   title: Text(
-        //     'AJUOZA',
-        //     style: TextStyle(
-        //         fontWeight: FontWeight.bold,
-        //         color: Theme.of(context).iconTheme.color),
-        //   ),
-        // ),
+        floatingActionButton: Consumer<CartHelper>(builder: (_, cart, __) {
+          return Stack(
+            children: [
+              FloatingActionButton(
+                backgroundColor: Palette.primaryColor,
+                onPressed: () {
+                  push(context, const CartPage());
+                },
+                child: Icon(
+                  Icons.shopping_cart_outlined,
+                  color: Palette.white,
+                ),
+                tooltip: 'Cart',
+              ),
+              Positioned(
+                  right: 0,
+                  child: CircleAvatar(
+                    radius: 10,
+                    child: Text(
+                      '${cart.cartItems.length}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ))
+            ],
+          );
+        }),
         body: IndexedStack(
           index: _selectedIndex,
           children: _children,
