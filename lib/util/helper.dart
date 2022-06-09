@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:online_market/home/search.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -226,16 +227,16 @@ bool isDarkMode(BuildContext context) {
   }
 }
 
-// showCustomSearch(BuildContext context, Size size, bool pickup) {
-//   showModalBottomSheet(
-//     elevation: 0,
-//     isDismissible: false,
-//     enableDrag: false,
-//     isScrollControlled: true,
-//     context: context,
-//     builder: (context) => SearchScreen(pickup: pickup),
-//   );
-// }
+showCustomSearch(BuildContext context, Size size) {
+  showModalBottomSheet(
+    elevation: 0,
+    isDismissible: false,
+    enableDrag: false,
+    isScrollControlled: true,
+    context: context,
+    builder: (context) => SearchScreen(),
+  );
+}
 
 // InputDecoration getInputDecoration(
 //     {required String hint, required bool darkMode, required Color errorColor}) {
