@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
+import 'package:online_market/profile/edit_profile.dart';
 import 'package:online_market/profile/orders/orders.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
@@ -38,15 +39,16 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 20),
             _profileCard(
                 title: 'My orders',
-                subtitle: 'Already have 12 orders',
+                subtitle: 'See all orders',
                 destination: Orders()),
             const SizedBox(height: 10),
-            _profileCard(title: 'Edit profile', subtitle: 'Edit user details'),
-            const SizedBox(height: 10),
             _profileCard(
-                title: 'Promo codes', subtitle: 'You have no promocodes'),
+                title: 'Edit profile',
+                subtitle: 'Edit user details',
+                destination: EditProfile()),
             const SizedBox(height: 10),
-            _profileCard(title: 'My reviews', subtitle: 'Reviews for 4 items'),
+            const SizedBox(height: 10),
+            _profileCard(title: 'My reviews', subtitle: 'See your reviews'),
             const SizedBox(height: 10),
             _profileCard(title: 'Settings', subtitle: 'Change theme'),
           ],
