@@ -92,6 +92,7 @@ class _HomeState extends State<Home> {
           ),
           onPressed: () {
             Scaffold.of(context).openDrawer();
+            print("TAOPPED");
           },
         ),
         elevation: 0,
