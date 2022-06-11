@@ -67,6 +67,14 @@ class FavouritesHelper with ChangeNotifier {
     notifyListeners();
   }
 
+  clearItems() async {
+    await storage.ready;
+    await storage.clear();
+    favourites = [];
+    print('Cleared');
+    notifyListeners();
+  }
+
   getFavourites() async {
     await storage.ready;
     List fav = await storage.getItem('favourite') ?? [];
