@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:online_market/home/product_detail.dart';
 import 'package:online_market/home/widgets/product_card.dart';
+import 'package:online_market/util/helper.dart';
 
 class ShopDetail extends StatefulWidget {
   const ShopDetail({Key? key, required this.products}) : super(key: key);
@@ -17,19 +19,33 @@ class _ShopDetailState extends State<ShopDetail> {
         title: Text('Products'),
         elevation: 0,
       ),
-      body: GridView.builder(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: 0.8,
-          crossAxisCount: 2,
-          crossAxisSpacing: 4,
-          mainAxisSpacing: 12,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Column(
+          children: [
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 0.7,
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4,
+                  mainAxisSpacing: 12,
+                ),
+                scrollDirection: Axis.vertical,
+                itemCount: widget.products.length,
+                itemBuilder: (c, i) => IntrinsicHeight(
+                    child: GestureDetector(
+                  onTap: () {
+                    push(context, ProductDetail(product: widget.products[i]));
+                  },
+                  child: ProductCard(
+                    product: widget.products[i],
+                  ),
+                )),
+              ),
+            ),
+          ],
         ),
-        scrollDirection: Axis.vertical,
-        itemCount: widget.products.length,
-        itemBuilder: (c, i) => IntrinsicHeight(
-            child: ProductCard(
-          product: widget.products[i],
-        )),
       ),
     );
   }
