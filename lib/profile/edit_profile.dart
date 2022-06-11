@@ -47,12 +47,13 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: Theme.of(context).iconTheme,
+        titleTextStyle: Theme.of(context).textTheme.headline6,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        backgroundColor: Palette.buttonColor,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.white,
           ),
           onPressed: () {
             Navigator.pop(context);
