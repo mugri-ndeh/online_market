@@ -32,6 +32,20 @@ class CartHelper with ChangeNotifier {
     return cartitem;
   }
 
+  bool isNotFromShop(Product foodItem) {
+    bool shopItem = false;
+    int i;
+    for (i = 0; i < cartItems.length; i++) {
+      if (foodItem.shopId == CartItem.fromJson(cartItems[i]).item!['shop_id']) {
+        shopItem = true;
+      }
+    }
+    // isCartItem = shopItem
+    notifyListeners();
+    // print(cartitem);
+    return shopItem;
+  }
+
   addToCart(CartItem cartItem) {
     cartItems.add(cartItem.toJson());
     _saveToStorage();
@@ -83,6 +97,7 @@ class CartHelper with ChangeNotifier {
   clearItems() async {
     await storage.ready;
     await storage.clear();
+    cartItems = [];
     print('Cleared');
     notifyListeners();
   }
