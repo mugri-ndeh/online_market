@@ -238,31 +238,34 @@ showCustomSearch(BuildContext context, Size size) {
   );
 }
 
-// InputDecoration getInputDecoration(
-//     {required String hint, required bool darkMode, required Color errorColor}) {
-//   return InputDecoration(
-//     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-//     fillColor: darkMode ? Palette.primaryGreen: Colors.white,
-//     hintText: hint,
-//     labelText: hint,
-//     hintMaxLines: 10,
-//     focusedBorder: OutlineInputBorder(
-//         borderRadius: BorderRadius.circular(8.0),
-//         borderSide: const BorderSide(color: , width: 2.0)),
-//     errorBorder: OutlineInputBorder(
-//       borderSide: BorderSide(color: errorColor),
-//       borderRadius: BorderRadius.circular(8.0),
-//     ),
-//     focusedErrorBorder: OutlineInputBorder(
-//       borderSide: BorderSide(color: errorColor),
-//       borderRadius: BorderRadius.circular(8.0),
-//     ),
-//     enabledBorder: OutlineInputBorder(
-//       borderSide: BorderSide(color: Colors.grey.shade200),
-//       borderRadius: BorderRadius.circular(8.0),
-//     ),
-//   );
-// }
+InputDecoration getInputDecoration(
+    {required String hint,
+    required bool darkMode,
+    required Color errorColor,
+    int? lines}) {
+  return InputDecoration(
+    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+    fillColor: darkMode ? Palette.black : Colors.white,
+    hintText: hint,
+    labelText: hint,
+    hintMaxLines: lines ?? 10,
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: const BorderSide(color: Palette.buttonColor, width: 2.0)),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: errorColor),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: errorColor),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Palette.primaryColor.withOpacity(0.2)),
+      borderRadius: BorderRadius.circular(8.0),
+    ),
+  );
+}
 
 showSnackBar(BuildContext context, String message) {
   ScaffoldMessenger.of(context)
