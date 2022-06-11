@@ -1,7 +1,10 @@
 // import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:online_market/home/search.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -319,4 +322,10 @@ Widget imgplace(
       ],
     ),
   );
+}
+
+Future<File> chooseImage() async {
+  final picker = ImagePicker();
+  var pickedImage = await picker.pickImage(source: ImageSource.gallery);
+  return File(pickedImage!.path);
 }
