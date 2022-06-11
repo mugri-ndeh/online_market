@@ -122,10 +122,16 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                     onPressed: () {
                       bool onCart = cart.isCartitem(widget.product);
+                      bool notInShop = cart.isNotFromShop(widget.product);
 
-                      if (onCart) {
-                        showAlertDialog(
-                            context, 'Error', 'Item is already on cart');
+                      if (onCart || notInShop) {
+                        if (notInShop) {
+                          showAlertDialog(context, 'Error',
+                              'This item is from anothe shop. Please order from the same shop');
+                        } else {
+                          showAlertDialog(
+                              context, 'Error', 'Item is already on cart');
+                        }
                       } else {
                         CartItem item = CartItem(
                           item: widget.product.toJson(),
