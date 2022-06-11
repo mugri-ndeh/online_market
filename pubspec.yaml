@@ -31,6 +31,8 @@ dependencies:
   http: ^0.13.4
   shared_preferences: ^2.0.15
   localstorage: ^4.0.0+1
+  dropdown_button2: ^1.6.0
+  path_provider: ^2.0.11
 
 
 
