@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/auth/providers/auth_provider.dart';
+import 'package:online_market/model/order.dart';
 import 'package:online_market/profile/orders/order_details.dart';
 import 'package:online_market/profile/widgets.dart';
+import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
+import 'package:provider/provider.dart';
 
 class Orders extends StatefulWidget {
   Orders({Key? key}) : super(key: key);
@@ -15,6 +20,45 @@ class Orders extends StatefulWidget {
 
 class _OrdersState extends State<Orders> {
   int _selectedIndex = 0;
+
+  late UserModel user;
+  List<Order> orders = [];
+  List<Order> pending = [];
+  List<Order> completed = [];
+  List<Order> cancelled = [];
+
+  Future getOrders() async {
+    orders = await UserApi.getOrders(user);
+    print('HEHEHEHHE');
+    print(orders.length);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
+    getOrders().then((value) {
+      for (var order in orders) {
+        switch (order.state) {
+          case 'pending':
+            pending.add(order);
+
+            break;
+          case 'completed':
+            completed.add(order);
+
+            break;
+          case 'cancelled':
+            cancelled.add(order);
+
+            break;
+          default:
+        }
+      }
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +94,11 @@ class _OrdersState extends State<Orders> {
               Expanded(
                   child: IndexedStack(
                 index: _selectedIndex,
-                children: [_pending(), _completed(), _cancelled()],
+                children: [
+                  _pending(orders: pending),
+                  _completed(orders: completed),
+                  _cancelled(orders: cancelled)
+                ],
               ))
             ],
           ),
@@ -79,7 +127,8 @@ class _OrdersState extends State<Orders> {
                     blurStyle: BlurStyle.outer,
                     blurRadius: 3,
                     spreadRadius: 1,
-                    color: const Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
+                    color: const Color.fromARGB(255, 228, 222, 222)
+                        .withOpacity(0.2),
                   ),
                 ],
               )
@@ -94,7 +143,8 @@ class _OrdersState extends State<Orders> {
                     blurStyle: BlurStyle.outer,
                     blurRadius: 3,
                     spreadRadius: 1,
-                    color: const Color.fromARGB(255, 228, 222, 222).withOpacity(0.2),
+                    color: const Color.fromARGB(255, 228, 222, 222)
+                        .withOpacity(0.2),
                   ),
                 ],
               ),
@@ -123,14 +173,30 @@ class _OrdersState extends State<Orders> {
     );
   }
 
-  Widget _pending() {
-    return SingleChildScrollView(
-        child: Column(
-      children: [_orderCard(state: 'Pending', color: Palette.grey)],
-    ));
+  Widget _pending({required List<Order> orders}) {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+              itemCount: orders.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return orders.isEmpty
+                    ? Center(
+                        child: Text('No orderes here'),
+                      )
+                    : _orderCard(
+                        state: orders[index].state,
+                        color: Palette.grey,
+                        order: orders[index]);
+              }),
+        )
+      ],
+    );
   }
 
-  Widget _orderCard({required String state, required Color color}) {
+  Widget _orderCard(
+      {required String state, required Color color, Order? order}) {
     return elevatedContainer(
         context: context,
         child: Row(
@@ -146,7 +212,7 @@ class _OrdersState extends State<Orders> {
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  'Quantity: 3',
+                  'Quantity: ' + order!.quantity.toString(),
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 OutlinedButton(
@@ -166,11 +232,11 @@ class _OrdersState extends State<Orders> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Date',
+                  order.date,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  'Total Amount: 10000XAF',
+                  'Total Amount: ${order.priceTotal}XAF',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
                 Text(
@@ -183,15 +249,35 @@ class _OrdersState extends State<Orders> {
         ));
   }
 
-  Widget _completed() {
-    return Column(
-      children: [_orderCard(state: 'Completed', color: Palette.success)],
-    );
+  Widget _completed({required List<Order> orders}) {
+    return ListView.builder(
+        itemCount: orders.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return orders.isEmpty
+              ? Center(
+                  child: Text('No orderes here'),
+                )
+              : _orderCard(
+                  state: orders[index].state,
+                  color: Palette.success,
+                  order: orders[index]);
+        });
   }
 
-  Widget _cancelled() {
-    return Column(
-      children: [_orderCard(state: 'Cancelled', color: Palette.error)],
-    );
+  Widget _cancelled({required List<Order> orders}) {
+    return ListView.builder(
+        itemCount: orders.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return orders.isEmpty
+              ? Center(
+                  child: Text('No orderes here'),
+                )
+              : _orderCard(
+                  state: orders[index].state,
+                  color: Palette.error,
+                  order: orders[index]);
+        });
   }
 }
