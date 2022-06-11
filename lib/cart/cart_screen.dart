@@ -3,7 +3,9 @@ import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/cart/cart_provider.dart';
 import 'package:online_market/model/cart.dart';
+import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/product.dart';
+import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
@@ -169,7 +171,25 @@ class _CartPageState extends State<CartPage> {
               ),
               Text('Total = ' + total.toString() + 'XAF'),
               const SizedBox(height: 10),
-              CustomButton(child: Text('Checkout'), onTap: () async {}),
+              CustomButton(
+                  child: Text('Checkout'),
+                  onTap: () async {
+                    // CartItem item = CartItem.fromJson(cart.cartItems[index]);
+                    // Product foodItem = Product.fromJson(item.item!);
+
+                    List<CartItem> cartItems = cart.cartItems
+                        .map((e) => CartItem.fromJson(e))
+                        .toList();
+
+                    List<Product> productss = cartItems
+                        .map(
+                          (e) => Product.fromJson(e.item!),
+                        )
+                        .toList();
+                    print(productss[0].name);
+                    await UserApi.createOrder(
+                        productss, user, total, cart.cartItems.length);
+                  }),
               const SizedBox(height: 10),
             ],
           );
