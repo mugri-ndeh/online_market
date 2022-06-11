@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:online_market/api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/model/category.dart';
 
 class CommonApi {
   static Future<UserModel?> login(String email, String password) async {
@@ -116,9 +117,9 @@ class CommonApi {
       "phoneNumber": user.phoneNumber,
     });
 
-    if (response.statusCode == 200) {
-      print(response.body);
+    print(response.body);
 
+    if (response.statusCode == 200) {
       final Map<String, dynamic> user = json.decode(response.body)['state'];
       print(user);
 
@@ -126,6 +127,22 @@ class CommonApi {
         return null;
       }
       return UserModel.fromJson(user);
+    } else {
+      throw Exception();
+    }
+  }
+
+  static Future<List<Category>> getCatgories() async {
+    final url = Uri.parse(Api.getCategories);
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      print(response.body);
+      List<Map<String, dynamic>> res =
+          json.decode(response.body)['state'].cast<Map<String, dynamic>>();
+      List<Category> categories = res.map((e) => Category.fromJson(e)).toList();
+      return categories;
     } else {
       throw Exception();
     }
