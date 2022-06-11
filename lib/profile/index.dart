@@ -3,6 +3,7 @@ import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/profile/edit_profile.dart';
 import 'package:online_market/profile/orders/orders.dart';
+import 'package:online_market/settings/theme_provider.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,10 @@ class _ProfileState extends State<Profile> {
             const SizedBox(height: 10),
             _profileCard(title: 'My reviews', subtitle: 'See your reviews'),
             const SizedBox(height: 10),
-            _profileCard(title: 'Settings', subtitle: 'Change theme'),
+            _profileCard(
+                title: 'Settings',
+                subtitle: 'Change theme',
+                destination: SettingsPage()),
           ],
         )),
       ),
