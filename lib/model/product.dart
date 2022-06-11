@@ -4,6 +4,7 @@ class Product {
   String category;
   String price;
   String image;
+  int shopId;
   int qty;
   Product({
     this.id = 0,
@@ -12,6 +13,7 @@ class Product {
     this.price = '',
     this.image = '',
     this.qty = 0,
+    this.shopId = 0,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,19 @@ class Product {
       price: json['price'],
       image: json['image'],
       qty: json['quantity'],
+      shopId: json['shop_id'],
+    );
+  }
+
+  factory Product.fromSellerJson(Map<String, dynamic> json) {
+    return Product(
+      id: json['id'],
+      name: json['name'],
+      category: json['category_id'].toString(),
+      price: json['price'],
+      image: json['image'],
+      qty: json['quantity'],
+      shopId: json['shop_id'],
     );
   }
 
@@ -33,6 +48,7 @@ class Product {
       "price": price,
       "image": image,
       "quantity": qty,
+      "shop_id": shopId
     };
   }
 }
