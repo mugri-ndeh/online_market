@@ -9,6 +9,7 @@ import 'package:online_market/cart/cart_provider.dart';
 import 'package:online_market/favourites/favourites_provider.dart';
 import 'package:online_market/firebase_options.dart';
 import 'package:online_market/root/index.dart';
+import 'package:online_market/seller/home/provider/homeProvider.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,11 @@ void main() async {
         ChangeNotifierProvider(create: (context) => Authentication()),
         ChangeNotifierProvider(create: (context) => FavouritesHelper()),
         ChangeNotifierProvider(create: (context) => CartHelper()),
+        ChangeNotifierProxyProvider<Authentication, SellerHomeProvider>(
+            update: (context, auth, previous) {
+              return SellerHomeProvider(auth: auth);
+            },
+            create: (context) => SellerHomeProvider()),
       ],
       child: const MyApp(),
     ),
