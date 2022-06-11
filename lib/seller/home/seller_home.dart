@@ -1,5 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/auth/providers/auth_provider.dart';
+import 'package:online_market/model/shop.dart';
+import 'package:online_market/seller/home/provider/homeProvider.dart';
 import 'package:online_market/util/palette.dart';
+import 'package:provider/provider.dart';
 
 class SellerHome extends StatefulWidget {
   SellerHome({Key? key}) : super(key: key);
@@ -9,6 +15,18 @@ class SellerHome extends StatefulWidget {
 }
 
 class _SellerHomeState extends State<SellerHome> {
+  late UserModel user;
+  late SellerHomeProvider sellerProvider;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    sellerProvider = Provider.of<SellerHomeProvider>(context, listen: false);
+    sellerProvider.init().then((value) {});
+    user = sellerProvider.auth!.loggedUser!;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,61 +35,66 @@ class _SellerHomeState extends State<SellerHome> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              HeaderWidget(size: size),
-              const SizedBox(height: 10),
-              Text(
-                "Analytics",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                height: 140,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    AnalyticsCard(
-                      color: Colors.redAccent.shade400,
-                      title: 'No Shops',
-                      icon: Icons.shopify,
-                      iconColor: Palette.white,
-                      value: "5",
-                    ),
-                    AnalyticsCard(
-                      color: Colors.orangeAccent.shade400,
-                      title: 'Total Products',
-                      icon: Icons.shopping_cart,
-                      iconColor: Palette.success,
-                      value: "50",
-                    ),
-                    AnalyticsCard(
-                      color: Colors.blueAccent.shade400,
-                      title: 'Rating',
-                      icon: Icons.star,
-                      iconColor: Colors.yellow,
-                      value: "4.0",
-                    ),
-                  ],
+          child: Consumer<SellerHomeProvider>(builder: (_, seller, __) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                HeaderWidget(
+                  size: size,
+                  user: user,
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                "Earnings",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(height: 10),
-              EarningCard(),
-              const SizedBox(height: 10),
-              Text(
-                "History",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              const SizedBox(height: 10),
-            ],
-          ),
+                const SizedBox(height: 10),
+                Text(
+                  "Analytics",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: 140,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: [
+                      AnalyticsCard(
+                        color: Colors.redAccent.shade400,
+                        title: 'No Shops',
+                        icon: Icons.shopify,
+                        iconColor: Palette.white,
+                        value: sellerProvider.shops.length.toString(),
+                      ),
+                      AnalyticsCard(
+                        color: Colors.orangeAccent.shade400,
+                        title: 'Total Products',
+                        icon: Icons.shopping_cart,
+                        iconColor: Palette.success,
+                        value: sellerProvider.products.length.toString(),
+                      ),
+                      AnalyticsCard(
+                        color: Colors.blueAccent.shade400,
+                        title: 'Rating',
+                        icon: Icons.star,
+                        iconColor: Colors.yellow,
+                        value: "4.0",
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  "Earnings",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                const SizedBox(height: 10),
+                EarningCard(),
+                const SizedBox(height: 10),
+                Text(
+                  "Invoice",
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                const SizedBox(height: 10),
+              ],
+            );
+          }),
         ),
       )),
     );
@@ -172,9 +195,11 @@ class HeaderWidget extends StatelessWidget {
   const HeaderWidget({
     Key? key,
     required this.size,
+    required this.user,
   }) : super(key: key);
 
   final Size size;
+  final UserModel user;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +236,7 @@ class HeaderWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   Text(
-                    'Hi Maestro Chrome',
+                    'Hi ${user.firstName} ${user.lastName}',
                     style: Theme.of(context).textTheme.headline4,
                   )
                 ],
