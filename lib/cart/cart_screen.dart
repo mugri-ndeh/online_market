@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/cart/cart_provider.dart';
@@ -6,6 +8,7 @@ import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/services/customer/customer_api.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
@@ -90,9 +93,9 @@ class _CartPageState extends State<CartPage> {
                               width: 100,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
-                                  child: Image.asset(
-                                    'assets/images/' + foodItem.image,
-                                    fit: BoxFit.cover,
+                                  child: CachedNetworkImage(
+                                    imageUrl: Api.rootFolder + foodItem.image,
+                                    fit: BoxFit.contain,
                                   )),
                             ),
                             const SizedBox(width: 8),
@@ -118,7 +121,7 @@ class _CartPageState extends State<CartPage> {
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
-                                      foodItem.price,
+                                      foodItem.price + 'XAF',
                                       style: TextStyle(
                                           color: Palette.primaryColor),
                                     ),
@@ -183,12 +186,17 @@ class _CartPageState extends State<CartPage> {
 
                     List<Product> productss = cartItems
                         .map(
-                          (e) => Product.fromJson(e.item!),
+                          (e) => Product.fromSellerJson(e.item!),
                         )
                         .toList();
-                    print(productss[0].name);
-                    await UserApi.createOrder(
-                        productss, user, total, cart.cartItems.length);
+                    // print(productss[0].id);
+                    UserApi.createOrder(
+                            productss, user, total, cart.cartItems.length)
+                        .then((value) {
+                      cart.clearItems();
+                      showAlertDialog(context, 'Success',
+                          'Your Order has been placed successfully');
+                    });
                   }),
               const SizedBox(height: 10),
             ],
