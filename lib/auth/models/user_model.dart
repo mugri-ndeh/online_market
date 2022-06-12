@@ -29,7 +29,7 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      uid: json['uid'],
+      uid: json['uid'] is String ? int.parse(json['uid']) : json['uid'],
       email: json['email'],
       username: json['username'],
       password: json['password'],
