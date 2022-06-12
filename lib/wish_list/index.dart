@@ -35,8 +35,8 @@ class _WishListIndexState extends State<WishListIndex> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: wishList.isEmpty
-          ? Text('Nothing to show here')
-          : Text(wishList.length.toString()),
+          ? Center(child: Text('Nothing to show here'))
+          : Center(child: Text(wishList.length.toString())),
     );
   }
 }
