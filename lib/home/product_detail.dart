@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/cart/cart_provider.dart';
 import 'package:online_market/favourites/favourites.dart';
 import 'package:online_market/model/cart.dart';
@@ -40,9 +42,9 @@ class _ProductDetailState extends State<ProductDetail> {
                       width: size.width,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          'assets/images/' + widget.product.image,
-                          fit: BoxFit.cover,
+                        child: CachedNetworkImage(
+                          imageUrl: Api.rootFolder + widget.product.image,
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -102,7 +104,12 @@ class _ProductDetailState extends State<ProductDetail> {
                           outlined: false,
                           onTap: () {
                             setState(() {
-                              qty++;
+                              if (qty >= widget.product.qty) {
+                                showSnackBar(context,
+                                    'You cannot exceed the number of products available');
+                              } else {
+                                qty++;
+                              }
                             });
                           },
                         )
@@ -124,14 +131,9 @@ class _ProductDetailState extends State<ProductDetail> {
                       bool onCart = cart.isCartitem(widget.product);
                       bool notInShop = cart.isNotFromShop(widget.product);
 
-                      if (onCart || notInShop) {
-                        if (notInShop) {
-                          showAlertDialog(context, 'Error',
-                              'This item is from anothe shop. Please order from the same shop');
-                        } else {
-                          showAlertDialog(
-                              context, 'Error', 'Item is already on cart');
-                        }
+                      if (onCart) {
+                        showAlertDialog(
+                            context, 'Error', 'Item is already on cart');
                       } else {
                         CartItem item = CartItem(
                           item: widget.product.toJson(),
