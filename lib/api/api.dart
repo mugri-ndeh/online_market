@@ -1,6 +1,15 @@
 const String baseApi = "http://10.0.2.2/emarket_php/functions/";
 
 class Api {
+  static String getProductimagePath(String name, String shopId, String path) {
+    return 'uploads/shop/' + name + '/shop_' + shopId + '/products/' + path;
+  }
+
+  static const String rootFolder = "http://192.168.43.2/emarket_php/";
+
+  // 'http://192.168.225.137/emarket_php/uploads/shop/Samsungs8+/shop_6/products/image_picker8888435788458977033.png'
+  // 'http://192.168.225.137/emarket_php/uploads/6/Samsungs8+/shop_6/products/productsimage_picker8888435788458977033.png'
+
   static const String login = baseApi + "common/login.php";
   static const String signup = baseApi + "common/signup.php";
   static const String completeProfile = baseApi + "common/complete_profile.php";
