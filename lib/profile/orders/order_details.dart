@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/model/order.dart';
 import 'package:online_market/profile/widgets.dart';
 import 'package:online_market/util/contstants.dart';
 
 class OrderDetails extends StatelessWidget {
-  const OrderDetails({Key? key}) : super(key: key);
+  const OrderDetails({Key? key, required this.order}) : super(key: key);
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +38,12 @@ class OrderDetails extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('order number'),
-                  const Text('date'),
+                  Text('order number:  ${order.orderId}'),
+                  Text('date: ${order.date}'),
                 ],
               ),
-              const Text('Status'),
-              const Text('item count'),
+              Text('Status:  ${order.state}'),
+              Text('item count:  ${order}'),
               elevatedContainer(
                   context: context,
                   padding: 0,
