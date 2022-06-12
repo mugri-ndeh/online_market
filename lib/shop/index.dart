@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
 import 'package:online_market/services/customer/customer_api.dart';
@@ -166,8 +167,8 @@ class ShopCard extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: '',
-                  fit: BoxFit.fill,
+                  imageUrl: Api.rootFolder + shop.shopImg!,
+                  fit: BoxFit.contain,
                 )),
           ),
           Container(
