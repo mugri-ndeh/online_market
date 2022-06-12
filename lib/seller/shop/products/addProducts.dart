@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/model/category.dart';
@@ -25,6 +27,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
   String imageUrl = 'null actually';
   String? selectedValue;
   List<Category> categories = [];
+
+  File? _image;
 
   Future getCategories() async {
     categories = await CommonApi.getCatgories();
@@ -170,7 +174,15 @@ class _AddProductsPageState extends State<AddProductsPage> {
                   'Add an image',
                   style: Theme.of(context).textTheme.headline4,
                 ),
-                imgplace(context: context, height: 100, width: 100),
+                _image == null
+                    ? GestureDetector(
+                        onTap: () async {
+                          _image = await chooseImage();
+                          setState(() {});
+                        },
+                        child:
+                            imgplace(context: context, height: 100, width: 100))
+                    : Image.file(_image!),
                 const SizedBox(height: 40),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -180,6 +192,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                       if (_formKey.currentState!.validate()) {
                         if (selectedId == null) {
                           showSnackBar(context, 'Select category');
+                        } else if (_image == null) {
+                          showSnackBar(context, 'Please select an image');
                         } else {
                           Product product = Product(
                             name: _nameController.text,
@@ -190,7 +204,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                           );
                           showProgress(
                               context, 'Adding product please wait', true);
-                          SellApi.addProduct(product, widget.shop.id)
+                          SellApi.addProduct(product, widget.shop.id, _image!)
                               .then((value) {
                             hideProgress();
                             hideProgress();
