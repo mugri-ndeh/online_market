@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/favourites/favourites_provider.dart';
 import 'package:online_market/home/widgets/product_card.dart';
 import 'package:online_market/model/product.dart';
@@ -62,14 +64,17 @@ class FavouriteCard extends StatelessWidget {
               Stack(
                 alignment: Alignment.topCenter,
                 children: [
-                  SizedBox(
+                  Container(
+                    color: Palette.white,
                     height: 200,
                     width: size.width,
                     child: ClipRRect(
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
-                        child: Image.asset(foodItem.image, fit: BoxFit.cover)),
+                        child: CachedNetworkImage(
+                            imageUrl: Api.rootFolder + foodItem.image,
+                            fit: BoxFit.contain)),
                   ),
                   Positioned(
                     top: 140,
