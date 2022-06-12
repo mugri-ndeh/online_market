@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
 import 'package:online_market/seller/home/provider/homeProvider.dart';
@@ -169,9 +170,10 @@ class SellerShopCard extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-                  fit: BoxFit.cover,
+                  imageUrl: Api.rootFolder + shop.shopImg!,
+                  // imageUrl:
+                  // 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
+                  fit: BoxFit.contain,
                 )),
           ),
           Container(
