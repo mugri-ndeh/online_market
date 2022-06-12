@@ -35,6 +35,16 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              getShopProducts().then((value) {
+                setState(() {});
+              });
+            },
+            icon: Icon(Icons.refresh),
+          )
+        ],
         iconTheme: Theme.of(context).iconTheme,
         titleTextStyle: Theme.of(context).textTheme.headline6,
         title: Text(
