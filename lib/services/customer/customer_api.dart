@@ -62,7 +62,7 @@ class UserApi {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      // print(response.body);
+      print(response.body);
 
       final List prods = json.decode(response.body)['state'];
       print(prods);
@@ -175,9 +175,35 @@ class UserApi {
       } else {
         final List orders = json.decode(response.body)['state'];
         List<Order> ordersReturened =
-            orders.map((e) => Order.fromBbJson(e['order'])).toList();
+            orders.map((e) => Order.fromJson(e['order'])).toList();
 
         return ordersReturened;
+      }
+    } else {
+      throw Exception();
+    }
+  }
+
+  static Future<List<Product>?> searchProducts(String query) async {
+    final url = Uri.parse(CustomerApi.search);
+
+    final response = await http.post(url, body: {"query": query});
+
+    if (response.statusCode == 200) {
+      var result = json.decode(response.body)['state'];
+
+      print(response.body);
+
+      List<Product> products = [];
+
+      if (result is! String) {
+        final List promotions = json.decode(response.body)['state'];
+        print(promotions);
+
+        products = promotions.map((e) => Product.fromSellerJson(e)).toList();
+        return products;
+      } else {
+        return [];
       }
     } else {
       throw Exception();
