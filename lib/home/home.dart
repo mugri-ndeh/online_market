@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:online_market/auth/models/user_model.dart';
+import 'package:online_market/home/all_products/index.dart';
 import 'package:online_market/home/product_detail.dart';
 import 'package:online_market/home/widgets/product_card.dart';
 import 'package:online_market/home/widgets/sidebar.dart';
@@ -110,7 +111,9 @@ class _HomeState extends State<Home> {
             _imageCardSlider(url: imgList[2], prods: promo),
             const SizedBox(height: 20),
             _heading(context,
-                heading: 'New ', caption: 'you\'ve never seen it before'),
+                heading: 'New ',
+                caption: 'you\'ve never seen it before',
+                destination: AllProductsScreen()),
             const SizedBox(height: 10),
             _imageCardSlider(url: imgList[1], prods: products),
           ],
@@ -159,7 +162,11 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        TextButton(onPressed: () {}, child: Text('View all'))
+        TextButton(
+            onPressed: () {
+              push(context, destination!);
+            },
+            child: Text('View all'))
       ],
     );
   }
