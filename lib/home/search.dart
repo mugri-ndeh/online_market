@@ -1,7 +1,10 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
+import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/palette.dart';
 
@@ -22,13 +25,13 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future searchBook(String query) async => debounce(
         () async {
-          final products = <Product>[];
+          final products = (await UserApi.searchProducts(query))!;
           if (!mounted) return;
           setState(() {
             this.query = query;
             this.products = products;
           });
-          print('SONG IS');
+          print('RES');
         },
       );
 
@@ -72,28 +75,32 @@ class _SearchScreenState extends State<SearchScreen> {
                               children: [
                                 Expanded(
                                   child: TextFormField(
-                                      onChanged: (str) {},
+                                      onChanged: (str) {
+                                        searchBook(str);
+                                      },
                                       style:
                                           Theme.of(context).textTheme.bodyText2,
                                       controller: _searchController,
-                                      obscureText: true,
                                       decoration:
                                           Constants.inputDecoration('Search')),
                                 ),
                                 IconButton(
-                                    onPressed: () {}, icon: Icon(Icons.search))
+                                    onPressed: () {
+                                      searchBook(_searchController.text);
+                                    },
+                                    icon: Icon(Icons.search))
                               ],
                             ),
                           ),
                         )
                       ],
                     ),
-                    const SizedBox(height: 50),
+                    const SizedBox(height: 20),
                   ],
                 ),
               ),
               products.isEmpty
-                  ? Center(
+                  ? const Center(
                       child: Text('No results'),
                     )
                   : Expanded(
@@ -140,9 +147,9 @@ class SearchResult extends StatelessWidget {
                 width: 100,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
-                    child: Image.asset(
-                      'assets/images/',
-                      fit: BoxFit.cover,
+                    child: CachedNetworkImage(
+                      imageUrl: Api.rootFolder + product!.image,
+                      fit: BoxFit.contain,
                     )),
               ),
               const SizedBox(width: 8),
