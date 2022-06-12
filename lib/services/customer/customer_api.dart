@@ -209,4 +209,30 @@ class UserApi {
       throw Exception();
     }
   }
+
+  static Future<List<Shop>?> searchShops(String query) async {
+    final url = Uri.parse(CustomerApi.searchShops);
+
+    final response = await http.post(url, body: {"query": query});
+
+    if (response.statusCode == 200) {
+      var result = json.decode(response.body)['state'];
+
+      print(response.body);
+
+      List<Shop> products = [];
+
+      if (result is! String) {
+        final List promotions = json.decode(response.body)['state'];
+        print(promotions);
+
+        products = promotions.map((e) => Shop.fromSellerJson(e)).toList();
+        return products;
+      } else {
+        return [];
+      }
+    } else {
+      throw Exception();
+    }
+  }
 }
