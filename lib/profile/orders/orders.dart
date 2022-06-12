@@ -217,7 +217,11 @@ class _OrdersState extends State<Orders> {
                 ),
                 OutlinedButton(
                   onPressed: () {
-                    push(context, const OrderDetails());
+                    push(
+                        context,
+                        OrderDetails(
+                          order: order,
+                        ));
                   },
                   style: OutlinedButton.styleFrom(
                     primary: Theme.of(context).iconTheme.color,
