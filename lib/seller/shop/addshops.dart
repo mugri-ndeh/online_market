@@ -86,60 +86,68 @@ class _AddShoppageState extends State<AddShoppage> {
         padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 10),
-              TextFormField(
-                controller: _nameController,
-                validator: (val) => val!.isEmpty ? 'Please input a name' : null,
-                decoration: getInputDecoration(
-                    hint: 'Shop name',
-                    darkMode: Theme.of(context).brightness == Brightness.dark,
-                    errorColor: Palette.error),
-              ),
-              const SizedBox(height: 10),
-              const SizedBox(height: 10),
-              Text(
-                'Add an image',
-                style: Theme.of(context).textTheme.headline4,
-              ),
-              _image == null
-                  ? GestureDetector(
-                      onTap: () async {
-                        _image = await chooseImage();
-                        setState(() {});
-                      },
-                      child:
-                          imgplace(context: context, height: 100, width: 100))
-                  : Image.file(_image!),
-              Expanded(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomOutlinedButton(
-                  child: Text('Create Shop'),
-                  onTap: () async {
-                    // uploadImage();
-                    if (_formKey.currentState!.validate()) {
-                      if (_image == null) {
-                        showSnackBar(context, 'Please select an image');
-                      } else {
-                        Shop shop = Shop(
-                          name: _nameController.text,
-                          shopImg: imageUrl,
-                          sellerName: user.uid.toString(),
-                        );
-                        print('OK');
-                        showProgress(
-                            context, 'Creating shop please wait', true);
-                        await SellApi.addShop(shop, _image!);
-                        hideProgress();
-                      }
-                    }
-                  },
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _nameController,
+                  validator: (val) =>
+                      val!.isEmpty ? 'Please input a name' : null,
+                  decoration: getInputDecoration(
+                      hint: 'Shop name',
+                      darkMode: Theme.of(context).brightness == Brightness.dark,
+                      errorColor: Palette.error),
                 ),
-              ))
-            ],
+                const SizedBox(height: 10),
+                Text(
+                  'Add an image',
+                  style: Theme.of(context).textTheme.headline4,
+                ),
+                _image == null
+                    ? GestureDetector(
+                        onTap: () async {
+                          _image = await chooseImage();
+                          setState(() {});
+                        },
+                        child:
+                            imgplace(context: context, height: 100, width: 100))
+                    : SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Image.file(
+                          _image!,
+                          fit: BoxFit.contain,
+                        )),
+                const SizedBox(height: 40),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: CustomOutlinedButton(
+                    child: Text('Create Shop'),
+                    onTap: () async {
+                      // uploadImage();
+                      if (_formKey.currentState!.validate()) {
+                        if (_image == null) {
+                          showSnackBar(context, 'Please select an image');
+                        } else {
+                          Shop shop = Shop(
+                            name: _nameController.text,
+                            shopImg: imageUrl,
+                            sellerName: user.uid.toString(),
+                          );
+                          print('OK');
+                          showProgress(
+                              context, 'Creating shop please wait', true);
+                          await SellApi.addShop(shop, _image!);
+                          hideProgress();
+                        }
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
