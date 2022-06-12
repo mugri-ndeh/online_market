@@ -83,19 +83,35 @@ class SellApi {
     }
   }
 
-  static Future addProduct(Product product, int shopId) async {
+  static Future addProduct(Product product, int shopId, File image) async {
     final url = Uri.parse(SellerApi.addProducts);
 
-    final response = await http.post(url, body: {
-      "category_id": product.category,
-      "name": product.name,
-      "price": product.price,
-      "image": product.image,
-      "shop_id": shopId.toString(),
-      "quantity": product.qty.toString(),
-    });
+    var request = http.MultipartRequest('POST', url);
 
-    print('Rsponse is');
+    request.fields['name'] = product.name;
+    request.fields["category_id"] = product.category;
+    request.fields["price"] = product.price;
+    request.fields["image"] = product.image;
+    request.fields["shop_id"] = shopId.toString();
+    request.fields["quantity"] = product.qty.toString();
+
+    var pic = await http.MultipartFile.fromPath("image", image.path);
+    request.files.add(pic);
+
+    http.Response response =
+        await http.Response.fromStream(await request.send());
+    print("Result: ${response.body}");
+
+    // final response = await http.post(url, body: {
+    //   "category_id": product.category,
+    //   "name": product.name,
+    //   "price": product.price,
+    //   "image": product.image,
+    //   "shop_id": shopId.toString(),
+    //   "quantity": product.qty.toString(),
+    // });
+
+    // print('Rsponse is');
     // print(response.body);
     if (response.statusCode == 200) {
       print(response.body);
