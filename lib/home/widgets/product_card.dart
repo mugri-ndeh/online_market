@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/api/api.dart';
 import 'package:online_market/favourites/favourites_provider.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
@@ -29,7 +30,8 @@ class ProductCard extends StatelessWidget {
           child: Stack(
             // alignment: Alignment.centerRight,
             children: [
-              SizedBox(
+              Container(
+                color: Palette.white,
                 height: 180,
                 width: 200,
                 child: ClipRRect(
@@ -38,8 +40,8 @@ class ProductCard extends StatelessWidget {
                       topRight: Radius.circular(8),
                     ),
                     child: CachedNetworkImage(
-                      imageUrl: product.image,
-                      fit: BoxFit.fill,
+                      imageUrl: Api.rootFolder + product.image,
+                      fit: BoxFit.contain,
                     )),
               ),
               Positioned(
