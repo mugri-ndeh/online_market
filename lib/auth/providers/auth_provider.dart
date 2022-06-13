@@ -68,6 +68,10 @@ class Authentication with ChangeNotifier {
       loggedUser = await CommonApi.login(email, password);
       await preferences.setInt('userId', loggedUser!.uid);
 
+      loggedUser = await returnUser(loggedUser!.uid);
+      print(loggedUser!.completedProfile);
+      setAuthState(AuthState.loggedIn);
+
       if (loggedUser!.completedProfile == true) {
         setAuthState(AuthState.loggedIn);
       } else {
