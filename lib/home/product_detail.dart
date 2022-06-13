@@ -71,8 +71,8 @@ class _ProductDetailState extends State<ProductDetail> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${widget.product.price}',
-                    style: TextStyle(
+                    '${widget.product.price} XAF',
+                    style: const TextStyle(
                         color: Palette.primaryColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold),
@@ -118,7 +118,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   )
                 ],
               ),
-              Text(widget.product.category),
+              Text(widget.product.qty.toString() + ' Available'),
               Expanded(
                   child: Align(
                 alignment: Alignment.bottomCenter,
