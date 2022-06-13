@@ -8,7 +8,7 @@ class Shop {
 
   factory Shop.fromJson(Map<String, dynamic> json) {
     return Shop(
-      id: json['id'],
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       name: json['name'],
       sellerName: json['seller_id'].toString(),
       shopImg: json['shop_img'],
@@ -17,7 +17,7 @@ class Shop {
 
   factory Shop.fromSellerJson(Map<String, dynamic> json) {
     return Shop(
-      id: json['id'],
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       name: json['name'],
       sellerName: json['seller_id'].toString(),
       shopImg: json['shop_img'],

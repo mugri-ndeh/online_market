@@ -18,25 +18,33 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       name: json['name'],
       category: json['category_name'],
       price: json['price'],
       image: json['image'],
-      qty: json['quantity'],
-      shopId: json['shop_id'],
+      qty: json['quantity'] is String
+          ? int.parse(json['quantity'])
+          : json['quantity'],
+      shopId: json['shop_id'] is String
+          ? int.parse(json['shop_id'])
+          : json['shop_id'],
     );
   }
 
   factory Product.fromSellerJson(Map<String, dynamic> json) {
     return Product(
-      id: json['id'],
+      id: json['id'] is String ? int.parse(json['id']) : json['id'],
       name: json['name'],
       category: json['category_id'].toString(),
       price: json['price'],
       image: json['image'],
-      qty: json['quantity'],
-      shopId: json['shop_id'],
+      qty: json['quantity'] is String
+          ? int.parse(json['quantity'])
+          : json['quantity'],
+      shopId: json['shop_id'] is String
+          ? int.parse(json['shop_id'])
+          : json['shop_id'],
     );
   }
 
