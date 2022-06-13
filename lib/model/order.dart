@@ -19,12 +19,14 @@ class Order {
       this.date = ''});
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      orderId: json['id'],
-      products: jsonDecode(json['items']!),
-      quantity: json['qty'],
+      orderId: json['id'] is String ? int.parse(json['id']) : json['id'],
+      products: json['items'] == null ? null : jsonDecode(json['items']),
+      quantity: json['qty'] is String ? int.parse(json['qty']) : json['qty'],
       state: json['state'],
-      userId: json['uid'],
-      priceTotal: json['price_total'],
+      userId: json['uid'] is String ? int.parse(json['uid']) : json['uid'] ?? 0,
+      priceTotal: json['price_total'] is String
+          ? int.parse(json['price_total'])
+          : json['price_total'],
       date: json['date'],
     );
   }
