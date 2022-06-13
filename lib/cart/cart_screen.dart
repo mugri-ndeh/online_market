@@ -132,7 +132,7 @@ class _CartPageState extends State<CartPage> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 8),
                               child: SizedBox(
-                                  width: 100,
+                                  width: 120,
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -175,7 +175,7 @@ class _CartPageState extends State<CartPage> {
               Text('Total = ' + total.toString() + 'XAF'),
               const SizedBox(height: 10),
               CustomButton(
-                  child: Text('Checkout'),
+                  child: const Text('Checkout'),
                   onTap: () async {
                     // CartItem item = CartItem.fromJson(cart.cartItems[index]);
                     // Product foodItem = Product.fromJson(item.item!);
