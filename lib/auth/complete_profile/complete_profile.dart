@@ -64,9 +64,21 @@ class _CompleteProfileState extends State<CompleteProfile> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Complete Profile',
-                    style: Theme.of(context).textTheme.headline1,
+                  Row(
+                    children: [
+                      Text(
+                        'Complete Profile',
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            auth.returnUser(userModel.uid).then((value) =>
+                                value!.completedProfile
+                                    ? auth.setAuthState(AuthState.loggedIn)
+                                    : auth.setAuthState(AuthState.incomplete));
+                          },
+                          icon: Icon(Icons.refresh))
+                    ],
                   ),
                   const SizedBox(height: Constants.bigAuthSpace / 2),
                   Constants.formBox(
@@ -173,18 +185,6 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           });
                         },
                       ),
-                      const Text('Both', style: TextStyle(fontSize: 20)),
-                      Checkbox(
-                          activeColor: Palette.primaryColor,
-                          value: bothCheck,
-                          onChanged: (val) {
-                            setState(() {
-                              bothCheck = true;
-                              customerCheck = false;
-                              sellerCheck = false;
-                              accountType = AccountType.both;
-                            });
-                          }),
                     ],
                   ),
                   const SizedBox(height: 10),
