@@ -87,9 +87,21 @@ class _SellerHomeState extends State<SellerHome> {
                 const SizedBox(height: 10),
                 EarningCard(),
                 const SizedBox(height: 10),
-                Text(
-                  "Invoice",
-                  style: Theme.of(context).textTheme.headline6,
+                Row(
+                  children: [
+                    Text(
+                      "Invoice",
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        sellerProvider.init().then((value) {
+                          setState(() {});
+                        });
+                      },
+                      icon: Icon(Icons.refresh),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 10),
               ],
