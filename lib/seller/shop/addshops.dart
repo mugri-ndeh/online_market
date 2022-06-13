@@ -6,6 +6,7 @@ import 'package:online_market/api/api.dart';
 import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/auth/providers/auth_provider.dart';
 import 'package:online_market/model/shop.dart';
+import 'package:online_market/seller/home/provider/homeProvider.dart';
 import 'package:online_market/services/seller/seller_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
@@ -139,8 +140,18 @@ class _AddShoppageState extends State<AddShoppage> {
                           print('OK');
                           showProgress(
                               context, 'Creating shop please wait', true);
-                          await SellApi.addShop(shop, _image!);
-                          hideProgress();
+                          SellApi.addShop(shop, _image!).then((value) {
+                            Provider.of<SellerHomeProvider>(context,
+                                    listen: false)
+                                .init()
+                                .then((value) {
+                              hideProgress();
+                              hideProgress();
+                              hideProgress();
+                              showAlertDialog(context, 'Success',
+                                  'Item added successfully');
+                            });
+                          });
                         }
                       }
                     },
