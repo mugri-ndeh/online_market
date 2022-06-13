@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/api/api.dart';
+import 'package:online_market/home/product_detail.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -132,7 +134,7 @@ class SearchResult extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
         onTap: () {
-          // push(context, FoodDetail(foodItem: foodItem!));
+          push(context, ProductDetail(product: product!));
         },
         child: Container(
           margin: const EdgeInsets.only(top: 8),
@@ -166,12 +168,12 @@ class SearchResult extends StatelessWidget {
                             fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Text(
-                        product!.price,
+                        product!.price + 'XAF',
                         style: const TextStyle(color: Colors.grey),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        product!.qty.toString(),
+                        product!.qty.toString() + ' Available',
                         style: TextStyle(color: Palette.primaryColor),
                       ),
                     ],
