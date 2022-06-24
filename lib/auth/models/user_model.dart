@@ -36,7 +36,7 @@ class UserModel {
       firstName: json['firstName'],
       lastName: json['lastName'],
       location: json['location'],
-      completedProfile: json['completedProfile'] == 1 ? true : false,
+      completedProfile: json['completedProfile'] == "1" ? true : false,
       phoneNumber: json['phoneNumber'],
       accountType: json['accountType'],
     );
