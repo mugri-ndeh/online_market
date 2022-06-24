@@ -275,6 +275,7 @@ showSnackBar(BuildContext context, String message) {
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
+        backgroundColor: isDarkMode(context) ? Palette.white : Colors.black,
         content: Text(message),
       ),
     );
