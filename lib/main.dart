@@ -10,6 +10,7 @@ import 'package:online_market/favourites/favourites_provider.dart';
 import 'package:online_market/firebase_options.dart';
 import 'package:online_market/root/index.dart';
 import 'package:online_market/seller/home/provider/homeProvider.dart';
+import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
@@ -46,39 +47,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if (Theme.of(context).brightness == Brightness.light) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.black,
-        systemNavigationBarIconBrightness:
-            Brightness.light, // navigation bar color
-        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-
-        statusBarIconBrightness: Brightness.dark,
-      ));
-    } else if (Theme.of(context).brightness == Brightness.dark) {
-      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Palette.white,
-        // systemNavigationBarColor: Colors.transparent,
-
-        systemNavigationBarIconBrightness:
-            Brightness.dark, // navigation bar color
-        statusBarColor: Theme.of(context).scaffoldBackgroundColor,
-        statusBarIconBrightness: Brightness.dark,
-      ));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Emarket',
         debugShowCheckedModeBanner: false,
+        themeMode: ThemeMode.dark,
         darkTheme: customDarkTheme(),
         theme: customLightTheme(),
         home: const AuthRoot());
