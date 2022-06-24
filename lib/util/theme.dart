@@ -58,9 +58,10 @@ ThemeData customLightTheme() {
     buttonTheme:
         lightTheme.buttonTheme.copyWith(buttonColor: Palette.buttonColor),
     errorColor: Colors.red,
-    colorScheme:
-        ColorScheme.fromSwatch(primarySwatch: Palette.primarySwatchColor)
-            .copyWith(secondary: const Color(0xFFFFF8E1)),
+    colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Palette.primarySwatchColor,
+            brightness: Brightness.light)
+        .copyWith(secondary: const Color(0xFFFFF8E1)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -139,9 +140,10 @@ ThemeData customDarkTheme() {
     buttonTheme:
         darkTheme.buttonTheme.copyWith(buttonColor: Palette.buttonColor),
     errorColor: Colors.red,
-    colorScheme:
-        ColorScheme.fromSwatch(primarySwatch: Palette.primarySwatchColor)
-            .copyWith(secondary: Color(0xFFFFF8E1)),
+    colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Palette.primarySwatchColor,
+            brightness: Brightness.dark)
+        .copyWith(secondary: Color(0xFFFFF8E1)),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
