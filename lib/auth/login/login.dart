@@ -94,7 +94,10 @@ class _LoginState extends State<Login> {
                           auth
                               .login(_emailController.text,
                                   _passwordController.text)
-                              .then((value) => hideProgress());
+                              .then((value) {
+                            showSnackBar(context, 'User not found');
+                            hideProgress();
+                          });
                         }
                       }),
                   Align(
