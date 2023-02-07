@@ -7,7 +7,6 @@ import 'package:online_market/util/theme.dart';
 
 import 'presentation/app_start/app_start_cubit.dart';
 import 'presentation/auth/complete_profile/complete_profile.dart';
-import 'presentation/root/index.dart';
 import 'services/errors/global_error_handling/custom_consumer.dart';
 import 'services/locator.dart';
 
@@ -59,31 +58,22 @@ class _MyAppState extends State<MyApp> {
   // return ;
 }
 
-class MarketApp extends StatelessWidget {
-  const MarketApp({Key? key}) : super(key: key);
+// class MarketApp extends StatelessWidget {
+//   const MarketApp({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Emarket',
-      debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.dark,
-      darkTheme: customDarkTheme(),
-      theme: customLightTheme(),
-      home: const AuthRoot(),
-    );
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Emarket',
+//       debugShowCheckedModeBanner: false,
+//       themeMode: ThemeMode.dark,
+//       darkTheme: customDarkTheme(),
+//       theme: customLightTheme(),
+//       home: const ,
+//     );
 
-    // MaterialApp.router(
-    //   routeInformationParser: router.routeInformationParser,
-    //   routerDelegate: router.routerDelegate,
-    //   routeInformationProvider: router.routeInformationProvider,
-    //   debugShowCheckedModeBanner: false,
-    //   theme: ThemeData(
-    //     textTheme: GoogleFonts.montserratTextTheme(),
-    //   ),
-    // );
-  }
-}
+//    }
+// }
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({Key? key}) : super(key: key);
