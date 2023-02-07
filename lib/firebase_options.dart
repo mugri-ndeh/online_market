@@ -25,7 +25,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -45,17 +48,17 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDhxem6kqETJUAzvU_WdrlYvm1581IAc3A',
-    appId: '1:201804217099:web:a6ab9b4c30274a6103000e',
+    appId: '1:201804217099:web:dfc9518dc4f8a24e03000e',
     messagingSenderId: '201804217099',
     projectId: 'emarket-3689e',
     authDomain: 'emarket-3689e.firebaseapp.com',
     storageBucket: 'emarket-3689e.appspot.com',
-    measurementId: 'G-ZE6CMMJ2ZM',
+    measurementId: 'G-F6R9C8YQ3K',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC6oQDSIuql8pN3LxM3gznbxf_PK4GTOVc',
-    appId: '1:201804217099:android:168de6d6cdbd652003000e',
+    appId: '1:201804217099:android:1e227a18554028a703000e',
     messagingSenderId: '201804217099',
     projectId: 'emarket-3689e',
     storageBucket: 'emarket-3689e.appspot.com',
@@ -63,21 +66,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBynzPjUcUxde1Dz806tJ1yZUjxBl-2NOE',
-    appId: '1:201804217099:ios:6d06623af82f376903000e',
+    appId: '1:201804217099:ios:654994290ec5c9e803000e',
     messagingSenderId: '201804217099',
     projectId: 'emarket-3689e',
     storageBucket: 'emarket-3689e.appspot.com',
     iosClientId: '201804217099-pj4enm9pol6blasfm5h4to5kuih6g04d.apps.googleusercontent.com',
     iosBundleId: 'com.example.onlineMarket',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBynzPjUcUxde1Dz806tJ1yZUjxBl-2NOE',
-    appId: '1:201804217099:ios:268e8b7cbfbc0fca03000e',
-    messagingSenderId: '201804217099',
-    projectId: 'emarket-3689e',
-    storageBucket: 'emarket-3689e.appspot.com',
-    iosClientId: '201804217099-0ad6bsl3ihvjfqo3f724rdnj1ooou5m7.apps.googleusercontent.com',
-    iosBundleId: 'y',
   );
 }

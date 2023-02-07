@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
-class Palette {
+class AppColors {
   static const primaryColor = Color(0XFFDB3022);
   static const buttonColor = Color(0XFFDB3022);
   static const scaffoldBg = Color(0XFFF9F9F9);

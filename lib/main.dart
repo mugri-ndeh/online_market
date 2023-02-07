@@ -1,19 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:online_market/auth/complete_profile/complete_profile.dart';
-import 'package:online_market/auth/login/login.dart';
-import 'package:online_market/auth/providers/auth_provider.dart';
-import 'package:online_market/auth/signup/signup.dart';
-import 'package:online_market/cart/cart_provider.dart';
-import 'package:online_market/favourites/favourites_provider.dart';
 import 'package:online_market/firebase_options.dart';
-import 'package:online_market/root/index.dart';
-import 'package:online_market/seller/home/provider/homeProvider.dart';
-import 'package:online_market/util/helper.dart';
-import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
+
+import 'presentation/auth/providers/auth_provider.dart';
+import 'presentation/cart/cart_provider.dart';
+import 'presentation/favourites/favourites_provider.dart';
+import 'presentation/root/index.dart';
+import 'presentation/seller/home/provider/homeProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

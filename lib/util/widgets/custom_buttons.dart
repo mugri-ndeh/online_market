@@ -20,11 +20,11 @@ class _CustomButtonState extends State<CustomButton> {
       height: 50,
       width: size.width,
       decoration: BoxDecoration(
-          color: Palette.buttonColor,
+          color: AppColors.buttonColor,
           boxShadow: [
             BoxShadow(
               offset: const Offset(2, 5),
-              color: Palette.buttonColor.withOpacity(0.1),
+              color: AppColors.buttonColor.withOpacity(0.1),
               blurRadius: 15,
             )
           ],
@@ -128,7 +128,7 @@ class _SearchFieldState extends State<SearchField> {
         color: Theme.of(context).backgroundColor,
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(25), bottomLeft: Radius.circular(25)),
-        border: Border.all(color: Palette.primaryColor.withOpacity(0.3)),
+        border: Border.all(color: AppColors.primaryColor.withOpacity(0.3)),
         // boxShadow: [
         //   BoxShadow(
         //       color: Palette.primaryColor.withOpacity(0.2),
@@ -140,7 +140,7 @@ class _SearchFieldState extends State<SearchField> {
         children: [
           Expanded(
             child: TextFormField(
-                style: TextStyle(color: Palette.primaryColor),
+                style: TextStyle(color: AppColors.primaryColor),
                 controller: widget.controller,
                 focusNode: _focusNode,
                 decoration: const InputDecoration(
@@ -206,14 +206,14 @@ class _SideInputFieldState extends State<SideInputField> {
         color: Theme.of(context).backgroundColor,
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(25), bottomRight: Radius.circular(25)),
-        border: Border.all(color: Palette.primaryColor),
+        border: Border.all(color: AppColors.primaryColor),
       ),
       child: Row(
         children: [
           Expanded(
             child: TextFormField(
                 maxLines: (widget.lines) ?? 1,
-                style: TextStyle(color: Palette.primaryColor),
+                style: TextStyle(color: AppColors.primaryColor),
                 controller: widget.controller,
                 focusNode: _focusNode,
                 decoration: InputDecoration(

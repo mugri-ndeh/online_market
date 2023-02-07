@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:online_market/api/api.dart';
 import 'package:http/http.dart' as http;
-import 'package:online_market/auth/models/user_model.dart';
 import 'package:online_market/model/order.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/profile/edit_profile.dart';
+
+import '../../presentation/auth/models/user_model.dart';
 
 class UserApi {
   static Future<List<Shop>?> getStores() async {
@@ -210,29 +210,29 @@ class UserApi {
     }
   }
 
-  static Future<List<Shop>?> searchShops(String query) async {
-    final url = Uri.parse(CustomerApi.searchShops);
+  // static Future<List<Shop>?> searchShops(String query) async {
+  //   final url = Uri.parse(CustomerApi.searchShops);
 
-    final response = await http.post(url, body: {"query": query});
+  //   final response = await http.post(url, body: {"query": query});
 
-    if (response.statusCode == 200) {
-      var result = json.decode(response.body)['state'];
+  //   if (response.statusCode == 200) {
+  //     var result = json.decode(response.body)['state'];
 
-      print(response.body);
+  //     print(response.body);
 
-      List<Shop> products = [];
+  //     List<Shop> products = [];
 
-      if (result is! String) {
-        final List promotions = json.decode(response.body)['state'];
-        print(promotions);
+  //     if (result is! String) {
+  //       final List promotions = json.decode(response.body)['state'];
+  //       print(promotions);
 
-        products = promotions.map((e) => Shop.fromSellerJson(e)).toList();
-        return products;
-      } else {
-        return [];
-      }
-    } else {
-      throw Exception();
-    }
-  }
+  //       products = promotions.map((e) => Shop.fromSellerJson(e)).toList();
+  //       return products;
+  //     } else {
+  //       return [];
+  //     }
+  //   } else {
+  //     throw Exception();
+  //   }
+  // }
 }

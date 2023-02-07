@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:online_market/home/search.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+
+import '../presentation/home/search.dart';
 
 String? validateName(String? value) {
   String pattern = r'(^[a-zA-Z ]*$)';
@@ -107,12 +108,12 @@ showProgress(BuildContext context, String message, bool isDismissible) async {
   progressDialog.style(
       message: message,
       borderRadius: 10.0,
-      backgroundColor: Palette.primaryColor,
+      backgroundColor: AppColors.primaryColor,
       progressWidget: Container(
         padding: const EdgeInsets.all(8.0),
         child: const CircularProgressIndicator(
           backgroundColor: Colors.white,
-          valueColor: AlwaysStoppedAnimation(Palette.primaryColor),
+          valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
         ),
       ),
       elevation: 10.0,
@@ -248,13 +249,13 @@ InputDecoration getInputDecoration(
     int? lines}) {
   return InputDecoration(
     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-    fillColor: darkMode ? Palette.black : Colors.white,
+    fillColor: darkMode ? AppColors.black : Colors.white,
     hintText: hint,
     labelText: hint,
     hintMaxLines: lines ?? 10,
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(8.0),
-        borderSide: const BorderSide(color: Palette.buttonColor, width: 2.0)),
+        borderSide: const BorderSide(color: AppColors.buttonColor, width: 2.0)),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: errorColor),
       borderRadius: BorderRadius.circular(8.0),
@@ -264,7 +265,7 @@ InputDecoration getInputDecoration(
       borderRadius: BorderRadius.circular(8.0),
     ),
     enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Palette.primaryColor.withOpacity(0.2)),
+      borderSide: BorderSide(color: AppColors.primaryColor.withOpacity(0.2)),
       borderRadius: BorderRadius.circular(8.0),
     ),
   );
@@ -275,7 +276,7 @@ showSnackBar(BuildContext context, String message) {
     ..hideCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        backgroundColor: isDarkMode(context) ? Palette.white : Colors.black,
+        backgroundColor: isDarkMode(context) ? AppColors.white : Colors.black,
         content: Text(message),
       ),
     );
@@ -307,7 +308,7 @@ Widget imgplace(
           left: height / 1.5,
           child: CircleAvatar(
             radius: height / 6,
-            backgroundColor: Palette.primaryColor,
+            backgroundColor: AppColors.primaryColor,
             child: ClipOval(
               child: SizedBox(
                   width: height / 3,
