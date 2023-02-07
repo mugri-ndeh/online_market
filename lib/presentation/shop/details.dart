@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/util/helper.dart';
 
-import '../home/product_detail.dart';
+import '../home/screens/product_detail/product_detail.dart';
 import '../home/widgets/product_card.dart';
 
 class ShopDetail extends StatefulWidget {

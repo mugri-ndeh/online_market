@@ -8,8 +8,8 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
-import '../cart/cart_provider.dart';
-import '../favourites/favourites.dart';
+import '../../../cart/cart_provider.dart';
+import '../../../favourites/favourites.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({

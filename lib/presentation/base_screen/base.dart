@@ -12,7 +12,7 @@ import '../cart/cart_screen.dart';
 import '../favourites/favourites.dart';
 import '../profile/index.dart';
 import '../shop/index.dart';
-import 'home.dart';
+import '../home/home.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);

@@ -9,7 +9,7 @@ import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
-import 'product_detail.dart';
+import '../product_detail/product_detail.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({

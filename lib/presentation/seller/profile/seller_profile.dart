@@ -4,10 +4,10 @@ import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/models/user_model.dart';
+import '../../../model/user_model.dart';
 import '../../auth/providers/auth_provider.dart';
-import '../../profile/edit_profile.dart';
-import '../../settings/theme_provider.dart';
+import '../../profile/screens/edit_profile/edit_profile.dart';
+import '../../profile/screens/settings/theme_provider.dart';
 import '../ratings/seller_ratings.dart';
 
 class SellerProfile extends StatefulWidget {

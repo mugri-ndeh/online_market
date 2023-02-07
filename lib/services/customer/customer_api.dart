@@ -6,7 +6,7 @@ import 'package:online_market/model/order.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
 
-import '../../presentation/auth/models/user_model.dart';
+import '../../model/user_model.dart';
 
 class UserApi {
   static Future<List<Shop>?> getStores() async {

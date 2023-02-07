@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:online_market/services/common/common_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/user_model.dart';
+import '../../../model/user_model.dart';
 
 enum AuthState {
   loggedIn,

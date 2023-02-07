@@ -4,7 +4,7 @@ import 'package:online_market/api/api.dart';
 import 'package:http/http.dart' as http;
 import 'package:online_market/model/category.dart';
 
-import '../../presentation/auth/models/user_model.dart';
+import '../../model/user_model.dart';
 
 class CommonApi {
   static Future<UserModel?> login(String email, String password) async {

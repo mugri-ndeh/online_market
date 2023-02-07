@@ -9,8 +9,8 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/models/user_model.dart';
-import '../auth/providers/auth_provider.dart';
+import '../../../../model/user_model.dart';
+import '../../../auth/providers/auth_provider.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);

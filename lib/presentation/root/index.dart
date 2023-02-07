@@ -4,10 +4,10 @@ import 'package:provider/provider.dart';
 
 import '../auth/complete_profile/complete_profile.dart';
 import '../auth/login/login.dart';
-import '../auth/models/user_model.dart';
+import '../../model/user_model.dart';
 import '../auth/providers/auth_provider.dart';
 import '../auth/signup/signup.dart';
-import '../home/base.dart';
+import '../base_screen/base.dart';
 import '../seller/base.dart';
 
 class AuthRoot extends StatelessWidget {

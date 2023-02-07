@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_market/model/order.dart';
 import 'package:online_market/util/contstants.dart';
 
-import '../widgets.dart';
+import '../../widgets.dart';
 
 class OrderDetails extends StatelessWidget {
   const OrderDetails({Key? key, required this.order}) : super(key: key);

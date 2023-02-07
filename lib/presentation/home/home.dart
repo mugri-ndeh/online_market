@@ -9,8 +9,8 @@ import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
-import 'all_products/index.dart';
-import 'product_detail.dart';
+import 'screens/all_products/index.dart';
+import 'screens/product_detail/product_detail.dart';
 import 'widgets/product_card.dart';
 import 'widgets/sidebar.dart';
 

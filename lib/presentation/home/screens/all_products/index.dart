@@ -8,7 +8,7 @@ import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
-import '../../favourites/favourites_provider.dart';
+import '../../../favourites/favourites_provider.dart';
 
 class AllProductsScreen extends StatefulWidget {
   AllProductsScreen({Key? key}) : super(key: key);

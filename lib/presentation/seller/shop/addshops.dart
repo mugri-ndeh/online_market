@@ -12,7 +12,7 @@ import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../../auth/models/user_model.dart';
+import '../../../model/user_model.dart';
 import '../../auth/providers/auth_provider.dart';
 import '../home/provider/homeProvider.dart';
 

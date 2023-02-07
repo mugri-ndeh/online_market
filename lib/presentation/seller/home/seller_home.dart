@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
-import '../../auth/models/user_model.dart';
+import '../../../model/user_model.dart';
 import 'provider/homeProvider.dart';
 
 class SellerHome extends StatefulWidget {

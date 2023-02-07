@@ -8,7 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
-import '../presentation/home/search.dart';
+import '../presentation/home/screens/search/search.dart';
 
 String? validateName(String? value) {
   String pattern = r'(^[a-zA-Z ]*$)';
@@ -173,56 +173,6 @@ pushAndRemoveUntil(BuildContext context, Widget destination, bool predict) {
       (Route<dynamic> route) => predict);
 }
 
-// Widget displayCircleImage(String picUrl, double size, hasBorder) =>
-//     CachedNetworkImage(
-//         imageBuilder: (context, imageProvider) =>
-//             _getCircularImageProvider(imageProvider, size, false),
-//         imageUrl: picUrl,
-//         placeholder: (context, url) =>
-//             _getPlaceholderOrErrorImage(size, hasBorder),
-//         errorWidget: (context, url, error) =>
-//             _getPlaceholderOrErrorImage(size, hasBorder));
-
-Widget _getPlaceholderOrErrorImage(double size, hasBorder) => Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        color: const Color(0xff7c94b6),
-        borderRadius: BorderRadius.all(Radius.circular(size / 2)),
-        border: Border.all(
-          color: Colors.white,
-          width: hasBorder ? 2.0 : 0.0,
-        ),
-      ),
-      child: ClipOval(
-          child: Image.asset(
-        'assets/images/placeholder.jpg',
-        fit: BoxFit.cover,
-        height: size,
-        width: size,
-      )),
-    );
-
-Widget _getCircularImageProvider(
-    ImageProvider provider, double size, bool hasBorder) {
-  return ClipOval(
-      child: Container(
-    width: size,
-    height: size,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(size / 2)),
-        border: Border.all(
-          color: Colors.white,
-          style: hasBorder ? BorderStyle.solid : BorderStyle.none,
-          width: 1.0,
-        ),
-        image: DecorationImage(
-          image: provider,
-          fit: BoxFit.cover,
-        )),
-  ));
-}
-
 bool isDarkMode(BuildContext context) {
   if (Theme.of(context).brightness == Brightness.light) {
     return false;
@@ -277,6 +227,17 @@ showSnackBar(BuildContext context, String message) {
     ..showSnackBar(
       SnackBar(
         backgroundColor: isDarkMode(context) ? AppColors.white : Colors.black,
+        content: Text(message),
+      ),
+    );
+}
+
+showErrorSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        backgroundColor: AppColors.error,
         content: Text(message),
       ),
     );

@@ -3,11 +3,11 @@ import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/models/user_model.dart';
+import '../../model/user_model.dart';
 import '../auth/providers/auth_provider.dart';
-import '../settings/theme_provider.dart';
-import 'edit_profile.dart';
-import 'orders/orders.dart';
+import 'screens/settings/theme_provider.dart';
+import 'screens/edit_profile/edit_profile.dart';
+import 'screens/orders/orders.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key? key}) : super(key: key);

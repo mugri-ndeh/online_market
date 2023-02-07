@@ -3,7 +3,7 @@ import 'package:online_market/model/product.dart';
 import 'package:online_market/services/customer/customer_api.dart';
 import 'package:provider/provider.dart';
 
-import '../auth/models/user_model.dart';
+import '../../model/user_model.dart';
 import '../auth/providers/auth_provider.dart';
 
 class WishListIndex extends StatefulWidget {

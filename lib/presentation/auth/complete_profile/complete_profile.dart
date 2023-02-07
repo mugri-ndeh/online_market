@@ -9,8 +9,8 @@ import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
-import '../models/location.dart';
-import '../models/user_model.dart';
+import '../../../model/location.dart';
+import '../../../model/user_model.dart';
 import '../providers/auth_provider.dart';
 
 class CompleteProfile extends StatefulWidget {
