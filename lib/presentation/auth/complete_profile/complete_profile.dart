@@ -7,20 +7,17 @@ import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
-import 'package:provider/provider.dart';
 
-import '../../../model/location.dart';
 import '../../../model/user_model.dart';
-import '../providers/auth_provider.dart';
 
-class CompleteProfile extends StatefulWidget {
-  CompleteProfile({Key? key}) : super(key: key);
+class CompleteProfileScreen extends StatefulWidget {
+  CompleteProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<CompleteProfile> createState() => _CompleteProfileState();
+  State<CompleteProfileScreen> createState() => _CompleteProfileScreenState();
 }
 
-class _CompleteProfileState extends State<CompleteProfile> {
+class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
@@ -39,15 +36,15 @@ class _CompleteProfileState extends State<CompleteProfile> {
   String number = '';
 
   final _formKey = GlobalKey<FormState>();
-  late Authentication auth;
-  late UserModel userModel;
+  // late Authentication auth;
+  // late UserModel userModel;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    auth = Provider.of<Authentication>(context, listen: false);
-    userModel = auth.loggedUser!;
+    // auth = Provider.of<Authentication>(context, listen: false);
+    // userModel = auth.loggedUser!;
   }
 
   @override
@@ -72,10 +69,10 @@ class _CompleteProfileState extends State<CompleteProfile> {
                       ),
                       IconButton(
                           onPressed: () {
-                            auth.returnUser(userModel.uid).then((value) =>
-                                value!.completedProfile
-                                    ? auth.setAuthState(AuthState.loggedIn)
-                                    : auth.setAuthState(AuthState.incomplete));
+                            // auth.returnUser(userModel.uid).then((value) =>
+                            //     value!.completedProfile
+                            //         ? auth.setAuthState(AuthState.loggedIn)
+                            //         : auth.setAuthState(AuthState.incomplete));
                           },
                           icon: Icon(Icons.refresh))
                     ],
@@ -240,22 +237,22 @@ class _CompleteProfileState extends State<CompleteProfile> {
                           } else if (quarterGood != null) {
                             showSnackBar(context, quarterGood);
                           } else {
-                            UserLocation location = UserLocation(
-                                id: userModel.uid.toString(),
-                                region: _regionController.text,
-                                town: _townController.text,
-                                quarter: _quarterController.text);
-                            userModel.firstName = _firstNameController.text;
-                            userModel.lastName = _lastNameController.text;
-                            userModel.phoneNumber = _phoneNumberController.text;
-                            userModel.completedProfile = true;
-                            userModel.location = location.toJson();
-                            userModel.accountType = accountType.toString();
-                            showProgress(context, 'Saving data.. ', true);
-                            auth
-                                .completeProfile(userModel)
-                                .then((value) => hideProgress());
-                            showSnackBar(context, 'OK');
+                            // UserLocation location = UserLocation(
+                            //     id: userModel.uid.toString(),
+                            //     region: _regionController.text,
+                            //     town: _townController.text,
+                            //     quarter: _quarterController.text);
+                            // userModel.firstName = _firstNameController.text;
+                            // userModel.lastName = _lastNameController.text;
+                            // userModel.phoneNumber = _phoneNumberController.text;
+                            // userModel.completedProfile = true;
+                            // userModel.location = location.toJson();
+                            // userModel.accountType = accountType.toString();
+                            // showProgress(context, 'Saving data.. ', true);
+                            // auth
+                            //     .completeProfile(userModel)
+                            //     .then((value) => hideProgress());
+                            // showSnackBar(context, 'OK');
                           }
                         }
                       })

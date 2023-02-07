@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/services/seller/seller_api.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
@@ -20,7 +18,7 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   List products = [];
   Future getShopProducts() async {
-    products = (await SellApi.getShopProducts(widget.shop.id)) ?? [];
+    // products = (await SellApi.getShopProducts(widget.shop.id)) ?? [];
   }
 
   @override

@@ -1,11 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
-import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../cart/cart_provider.dart';
@@ -44,7 +42,7 @@ class _ProductDetailState extends State<ProductDetail> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: CachedNetworkImage(
-                          imageUrl: Api.rootFolder + widget.product.image,
+                          imageUrl: widget.product.image,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -105,7 +103,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           outlined: false,
                           onTap: () {
                             setState(() {
-                              if (qty >= widget.product.qty) {
+                              if (qty >= widget.product.availableQuantity) {
                                 showSnackBar(context,
                                     'You cannot exceed the number of products available');
                               } else {
@@ -119,7 +117,7 @@ class _ProductDetailState extends State<ProductDetail> {
                   )
                 ],
               ),
-              Text(widget.product.qty.toString() + ' Available'),
+              Text('${widget.product.availableQuantity} Available'),
               Expanded(
                   child: Align(
                 alignment: Alignment.bottomCenter,
@@ -137,7 +135,7 @@ class _ProductDetailState extends State<ProductDetail> {
                             context, 'Error', 'Item is already on cart');
                       } else {
                         CartItem item = CartItem(
-                          item: widget.product.toJson(),
+                          item: widget.product.toMap(),
                           qty: qty,
                           id: (cart.cartItems.length + 1).toString(),
                         );

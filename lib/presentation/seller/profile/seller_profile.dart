@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:online_market/services/auth/auth_service.dart';
+import 'package:online_market/services/locator.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
-import 'package:provider/provider.dart';
 
-import '../../../model/user_model.dart';
-import '../../auth/providers/auth_provider.dart';
 import '../../profile/screens/edit_profile/edit_profile.dart';
 import '../../profile/screens/settings/theme_provider.dart';
 import '../ratings/seller_ratings.dart';
@@ -18,15 +17,9 @@ class SellerProfile extends StatefulWidget {
 }
 
 class _SellerProfileState extends State<SellerProfile> {
-  late Authentication auth;
-  late UserModel userModel;
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    auth = Provider.of<Authentication>(context, listen: false);
-    userModel = auth.loggedUser!;
   }
 
   @override
@@ -60,7 +53,7 @@ class _SellerProfileState extends State<SellerProfile> {
                 subtitle: 'Quit the application',
                 color: AppColors.buttonColor,
                 onTap: () {
-                  auth.logout();
+                  locator<AuthService>().logout();
                 }),
           ],
         )),
@@ -85,11 +78,11 @@ class _SellerProfileState extends State<SellerProfile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.username,
+                  locator<AuthService>().loggedUser!.username,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  userModel.firstName + ' ' + userModel.lastName,
+                  '${locator<AuthService>().loggedUser!.firstName} ${locator<AuthService>().loggedUser!.lastName}',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],

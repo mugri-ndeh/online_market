@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user_model.dart';
-import '../auth/providers/auth_provider.dart';
 
 class WishListIndex extends StatefulWidget {
   WishListIndex({Key? key}) : super(key: key);
@@ -18,16 +16,13 @@ class _WishListIndexState extends State<WishListIndex> {
 
   List<Product> wishList = [];
 
-  Future getWish() async {
-    wishList = (await UserApi.getWishList(user)) ?? [];
-  }
+  Future getWish() async {}
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
     getWish();
   }
 

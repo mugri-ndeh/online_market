@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
@@ -73,8 +72,7 @@ class FavouriteCard extends StatelessWidget {
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
                         child: CachedNetworkImage(
-                            imageUrl: Api.rootFolder + foodItem.image,
-                            fit: BoxFit.contain)),
+                            imageUrl: foodItem.image, fit: BoxFit.contain)),
                   ),
                   Positioned(
                     top: 140,

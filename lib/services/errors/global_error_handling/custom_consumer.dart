@@ -36,7 +36,8 @@ class CustomBlocConsumer<B extends BlocBase<S>, S extends GlobalAppState>
         listener: (ctx, state) {
           if (state.error != null) {
             final GlobalErrorData error = state.error!;
-            if (error.showToUser) showErrorSnackBar(ctx, error.errorMessage);
+            if (error.showToUser) debugPrint(error.errorMessage);
+            // showErrorSnackBar(ctx, error.errorMessage);
           }
 
           if (listener != null) {

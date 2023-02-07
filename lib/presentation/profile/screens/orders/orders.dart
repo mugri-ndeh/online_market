@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/model/order.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
-import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/user_model.dart';
-import '../../../auth/providers/auth_provider.dart';
 import '../../widgets.dart';
 import 'order_details.dart';
 
@@ -29,7 +26,7 @@ class _OrdersState extends State<Orders> {
   List<Order> cancelled = [];
 
   Future getOrders() async {
-    orders = await UserApi.getOrders(user);
+    // orders = await UserApi.getOrders(user);
     print('HEHEHEHHE');
     print(orders.length);
   }
@@ -38,7 +35,6 @@ class _OrdersState extends State<Orders> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
     getOrders().then((value) {
       for (var order in orders) {
         switch (order.state) {
@@ -237,7 +233,7 @@ class _OrdersState extends State<Orders> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  order.date,
+                  '${order.date.day}/${order.date.month}/${order.date.year}',
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(

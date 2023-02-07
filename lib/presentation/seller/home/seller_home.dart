@@ -23,7 +23,6 @@ class _SellerHomeState extends State<SellerHome> {
     super.initState();
     sellerProvider = Provider.of<SellerHomeProvider>(context, listen: false);
     sellerProvider.init().then((value) {});
-    user = sellerProvider.auth!.loggedUser!;
   }
 
   @override

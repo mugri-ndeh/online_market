@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
+// import 'package:online_market/repository/api.dart';
 
 import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/customer/customer_api.dart';
+// import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user_model.dart';
-import '../auth/providers/auth_provider.dart';
 import 'cart_provider.dart';
 
 class CartPage extends StatefulWidget {
@@ -27,7 +26,7 @@ class _CartPageState extends State<CartPage> {
     total = 0;
     for (int i = 0; i < cart.cartItems.length; i++) {
       CartItem item = CartItem.fromJson(cart.cartItems[i]);
-      Product foodItem = Product.fromJson(item.item!);
+      Product foodItem = Product.fromMap(item.item!);
       total = total + int.parse(foodItem.price.replaceAll('XAF', '').trim());
     }
     print(total);
@@ -41,7 +40,6 @@ class _CartPageState extends State<CartPage> {
     // TODO: implement initState
     super.initState();
     cart = Provider.of<CartHelper>(context, listen: false);
-    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
     getTotal(cart);
   }
 
@@ -78,7 +76,7 @@ class _CartPageState extends State<CartPage> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       CartItem item = CartItem.fromJson(cart.cartItems[index]);
-                      Product foodItem = Product.fromJson(item.item!);
+                      Product foodItem = Product.fromMap(item.item!);
                       print(item.item);
                       return Container(
                         margin: const EdgeInsets.only(top: 8),
@@ -95,7 +93,7 @@ class _CartPageState extends State<CartPage> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(24),
                                   child: CachedNetworkImage(
-                                    imageUrl: Api.rootFolder + foodItem.image,
+                                    imageUrl: foodItem.image,
                                     fit: BoxFit.contain,
                                   )),
                             ),
@@ -187,17 +185,17 @@ class _CartPageState extends State<CartPage> {
 
                     List<Product> productss = cartItems
                         .map(
-                          (e) => Product.fromSellerJson(e.item!),
+                          (e) => Product.fromMap(e.item!),
                         )
                         .toList();
                     // print(productss[0].id);
-                    UserApi.createOrder(
-                            productss, user, total, cart.cartItems.length)
-                        .then((value) {
-                      cart.clearItems();
-                      showAlertDialog(context, 'Success',
-                          'Your Order has been placed successfully');
-                    });
+                    // UserApi.createOrder(
+                    //         productss, user, total, cart.cartItems.length)
+                    //     .then((value) {
+                    //   cart.clearItems();
+                    //   showAlertDialog(context, 'Success',
+                    //       'Your Order has been placed successfully');
+                    // });
                   }),
               const SizedBox(height: 10),
             ],

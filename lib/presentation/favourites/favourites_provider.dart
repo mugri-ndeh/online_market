@@ -35,27 +35,21 @@ class FavouritesHelper with ChangeNotifier {
     notifyListeners();
   }
 
-  remove(Product food) async {
+  remove(Product product) async {
     await storage.ready;
 
     favourites.removeWhere((element) {
-      //print(element.values);
       var val = false;
-      print(food.toJson()['id']);
 
-      if (element['id'] == food.toJson()['id']) {
+      if (element['id'] == product.toMap()['id']) {
         val = true;
       } else {
         val = false;
       }
       return val;
-
-      //return element.values == song.toJson().values;
     });
-    print(favourites);
     _saveToStorage();
     notifyListeners();
-    //storage.deleteItem('favourite $name');
   }
 
   _saveToStorage() async {

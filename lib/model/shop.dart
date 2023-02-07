@@ -1,26 +1,42 @@
+import 'dart:convert';
+
+import 'user_model.dart';
+
 class Shop {
-  int id;
-  String name;
-  String sellerName;
+  String id;
+  String shopName;
+  UserModel owner;
   String? shopImg;
+  Shop({
+    this.id = '',
+    required this.shopName,
+    required this.owner,
+    this.shopImg,
+  });
 
-  Shop({this.id = 0, this.name = '', this.sellerName = '', this.shopImg});
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
 
-  factory Shop.fromJson(Map<String, dynamic> json) {
+    result.addAll({'id': id});
+    result.addAll({'shopName': shopName});
+    result.addAll({'owner': owner.toMap()});
+    if (shopImg != null) {
+      result.addAll({'shopImg': shopImg});
+    }
+
+    return result;
+  }
+
+  factory Shop.fromMap(Map<String, dynamic> map) {
     return Shop(
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
-      name: json['name'],
-      sellerName: json['seller_id'].toString(),
-      shopImg: json['shop_img'],
+      id: map['id'] ?? '',
+      shopName: map['shopName'] ?? '',
+      owner: UserModel.fromMap(map['owner']),
+      shopImg: map['shopImg'],
     );
   }
 
-  factory Shop.fromSellerJson(Map<String, dynamic> json) {
-    return Shop(
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
-      name: json['name'],
-      sellerName: json['seller_id'].toString(),
-      shopImg: json['shop_img'],
-    );
-  }
+  String toJson() => json.encode(toMap());
+
+  factory Shop.fromJson(String source) => Shop.fromMap(json.decode(source));
 }

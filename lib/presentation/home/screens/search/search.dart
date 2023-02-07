@@ -2,9 +2,7 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
@@ -28,7 +26,6 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future searchBook(String query) async => debounce(
         () async {
-          final products = (await UserApi.searchProducts(query))!;
           if (!mounted) return;
           setState(() {
             this.query = query;
@@ -151,7 +148,7 @@ class SearchResult extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
                     child: CachedNetworkImage(
-                      imageUrl: Api.rootFolder + product!.image,
+                      imageUrl: product!.image,
                       fit: BoxFit.contain,
                     )),
               ),
@@ -174,7 +171,7 @@ class SearchResult extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        product!.qty.toString() + ' Available',
+                        product!.availableQuantity.toString() + ' Available',
                         style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ],

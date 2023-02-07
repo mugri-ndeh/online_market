@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
-import 'package:online_market/util/palette.dart';
-import 'package:online_market/util/widgets/custom_buttons.dart';
 
 import 'details.dart';
 
@@ -24,14 +20,14 @@ class _ShopIndexState extends State<ShopIndex> {
   List<Map<String, dynamic>> prod = [];
 
   Future<List<Shop>> getShops() async {
-    shops = (await UserApi.getStores())!;
+    // shops = (await UserApi.getStores())!;
     print('OK');
     return shops;
   }
 
   Future<List<Product>> getShopProducts(int id) async {
-    List<Product> products = (await UserApi.getShopProducts(id))!;
-    return products;
+    // List<Product> products = (await UserApi.getShopProducts(id))!;
+    return [];
   }
 
   // init(){
@@ -115,8 +111,7 @@ class _ShopIndexState extends State<ShopIndex> {
                         GestureDetector(
                           onTap: () async {
                             showProgress(context, 'Getting products', true);
-                            List<Product> productts =
-                                await getShopProducts(shops[i].id);
+                            List<Product> productts = await getShopProducts(0);
                             hideProgress();
 
                             push(context, ShopDetail(products: productts));
@@ -168,7 +163,7 @@ class ShopCard extends StatelessWidget {
                   topRight: Radius.circular(8),
                 ),
                 child: CachedNetworkImage(
-                  imageUrl: Api.rootFolder + shop.shopImg!,
+                  imageUrl: shop.shopImg!,
                   fit: BoxFit.contain,
                 )),
           ),
@@ -179,12 +174,12 @@ class ShopCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  shop.name,
+                  shop.shopName,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  shop.sellerName,
+                  shop.owner.username,
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
               ],

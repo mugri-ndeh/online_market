@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:online_market/services/common/common_api.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
-import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../model/user_model.dart';
-import '../../../auth/providers/auth_provider.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -29,19 +25,15 @@ class _EditProfileState extends State<EditProfile> {
   String? locale;
   final TextEditingController _controller = TextEditingController();
   String number = '';
-  late Authentication auth;
-  late UserModel user;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    auth = Provider.of<Authentication>(context, listen: false);
-    user = auth.loggedUser!;
-    _usernameController.text = user.username;
-    _firstNameController.text = user.firstName;
-    _lastNameController.text = user.lastName;
-    _emailController.text = user.email;
-    _controller.text = user.phoneNumber.replaceAll('+237', '').trim();
+    // _usernameController.text = user.username;
+    // _firstNameController.text = user.firstName;
+    // _lastNameController.text = user.lastName;
+    // _emailController.text = user.email;
+    // _controller.text = user.phoneNumber.replaceAll('+237', '').trim();
   }
 
   @override
@@ -164,19 +156,11 @@ class _EditProfileState extends State<EditProfile> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         // Customer user = auth.loggedUser!;
-                        user.username = _usernameController.text;
-                        user.firstName = _firstNameController.text;
-                        user.lastName = _lastNameController.text;
-                        user.email = _emailController.text;
-                        user.phoneNumber = number;
-
-                        showProgress(context, 'Saving info...', true);
-                        CommonApi.editProfile(user).then((value) {
-                          auth.returnUser(user.uid);
-                          hideProgress();
-                          showAlertDialog(context, 'Success',
-                              'Details updated successfully');
-                        });
+                        // user.username = _usernameController.text;
+                        // user.firstName = _firstNameController.text;
+                        // user.lastName = _lastNameController.text;
+                        // user.email = _emailController.text;
+                        // user.phoneNumber = number;
                       }
                     },
                   ),

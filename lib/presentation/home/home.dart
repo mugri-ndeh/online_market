@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
@@ -35,12 +34,12 @@ class _HomeState extends State<Home> {
   List<Product> products = [];
 
   getProducts() async {
-    products = (await UserApi.getProducts())!;
+    // products = (await UserApi.getProducts())!;
     setState(() {});
   }
 
   getPromo() async {
-    promo = (await UserApi.getPromo())!;
+    // promo = (await UserApi.getPromo())!;
     setState(() {});
   }
 

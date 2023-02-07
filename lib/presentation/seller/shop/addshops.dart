@@ -2,10 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/services/seller/seller_api.dart';
-import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
@@ -13,11 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../model/user_model.dart';
-import '../../auth/providers/auth_provider.dart';
-import '../home/provider/homeProvider.dart';
 
 class AddShoppage extends StatefulWidget {
-  AddShoppage({Key? key}) : super(key: key);
+  const AddShoppage({Key? key}) : super(key: key);
 
   @override
   State<AddShoppage> createState() => _AddShoppageState();
@@ -40,7 +35,7 @@ class _AddShoppageState extends State<AddShoppage> {
   // }
 
   Future uploadImage() async {
-    final uri = Uri.parse(SellerApi.uploadImage);
+    final uri = Uri.parse('SellerApi');
     var request = http.MultipartRequest('POST', uri);
 
     request.fields['name'] = _nameController.text;
@@ -69,7 +64,6 @@ class _AddShoppageState extends State<AddShoppage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = Provider.of<Authentication>(context, listen: false).loggedUser!;
   }
 
   @override
@@ -128,31 +122,19 @@ class _AddShoppageState extends State<AddShoppage> {
                   child: CustomOutlinedButton(
                     child: Text('Create Shop'),
                     onTap: () async {
-                      // uploadImage();
+                      uploadImage();
                       if (_formKey.currentState!.validate()) {
                         if (_image == null) {
                           showSnackBar(context, 'Please select an image');
                         } else {
                           Shop shop = Shop(
-                            name: _nameController.text,
+                            shopName: _nameController.text,
                             shopImg: imageUrl,
-                            sellerName: user.uid.toString(),
+                            owner: user,
                           );
-                          print('OK');
-                          showProgress(
-                              context, 'Creating shop please wait', true);
-                          SellApi.addShop(shop, _image!).then((value) {
-                            Provider.of<SellerHomeProvider>(context,
-                                    listen: false)
-                                .init()
-                                .then((value) {
-                              hideProgress();
-                              hideProgress();
-                              hideProgress();
-                              showAlertDialog(context, 'Success',
-                                  'Item added successfully');
-                            });
-                          });
+
+                          showAlertDialog(
+                              context, 'Success', 'Item added successfully');
                         }
                       }
                     },

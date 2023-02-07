@@ -1,5 +1,7 @@
 import 'package:get_it/get_it.dart';
 
+import 'auth/auth_service.dart';
+
 /// Enables easy access to single instances of services.
 ///
 /// Usage:
@@ -18,7 +20,7 @@ void setupInitialLocator() {
 /// Registers all services that are required by the app itself.
 void _setupAppLocator() {
   // locator.registerLazySingleton<NavigationService>(() => NavigationService());
-  // locator.registerLazySingleton<AuthService>(() => AuthService());
+  locator.registerLazySingleton<AuthService>(() => AuthService());
 }
 
 /// Also gets called when a new user logs in
@@ -34,7 +36,7 @@ void setupUserDependentLocator() {
 /// Function is used after logging out so the data of the previous user won't affect the experience of the user who logs in afterwards.
 void restartUserServices() {
   // You might need to unregister things like a SwipeCubit too
-  // locator.unregister(instance: locator<AuthService>());
+  locator.unregister(instance: locator<AuthService>());
   // locator.unregister(instance: locator<CompleteProfileService>());
   // locator.unregister(instance: locator<SurveyService>());
   _setupAppLocator();

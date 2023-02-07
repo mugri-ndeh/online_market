@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_market/model/user_model.dart';
+import 'package:online_market/services/errors/global_error_handling/global_app_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../../firebase_options.dart';
@@ -19,10 +21,25 @@ class AppStartCubit extends Cubit<AppStartState> {
         options: DefaultFirebaseOptions.currentPlatform,
       );
       Provider.debugCheckInvalidValueType = null;
-      await locator<AuthService>().checkAuth();
-      Future.delayed(const Duration(seconds: 1), () => emit(AppStartSuccess()));
-    } catch (e) {
-      emit(AppStartError(error: e.toString()));
+
+      locator<AuthService>().checkAuth().then((value) {
+        if (value == null) {
+          emit(LoggedOut());
+        } else if (value.completedProfile == true) {
+          emit(LoggedIn());
+        } else {
+          emit(CompleteProfile());
+        }
+      });
+
+      // if (await locator<AuthService>().checkAuth() == null) {
+      //   emit(LoggedOut());
+      // } else if (await locator<AuthService>()
+      //     .checkAuth()
+      //     .then((value) => null)) {}
+      // Future.delayed(const Duration(seconds: 1), () => emit(AppStartSuccess()));
+    } catch (e, s) {
+      emit(AppStartError(error: GlobalErrorData(e, stackTrace: s)));
     }
   }
 }

@@ -51,7 +51,7 @@ class AuthService {
     bool notFound = false;
 
     await CustomFirestore.userRef
-        .update(user.toJson())
+        .update(user.toMap())
         .whenComplete(() => result = true)
         .onError((FirebaseException e, s) => notFound = e.code == 'not-found');
 
@@ -125,7 +125,7 @@ class AuthService {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
     userCredential.user!.updateDisplayName(username);
-    user.uid = int.parse(userCredential.user!.uid);
+    user.uid = userCredential.user!.uid;
     user.email = userCredential.user!.email!;
     user.username = username;
     await createUser(user);
@@ -151,7 +151,7 @@ class AuthService {
     await _firestore
         .collection("users")
         .doc(user.uid.toString())
-        .set(user.toJson());
+        .set(user.toMap());
     await _auth.currentUser!.updateDisplayName(user.username);
   }
 
@@ -159,7 +159,7 @@ class AuthService {
     await _firestore
         .collection("users")
         .doc(user.uid.toString())
-        .update(user.toJson());
+        .update(user.toMap());
     final UserModel? userModel = await returnUser(user.uid.toString());
     return userModel;
   }
@@ -170,7 +170,7 @@ class AuthService {
     var userDoc = await _firestore.collection("users").doc(id).get();
 
     if (userDoc.data() != null) {
-      user = UserModel.fromJson(userDoc.data()!);
+      user = UserModel.fromMap(userDoc.data()!);
       return user;
     } else {
       return null;

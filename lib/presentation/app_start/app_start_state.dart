@@ -1,6 +1,6 @@
 part of 'app_start_cubit.dart';
 
-abstract class AppStartState extends Equatable {
+abstract class AppStartState extends GlobalAppState {
   const AppStartState();
 
   @override
@@ -13,9 +13,15 @@ class AppStartloading extends AppStartState {}
 
 class AppStartSuccess extends AppStartState {}
 
+class LoggedIn extends AppStartState {}
+
+class LoggedOut extends AppStartState {}
+
+class CompleteProfile extends AppStartState {}
+
 class AppStartError extends AppStartState {
   @override
-  final String error;
+  final GlobalErrorData error;
   const AppStartError({required this.error});
   @override
   List<Object> get props => [error];

@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:online_market/model/category.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/services/common/common_api.dart';
-import 'package:online_market/services/seller/seller_api.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
@@ -34,7 +32,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   File? _image;
 
   Future getCategories() async {
-    categories = await CommonApi.getCatgories();
+    // categories = await CommonApi.getCatgories();
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -200,27 +198,16 @@ class _AddProductsPageState extends State<AddProductsPage> {
                           showSnackBar(context, 'Please select an image');
                         } else {
                           Product product = Product(
+                            shopId: widget.shop.id,
                             name: _nameController.text,
                             price: _priceController.text,
-                            qty: int.parse(_qtyController.text),
+                            availableQuantity: int.parse(_qtyController.text),
                             category: selectedId.toString(),
                             image: imageUrl,
                           );
-                          showProgress(
-                              context, 'Adding product please wait', true);
-                          SellApi.addProduct(product, widget.shop.id, _image!)
-                              .then((value) {
-                            Provider.of<SellerHomeProvider>(context,
-                                    listen: false)
-                                .init()
-                                .then((value) {
-                              hideProgress();
-                              hideProgress();
-                              hideProgress();
-                              showAlertDialog(context, 'Success',
-                                  'Item added successfully');
-                            });
-                          });
+
+                          showAlertDialog(
+                              context, 'Success', 'Item added successfully');
                         }
                       }
                     },

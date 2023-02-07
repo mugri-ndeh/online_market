@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/category.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/common/common_api.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
@@ -21,11 +18,11 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
   List<Category> categories = [];
   List<Product> products = [];
   Future getCategories() async {
-    categories = await CommonApi.getCatgories();
+    // categories = await CommonApi.getCatgories();
   }
 
   Future getProducts() async {
-    products = (await UserApi.getProducts())!;
+    // products = (await UserApi.getProducts())!;
   }
 
   List<Product> getListPro() {
@@ -196,7 +193,7 @@ class ProductCardExtended extends StatelessWidget {
                       topRight: Radius.circular(8),
                     ),
                     child: CachedNetworkImage(
-                      imageUrl: Api.rootFolder + product.image,
+                      imageUrl: product.image,
                       fit: BoxFit.contain,
                     )),
               ),

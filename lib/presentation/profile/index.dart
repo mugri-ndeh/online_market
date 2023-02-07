@@ -4,7 +4,6 @@ import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user_model.dart';
-import '../auth/providers/auth_provider.dart';
 import 'screens/settings/theme_provider.dart';
 import 'screens/edit_profile/edit_profile.dart';
 import 'screens/orders/orders.dart';
@@ -17,15 +16,12 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  late Authentication auth;
   late UserModel userModel;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    auth = Provider.of<Authentication>(context, listen: false);
-    userModel = auth.loggedUser!;
   }
 
   @override
