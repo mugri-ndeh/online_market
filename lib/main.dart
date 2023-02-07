@@ -36,9 +36,6 @@ class _MyAppState extends State<MyApp> {
         theme: customLightTheme(),
         home: CustomBlocConsumer<AppStartCubit, AppStartState>(
             builder: (context, state) {
-          // if (state is AppStartSuccess) {
-          //   return const MarketApp();
-          // }
           if (state is CompleteProfile) {
             return CompleteProfileScreen();
           }

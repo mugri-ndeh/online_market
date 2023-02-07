@@ -11,8 +11,6 @@ class AppStartInitial extends AppStartState {}
 
 class AppStartloading extends AppStartState {}
 
-class AppStartSuccess extends AppStartState {}
-
 class LoggedIn extends AppStartState {}
 
 class LoggedOut extends AppStartState {}
