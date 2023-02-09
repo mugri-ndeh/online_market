@@ -84,15 +84,19 @@ class AuthService {
     return result;
   }
 
+  Future<String> uploadFile(
+      {required Uint8List data, required String path}) async {
+    final ref = FirebaseStorage.instance.ref().child(path);
+    var uploadTask = ref.putData(data);
+    final snapshot = await uploadTask.whenComplete(() {});
+    final urlDownload = snapshot.ref.getDownloadURL();
+    return urlDownload;
+  }
+
   Future<bool> isLoggedInAsync() async {
     final user = await _auth.authStateChanges().first;
     currentUser ??= user;
     return user != null;
-  }
-
-  Future<bool> isEmailVerified() async {
-    final user = await _auth.authStateChanges().first;
-    return user == null ? false : user.emailVerified;
   }
 
   bool get isLoggedIn {
@@ -120,22 +124,16 @@ class AuthService {
   }
 
   signUp(String email, String username, String password) async {
-    debugPrint("Creating account please wait");
     UserModel user = UserModel();
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    userCredential.user!.updateDisplayName(username);
+    // userCredential.user!.updateDisplayName(username);
     user.uid = userCredential.user!.uid;
     user.email = userCredential.user!.email!;
     user.username = username;
     await createUser(user);
-    await login(email, password);
+    // await login(email, password);
     loggedUser = user;
-    assert(loggedUser?.uid != null,
-        "UID of user should not be null after registration/login.");
-
-    // final int termsOfUseDate = (DateTime.now().millisecondsSinceEpoch * 1000);
-
     debugPrint("Account created");
   }
 

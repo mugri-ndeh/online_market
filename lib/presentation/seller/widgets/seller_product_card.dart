@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
 
+import '../../../model/shop.dart';
+
 class SellerProductCard extends StatelessWidget {
-  const SellerProductCard({Key? key, required this.product}) : super(key: key);
+  const SellerProductCard({Key? key, required this.product, required this.shop})
+      : super(key: key);
   final Product product;
+  final Shop shop;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class SellerProductCard extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.grey.withOpacity(0.1),
                   blurRadius: 2.0,
                   spreadRadius: 0.8)
             ]),
@@ -37,8 +41,7 @@ class SellerProductCard extends StatelessWidget {
                   ),
                   child: CachedNetworkImage(
                     imageUrl: product.image,
-                    // 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-                    fit: BoxFit.contain,
+                    fit: BoxFit.cover,
                   )),
             ),
             Positioned(
@@ -52,7 +55,7 @@ class SellerProductCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Shop owner',
+                      '${shop.owner.firstName} ${shop.owner.lastName}',
                       style: Theme.of(context).textTheme.caption,
                     ),
                     Text(
@@ -60,7 +63,7 @@ class SellerProductCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
-                      product.price + 'XAF',
+                      '${product.price}XAF',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],
@@ -72,13 +75,8 @@ class SellerProductCard extends StatelessWidget {
               top: 160,
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          blurRadius: 1.0,
-                          spreadRadius: 1)
-                    ]),
+                  borderRadius: BorderRadius.circular(100),
+                ),
               ),
             ),
           ],

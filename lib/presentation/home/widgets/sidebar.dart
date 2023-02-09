@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:online_market/presentation/app_start/app_start_cubit.dart';
 import 'package:online_market/util/contstants.dart';
 
 import 'package:online_market/util/palette.dart';
@@ -40,7 +41,6 @@ class SideBar extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 30,
-                      child: Image.asset(Assets.logo),
                       backgroundColor: AppColors.primaryColor
                           .withOpacity(0.4)
                           .withOpacity(0.1),
@@ -78,7 +78,7 @@ class SideBar extends StatelessWidget {
                   color: AppColors.white.withOpacity(0.3),
                   elevation: 0,
                   child: Column(
-                    children: [
+                    children: const [
                       const ListTile(
                         leading: Icon(
                           Icons.person_outlined,
@@ -162,8 +162,10 @@ class SideBar extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
-                    onPressed: () {
-                      locator<AuthService>().logout();
+                    onPressed: () async {
+                      await locator<AuthService>().logout();
+                      // ignore: use_build_context_synchronously
+                      context.read<AppStartCubit>().logout();
                     },
                     icon: const Icon(
                       Icons.logout_outlined,

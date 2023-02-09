@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'palette.dart';
 
 class Assets {
-  static const String logo = '';
+  static const String logo = 'assets/images/illustration-1.png';
 }
 
 class Constants {

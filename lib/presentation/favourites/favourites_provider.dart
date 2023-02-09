@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:online_market/model/product.dart';
@@ -9,7 +12,6 @@ class FavouritesHelper with ChangeNotifier {
 
   init() async {
     favourites = await getFavourites();
-    print('INIT FAV HELPER');
     notifyListeners();
   }
 
@@ -17,11 +19,10 @@ class FavouritesHelper with ChangeNotifier {
     init();
   }
 
-  bool isfavourite(Product foodItem) {
+  bool isfavourite(Product product) {
     bool favourite = false;
-    int i;
-    for (i = 0; i < favourites.length; i++) {
-      if (foodItem.id == Product.fromJson(favourites[i]).id) {
+    for (int i = 0; i < favourites.length; i++) {
+      if (product.name == Product.fromJson(favourites[i]).name) {
         favourite = true;
       }
     }
@@ -29,8 +30,8 @@ class FavouritesHelper with ChangeNotifier {
     return favourite;
   }
 
-  addFavourites(Product foodItem) {
-    favourites.add(foodItem.toJson());
+  addFavourites(Product product) {
+    favourites.add(product.toJson());
     _saveToStorage();
     notifyListeners();
   }
@@ -40,8 +41,7 @@ class FavouritesHelper with ChangeNotifier {
 
     favourites.removeWhere((element) {
       var val = false;
-
-      if (element['id'] == product.toMap()['id']) {
+      if (Product.fromJson(element).id == product.toMap()['id']) {
         val = true;
       } else {
         val = false;
@@ -54,10 +54,7 @@ class FavouritesHelper with ChangeNotifier {
 
   _saveToStorage() async {
     await storage.ready;
-    // List existing = await getFavourites();
-    // existing.add(song.toJson());
     storage.setItem('favourite', favourites);
-    // print('SAVED CORRECTLY');
     notifyListeners();
   }
 
@@ -65,7 +62,6 @@ class FavouritesHelper with ChangeNotifier {
     await storage.ready;
     await storage.clear();
     favourites = [];
-    print('Cleared');
     notifyListeners();
   }
 

@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/util/contstants.dart';
 
-class SellerOrders extends StatefulWidget {
-  SellerOrders({Key? key}) : super(key: key);
+class SellerOrdersPage extends StatefulWidget {
+  SellerOrdersPage({Key? key}) : super(key: key);
 
   @override
-  State<SellerOrders> createState() => _SellerOrdersState();
+  State<SellerOrdersPage> createState() => _SellerOrdersPageState();
 }
 
-class _SellerOrdersState extends State<SellerOrders> {
+class _SellerOrdersPageState extends State<SellerOrdersPage> {
   bool ok = false;
 
   @override

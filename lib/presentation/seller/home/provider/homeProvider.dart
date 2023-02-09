@@ -6,7 +6,7 @@ import 'package:online_market/model/shop.dart';
 class SellerHomeProvider with ChangeNotifier {
   SellerHomeProvider();
 
-  List<Shop> shops = [];
+  List<Product> shops = [];
   List<Product> products = [];
   List<Rating> rating = [];
 

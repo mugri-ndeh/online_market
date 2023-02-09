@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:online_market/model/location.dart';
 
-enum AccountType { customer, seller, both }
+// enum AccountType { customer, seller, both }
 
 class UserModel {
   String uid;

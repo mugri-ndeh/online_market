@@ -15,9 +15,7 @@ part 'shop_products_state.dart';
 
 class ShopProductsCubit extends Cubit<ShopProductsState> {
   ShopProductsCubit() : super(ShopProductsInitial()) {
-    emit(ProductLoading());
     getCategories();
-    emit(CategoryPicked(category: 'electronics'));
   }
   final nameController = TextEditingController();
   final priceController = TextEditingController();
@@ -75,11 +73,17 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
   }
 
   updateCategoty(value) {
+    emit(ProductLoading());
     category = value;
+    emit(CategoryPicked(category: value));
   }
 
   getCategories() async {
+    emit(ProductLoading());
     var data = await CustomFirestore.categoriesRef.get();
-    categories = data.docs.map((e) => e.data().toString()).toList();
+    categories = data.docs
+        .map((e) => (e.data() as Map<String, dynamic>)['category'].toString())
+        .toList();
+    emit(CategoryPicked(category: 'home'));
   }
 }

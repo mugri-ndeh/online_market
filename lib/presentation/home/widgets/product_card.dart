@@ -4,6 +4,7 @@ import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
+import '../../../model/shop.dart';
 import '../../favourites/favourites_provider.dart';
 
 class ProductCard extends StatelessWidget {
@@ -23,7 +24,7 @@ class ProductCard extends StatelessWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withOpacity(0.1),
                     blurRadius: 2.0,
                     spreadRadius: 0.8)
               ]),
@@ -41,7 +42,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     child: CachedNetworkImage(
                       imageUrl: product.image,
-                      fit: BoxFit.contain,
+                      fit: BoxFit.cover,
                     )),
               ),
               Positioned(
@@ -55,7 +56,7 @@ class ProductCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Shop owner',
+                        product.availableQuantity.toString() + 'Left',
                         style: Theme.of(context).textTheme.caption,
                       ),
                       Text(

@@ -7,11 +7,13 @@ class Shop {
   String shopName;
   UserModel owner;
   String? shopImg;
+  String sellerId;
   Shop({
     this.id = '',
     required this.shopName,
     required this.owner,
     this.shopImg,
+    this.sellerId = '',
   });
 
   Map<String, dynamic> toMap() {
@@ -23,6 +25,7 @@ class Shop {
     if (shopImg != null) {
       result.addAll({'shopImg': shopImg});
     }
+    result.addAll({'sellerId': sellerId});
 
     return result;
   }
@@ -33,6 +36,7 @@ class Shop {
       shopName: map['shopName'] ?? '',
       owner: UserModel.fromMap(map['owner']),
       shopImg: map['shopImg'],
+      sellerId: map['sellerId'] ?? '',
     );
   }
 

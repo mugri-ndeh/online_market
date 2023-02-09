@@ -1,4 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_market/presentation/app_start/app_start_cubit.dart';
 import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/locator.dart';
 import 'package:online_market/util/contstants.dart';
@@ -9,14 +13,14 @@ import '../../profile/screens/edit_profile/edit_profile.dart';
 import '../../profile/screens/settings/theme_provider.dart';
 import '../ratings/seller_ratings.dart';
 
-class SellerProfile extends StatefulWidget {
-  SellerProfile({Key? key}) : super(key: key);
+class SellerProfilePage extends StatefulWidget {
+  SellerProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<SellerProfile> createState() => _SellerProfileState();
+  State<SellerProfilePage> createState() => _SellerProfilePageState();
 }
 
-class _SellerProfileState extends State<SellerProfile> {
+class _SellerProfilePageState extends State<SellerProfilePage> {
   @override
   void initState() {
     super.initState();
@@ -52,8 +56,9 @@ class _SellerProfileState extends State<SellerProfile> {
                 title: 'Logout',
                 subtitle: 'Quit the application',
                 color: AppColors.buttonColor,
-                onTap: () {
-                  locator<AuthService>().logout();
+                onTap: () async {
+                  await locator<AuthService>().logout();
+                  context.read<AppStartCubit>().logout();
                 }),
           ],
         )),

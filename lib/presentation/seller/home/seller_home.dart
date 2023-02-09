@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:online_market/services/locator.dart';
 
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
 import '../../../model/user_model.dart';
+import '../../../services/auth/auth_service.dart';
 import 'provider/homeProvider.dart';
 
-class SellerHome extends StatefulWidget {
-  SellerHome({Key? key}) : super(key: key);
+class SellerHomePage extends StatefulWidget {
+  SellerHomePage({Key? key}) : super(key: key);
 
   @override
-  State<SellerHome> createState() => _SellerHomeState();
+  State<SellerHomePage> createState() => _SellerHomePageState();
 }
 
-class _SellerHomeState extends State<SellerHome> {
-  late UserModel user;
-  late SellerHomeProvider sellerProvider;
-
+class _SellerHomePageState extends State<SellerHomePage> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    sellerProvider = Provider.of<SellerHomeProvider>(context, listen: false);
-    sellerProvider.init().then((value) {});
   }
 
   @override
@@ -33,78 +30,72 @@ class _SellerHomeState extends State<SellerHome> {
           child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
-          child: Consumer<SellerHomeProvider>(builder: (_, seller, __) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                HeaderWidget(
-                  size: size,
-                  user: user,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Analytics",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 140,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: [
-                      AnalyticsCard(
-                        color: Colors.redAccent.shade400,
-                        title: 'No Shops',
-                        icon: Icons.shopify,
-                        iconColor: AppColors.white,
-                        value: sellerProvider.shops.length.toString(),
-                      ),
-                      AnalyticsCard(
-                        color: Colors.orangeAccent.shade400,
-                        title: 'Total Products',
-                        icon: Icons.shopping_cart,
-                        iconColor: AppColors.success,
-                        value: sellerProvider.products.length.toString(),
-                      ),
-                      AnalyticsCard(
-                        color: Colors.blueAccent.shade400,
-                        title: 'Rating',
-                        icon: Icons.star,
-                        iconColor: Colors.yellow,
-                        value: "4.0",
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  "Earnings",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                const SizedBox(height: 10),
-                EarningCard(),
-                const SizedBox(height: 10),
-                Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              HeaderWidget(
+                size: size,
+                user: locator<AuthService>().loggedUser!,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Analytics",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 140,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
                   children: [
-                    Text(
-                      "Invoice",
-                      style: Theme.of(context).textTheme.headline6,
+                    AnalyticsCard(
+                      color: Colors.redAccent.shade400,
+                      title: 'No Shops',
+                      icon: Icons.shopify,
+                      iconColor: AppColors.white,
+                      value: '2',
                     ),
-                    IconButton(
-                      onPressed: () {
-                        sellerProvider.init().then((value) {
-                          setState(() {});
-                        });
-                      },
-                      icon: Icon(Icons.refresh),
-                    )
+                    AnalyticsCard(
+                      color: Colors.orangeAccent.shade400,
+                      title: 'Total Products',
+                      icon: Icons.shopping_cart,
+                      iconColor: AppColors.success,
+                      value: '10',
+                    ),
+                    AnalyticsCard(
+                      color: Colors.blueAccent.shade400,
+                      title: 'Rating',
+                      icon: Icons.star,
+                      iconColor: Colors.yellow,
+                      value: "4.0",
+                    ),
                   ],
                 ),
-                const SizedBox(height: 10),
-              ],
-            );
-          }),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                "Earnings",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const SizedBox(height: 10),
+              EarningCard(),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  Text(
+                    "Invoice",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(Icons.refresh),
+                  )
+                ],
+              ),
+              const SizedBox(height: 10),
+            ],
+          ),
         ),
       )),
     );

@@ -1,29 +1,44 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:online_market/model/product.dart';
+import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/firebase/firebase_helper.dart';
+import 'package:online_market/services/locator.dart';
 
-import '../../model/order.dart';
 import '../../model/shop.dart';
 
 class SellerRepository {
-  Future createShop(Shop shop) async {
-    await CustomFirestore.shopsRef.doc().set(shop.toMap());
+  static Future createShop(Shop shop) async {
+    await CustomFirestore.shopsRef.add(shop.toMap()).then((value) =>
+        CustomFirestore.shopsRef.doc(value.id).update({'id': value.id}));
   }
 
-  deleteProduct(Product product) async {
-    await CustomFirestore.shopsRef.doc(product.id).delete();
+  static Future deleteProduct(Product product) async {
+    await CustomFirestore.productsRef.doc(product.id).delete();
   }
 
-  acceptOrder(Order order) {}
+  // acceptOrder(Order order) {}
 
-  Future addProductToShop(Product product) async {
+  static Future addProductToShop(Product product) async {
     await CustomFirestore.productsRef.doc().set(product.toMap());
   }
 
-  Future editShopDetails(Shop shop) async {
+  static Future editShopDetails(Shop shop) async {
     await CustomFirestore.shopsRef.doc(shop.id).update(shop.toMap());
   }
 
-  Future editProductDetails(Product product) async {
+  static Future editProductDetails(Product product) async {
     await CustomFirestore.productsRef.doc(product.id).update(product.toMap());
+  }
+
+  static Stream<QuerySnapshot<Object?>> getShopProducts(String shopId) {
+    return CustomFirestore.productsRef
+        .where('sellerId', isEqualTo: shopId)
+        .snapshots();
+  }
+
+  static Stream<QuerySnapshot<Object?>> getUserShops() {
+    return CustomFirestore.shopsRef
+        .where('sellerId', isEqualTo: locator<AuthService>().loggedUser!.uid)
+        .snapshots();
   }
 }

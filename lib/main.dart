@@ -1,12 +1,17 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/presentation/auth/login/login.dart';
 import 'package:online_market/presentation/base_screen/base.dart';
+import 'package:online_market/presentation/cart/cart_provider.dart';
+import 'package:online_market/routes/routing.gr.dart';
 import 'package:online_market/util/theme.dart';
+import 'package:provider/provider.dart';
 
 import 'presentation/app_start/app_start_cubit.dart';
 import 'presentation/auth/complete_profile/complete_profile.dart';
+import 'presentation/favourites/favourites_provider.dart';
 import 'services/errors/global_error_handling/custom_consumer.dart';
 import 'services/locator.dart';
 
@@ -26,51 +31,34 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => CartHelper(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => FavouritesHelper(),
+        )
+      ],
+      child: MaterialApp.router(
         title: 'Emarket',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         darkTheme: customDarkTheme(),
         theme: customLightTheme(),
-        home: CustomBlocConsumer<AppStartCubit, AppStartState>(
-            builder: (context, state) {
-          if (state is CompleteProfile) {
-            return CompleteProfileScreen();
-          }
-          if (state is LoggedIn) {
-            return const BaseScreen();
-          }
-          if (state is LoggedOut) {
-            return Login();
-          }
-          return const MaterialApp(
-            home: LoadingScreen(),
-            debugShowCheckedModeBanner: false,
-          );
-        }));
+        routerDelegate: _appRouter.delegate(),
+        routeInformationParser: _appRouter.defaultRouteParser(),
+        key: _appRouter.key,
+      ),
+    );
   }
 
   // return ;
 }
-
-// class MarketApp extends StatelessWidget {
-//   const MarketApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Emarket',
-//       debugShowCheckedModeBanner: false,
-//       themeMode: ThemeMode.dark,
-//       darkTheme: customDarkTheme(),
-//       theme: customLightTheme(),
-//       home: const ,
-//     );
-
-//    }
-// }
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({Key? key}) : super(key: key);
@@ -86,5 +74,41 @@ class LoadingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+  static String route = '/splashScreen';
+  static String routeName = 'splashScreen';
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: CustomBlocConsumer<AppStartCubit, AppStartState>(
+      listener: (context, state) {
+        if (state is CompleteProfile) {
+          context.router.push(CompleteProfileRoute());
+        }
+        if (state is LoggedIn) {
+          if (state.isUser) {
+            context.router.push(const Base());
+          } else {
+            context.router.push(const SellerBase());
+          }
+        }
+        if (state is LoggedOut) {
+          context.router.push(LoginRoute());
+        }
+      },
+      builder: (context, state) {
+        return const LoadingScreen();
+      },
+    ));
   }
 }

@@ -1,7 +1,10 @@
 /// See readme.md in this folder for more information
+import 'package:another_flushbar/flushbar.dart';
+import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/util/helper.dart';
+import 'package:online_market/util/widgets/custom_flushbar.dart';
 
 import 'global_app_state.dart';
 
@@ -36,8 +39,8 @@ class CustomBlocConsumer<B extends BlocBase<S>, S extends GlobalAppState>
         listener: (ctx, state) {
           if (state.error != null) {
             final GlobalErrorData error = state.error!;
-            if (error.showToUser) debugPrint(error.errorMessage);
-            // showErrorSnackBar(ctx, error.errorMessage);
+            if (error.showToUser) showCustomFlushbar(error.errorMessage, ctx);
+            // showToast(error.errorMessage);
           }
 
           if (listener != null) {

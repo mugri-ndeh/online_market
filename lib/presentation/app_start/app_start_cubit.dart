@@ -26,7 +26,7 @@ class AppStartCubit extends Cubit<AppStartState> {
         if (value == null) {
           emit(LoggedOut());
         } else if (value.completedProfile == true) {
-          emit(LoggedIn());
+          emit(LoggedIn(isUser: value.accountType == 'customer'));
         } else {
           emit(CompleteProfile());
         }
@@ -41,5 +41,17 @@ class AppStartCubit extends Cubit<AppStartState> {
     } catch (e, s) {
       emit(AppStartError(error: GlobalErrorData(e, stackTrace: s)));
     }
+  }
+
+  login(String accountType) {
+    emit(LoggedIn(isUser: accountType == 'customer'));
+  }
+
+  logout() {
+    emit(LoggedOut());
+  }
+
+  completeProfile() {
+    emit(CompleteProfile());
   }
 }

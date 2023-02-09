@@ -18,4 +18,7 @@ class LoginError extends LoginState {
   const LoginError(this.error);
 }
 
-class LoginSuccess extends LoginState {}
+class LoginSuccess extends LoginState {
+  final UserModel userModel;
+  const LoginSuccess({required this.userModel});
+}

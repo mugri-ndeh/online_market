@@ -13,7 +13,8 @@ const Map<String, String> _errorCodeMap = {
   //https://firebase.google.com/docs/auth/admin/errors
   "email-already-exists":
       "Another user already exists with this email address.",
-  "invalid-password": "Please input a propper password"
+  "invalid-password": "Please input a propper password",
+  "email-already-in-use": "This email has already been taken"
 };
 
 /// Prefix can be 'firebase-auth/'. It will be removed.

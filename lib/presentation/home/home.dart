@@ -3,24 +3,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
+import '../../main.dart';
+import 'cubit/home_cubit.dart';
 import 'screens/all_products/index.dart';
 import 'screens/product_detail/product_detail.dart';
 import 'widgets/product_card.dart';
 import 'widgets/sidebar.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeState extends State<Home> {
+class _HomePageState extends State<HomePage> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   final List<String> imgList = [
@@ -54,65 +57,74 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      drawer: const SideBar(),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                showCustomSearch(context, size);
-              },
-              icon: Icon(
-                Icons.search,
-                color: Theme.of(context).brightness == Brightness.dark
-                    ? AppColors.white
-                    : AppColors.black,
-              ))
-        ],
-        centerTitle: true,
-        title: GestureDetector(
-          onTap: () {
-            getPromo();
-          },
-          child: Text(
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: Scaffold(
+        drawer: const SideBar(),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showCustomSearch(context, size);
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.white
+                      : AppColors.black,
+                ))
+          ],
+          centerTitle: true,
+          title: Text(
             'eMarket',
             style: Theme.of(context).textTheme.headline6,
           ),
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu,
-            color: Theme.of(context).brightness == Brightness.dark
-                ? AppColors.white
-                : AppColors.black,
-          ),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-            print("TAOPPED");
+        body: BlocConsumer<HomeCubit, HomeState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is HomeLoading) {
+              return LoadingScreen();
+            }
+            if (state is HomeLoaded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Constants.bodyHorizontalpadding / 1.5),
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    _jumbotron(context),
+                    _heading(context,
+                        heading: 'Clothing', caption: 'Best clothing products'),
+                    const SizedBox(height: 10),
+                    _imageCardSlider(
+                      url: imgList[2],
+                      prods: state.products
+                          .where((element) => element.category == 'clothing')
+                          .toList(),
+                    ),
+                    const SizedBox(height: 20),
+                    _heading(context,
+                        heading: 'Phones ',
+                        caption:
+                            'Get thhe mor rescent and up tp date equipment',
+                        destination: AllProductsPage()),
+                    const SizedBox(height: 10),
+                    _imageCardSlider(
+                      url: imgList[1],
+                      prods: state.products
+                          .where((element) => element.category == 'phones')
+                          .toList(),
+                    ),
+                  ],
+                )),
+              );
+            }
+            return Center();
           },
         ),
-        elevation: 0,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(
-            horizontal: Constants.bodyHorizontalpadding / 1.5),
-        child: SingleChildScrollView(
-            child: Column(
-          children: [
-            _jumbotron(context),
-            _heading(context, heading: 'Sale', caption: 'Super promotion sale'),
-            const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[2], prods: promo),
-            const SizedBox(height: 20),
-            _heading(context,
-                heading: 'New ',
-                caption: 'you\'ve never seen it before',
-                destination: AllProductsScreen()),
-            const SizedBox(height: 10),
-            _imageCardSlider(url: imgList[1], prods: products),
-          ],
-        )),
       ),
     );
   }
@@ -121,8 +133,7 @@ class _HomeState extends State<Home> {
     String? url,
     required List<Product> prods,
   }) {
-    return SizedBox(
-        // color: Colors.red,
+    return Container(
         height: 282,
         child: ListView.builder(
           itemCount: prods.length,
@@ -131,7 +142,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.only(right: 12.0),
                 child: GestureDetector(
                     onTap: () {
-                      push(context, ProductDetail(product: prods[index]));
+                      push(context, ProductDetailPage(product: prods[index]));
                     },
                     child: ProductCard(product: prods[index])),
               )),
@@ -159,7 +170,7 @@ class _HomeState extends State<Home> {
         ),
         TextButton(
             onPressed: () {
-              push(context, destination!);
+              push(context, AllProductsPage());
             },
             child: Text('View all'))
       ],

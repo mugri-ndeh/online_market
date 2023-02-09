@@ -15,6 +15,9 @@ class CustomFirestore {
 
   static CollectionReference get ordersRef => _firestore.collection(ORDER);
 
+  static CollectionReference get categoriesRef =>
+      _firestore.collection(CATEGORIES);
+
   /// Reference to the document of the current user
   static DocumentReference<dynamic> get userRef =>
       usersRef.doc(locator<AuthService>().loggedUser!.uid.toString());
@@ -28,4 +31,5 @@ class CustomFirestore {
   static const SHOP = 'shops';
   static const ORDER = 'orders';
   static const REVIEW = 'review';
+  static const CATEGORIES = 'categories';
 }

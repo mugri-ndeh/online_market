@@ -1,23 +1,35 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/presentation/home/screens/product_detail/product_detail.dart';
-import 'package:online_market/util/helper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:online_market/model/product.dart';
+import 'package:online_market/model/shop.dart';
+import 'package:online_market/util/palette.dart';
 
-import '../../model/product.dart';
-import '../../model/shop.dart';
-import '../../services/repository/seller_repository.dart';
-import '../seller/widgets/seller_product_card.dart';
+import '../../../../../routes/routing.gr.dart';
+import '../../../../../services/repository/seller_repository.dart';
+import '../../../widgets/seller_product_card.dart';
 
-class ShopDetail extends StatelessWidget {
-  const ShopDetail({Key? key, required this.shop}) : super(key: key);
+class ProductsPage extends StatelessWidget {
+  const ProductsPage({Key? key, required this.shop}) : super(key: key);
   final Shop shop;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products'),
+        iconTheme: Theme.of(context).iconTheme,
+        titleTextStyle: Theme.of(context).textTheme.headline6,
+        title: const Text('My Products'),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.buttonColor,
+        onPressed: () {
+          context.router.push(AddProductsRoute(shop: shop));
+        },
+        child: const Icon(FontAwesomeIcons.plus),
       ),
       body: StreamBuilder<QuerySnapshot<Object?>>(
           stream: SellerRepository.getShopProducts(shop.id),
@@ -38,7 +50,6 @@ class ShopDetail extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 20),
                   Expanded(
                     child: GridView.builder(
                       gridDelegate:
@@ -52,10 +63,7 @@ class ShopDetail extends StatelessWidget {
                       itemCount: products.length,
                       itemBuilder: (c, i) => IntrinsicHeight(
                         child: GestureDetector(
-                          onTap: () {
-                            push(context,
-                                ProductDetailPage(product: products[i]));
-                          },
+                          onTap: () {},
                           child: SellerProductCard(
                               product: products[i], shop: shop),
                         ),
@@ -66,6 +74,25 @@ class ShopDetail extends StatelessWidget {
               ),
             );
           }),
+      // : Padding(
+      //     padding: const EdgeInsets.all(8.0),
+      //     child: GridView.builder(
+      //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //         childAspectRatio: 1,
+      //         crossAxisCount: 2,
+      //         crossAxisSpacing: 12,
+      //         mainAxisSpacing: 12,
+      //       ),
+      //       scrollDirection: Axis.vertical,
+      //       itemCount: products.length,
+      //       itemBuilder: (c, i) => IntrinsicHeight(
+      //         child: GestureDetector(
+      //           onTap: () {},
+      //           child: SellerProductCard(product: products[i]),
+      //         ),
+      //       ),
+      //     ),
+      //   ),
     );
   }
 }

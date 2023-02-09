@@ -1,11 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:online_market/repository/api.dart';
 
 import 'package:online_market/model/cart.dart';
 import 'package:online_market/model/product.dart';
-// import 'package:online_market/services/customer/customer_api.dart';
-import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:provider/provider.dart';
@@ -21,26 +18,13 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  int total = 0;
-  getTotal(CartHelper cart) {
-    total = 0;
-    for (int i = 0; i < cart.cartItems.length; i++) {
-      CartItem item = CartItem.fromJson(cart.cartItems[i]);
-      Product foodItem = Product.fromMap(item.item!);
-      total = total + int.parse(foodItem.price.replaceAll('XAF', '').trim());
-    }
-    print(total);
-  }
-
   late CartHelper cart;
   late UserModel user;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     cart = Provider.of<CartHelper>(context, listen: false);
-    getTotal(cart);
   }
 
   @override
@@ -77,7 +61,6 @@ class _CartPageState extends State<CartPage> {
                     itemBuilder: (context, index) {
                       CartItem item = CartItem.fromJson(cart.cartItems[index]);
                       Product foodItem = Product.fromMap(item.item!);
-                      print(item.item);
                       return Container(
                         margin: const EdgeInsets.only(top: 8),
                         decoration: BoxDecoration(
@@ -120,7 +103,7 @@ class _CartPageState extends State<CartPage> {
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     Text(
-                                      foodItem.price + 'XAF',
+                                      '${int.parse(foodItem.price) * item.qty}XAF',
                                       style: TextStyle(
                                           color: AppColors.primaryColor),
                                     ),
@@ -139,9 +122,6 @@ class _CartPageState extends State<CartPage> {
                                       IconButton(
                                         onPressed: () {
                                           cart.remove(index);
-                                          setState(() {
-                                            getTotal(cart);
-                                          });
                                         },
                                         icon: const Icon(Icons.close),
                                         color: AppColors.primaryColor,
@@ -171,14 +151,11 @@ class _CartPageState extends State<CartPage> {
                       );
                     }),
               ),
-              Text('Total = ' + total.toString() + 'XAF'),
+              Text('${'Total = ${cart.total}'}XAF'),
               const SizedBox(height: 10),
               CustomButton(
                   child: const Text('Checkout'),
                   onTap: () async {
-                    // CartItem item = CartItem.fromJson(cart.cartItems[index]);
-                    // Product foodItem = Product.fromJson(item.item!);
-
                     List<CartItem> cartItems = cart.cartItems
                         .map((e) => CartItem.fromJson(e))
                         .toList();

@@ -9,18 +9,18 @@ import 'package:provider/provider.dart';
 import '../../../cart/cart_provider.dart';
 import '../../../favourites/favourites.dart';
 
-class ProductDetail extends StatefulWidget {
-  const ProductDetail({
+class ProductDetailPage extends StatefulWidget {
+  const ProductDetailPage({
     Key? key,
     required this.product,
   }) : super(key: key);
   final Product product;
 
   @override
-  State<ProductDetail> createState() => _ProductDetailState();
+  State<ProductDetailPage> createState() => _ProductDetailPageState();
 }
 
-class _ProductDetailState extends State<ProductDetail> {
+class _ProductDetailPageState extends State<ProductDetailPage> {
   int qty = 1;
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _ProductDetailState extends State<ProductDetail> {
                         borderRadius: BorderRadius.circular(20),
                         child: CachedNetworkImage(
                           imageUrl: widget.product.image,
-                          fit: BoxFit.contain,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -128,8 +128,6 @@ class _ProductDetailState extends State<ProductDetail> {
                     ),
                     onPressed: () {
                       bool onCart = cart.isCartitem(widget.product);
-                      bool notInShop = cart.isNotFromShop(widget.product);
-
                       if (onCart) {
                         showAlertDialog(
                             context, 'Error', 'Item is already on cart');
@@ -149,15 +147,15 @@ class _ProductDetailState extends State<ProductDetail> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          child: Icon(
-                            Icons.shopping_cart,
-                            color: AppColors.primaryColor,
-                          ),
                           height: 30,
                           width: 30,
                           decoration: BoxDecoration(
                             color: AppColors.scaffoldBg,
                             borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: const Icon(
+                            Icons.shopping_cart,
+                            color: AppColors.primaryColor,
                           ),
                         ),
                         const SizedBox(width: 5),

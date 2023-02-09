@@ -11,7 +11,10 @@ class AppStartInitial extends AppStartState {}
 
 class AppStartloading extends AppStartState {}
 
-class LoggedIn extends AppStartState {}
+class LoggedIn extends AppStartState {
+  final bool isUser;
+  const LoggedIn({required this.isUser});
+}
 
 class LoggedOut extends AppStartState {}
 
