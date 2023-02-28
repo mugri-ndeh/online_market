@@ -2,15 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_market/presentation/auth/login/login.dart';
-import 'package:online_market/presentation/base_screen/base.dart';
 import 'package:online_market/presentation/cart/cart_provider.dart';
 import 'package:online_market/routes/routing.gr.dart';
 import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'presentation/app_start/app_start_cubit.dart';
-import 'presentation/auth/complete_profile/complete_profile.dart';
 import 'presentation/favourites/favourites_provider.dart';
 import 'services/errors/global_error_handling/custom_consumer.dart';
 import 'services/locator.dart';

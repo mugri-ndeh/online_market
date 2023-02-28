@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/auth_service.dart';
 
@@ -12,15 +13,17 @@ import 'auth/auth_service.dart';
 GetIt locator = GetIt.instance;
 
 /// Should only be called at initial app start.
-void setupInitialLocator() {
-  _setupAppLocator();
+void setupInitialLocator() async {
+  await _setupAppLocator();
   setupUserDependentLocator();
 }
 
 /// Registers all services that are required by the app itself.
-void _setupAppLocator() {
+Future<void> _setupAppLocator() async {
   // locator.registerLazySingleton<NavigationService>(() => NavigationService());
+  SharedPreferences prefs = await SharedPreferences.getInstance();
   locator.registerLazySingleton<AuthService>(() => AuthService());
+  locator.registerLazySingleton<Mysettings>(() => Mysettings(prefs));
 }
 
 /// Also gets called when a new user logs in
@@ -41,4 +44,10 @@ void restartUserServices() {
   // locator.unregister(instance: locator<SurveyService>());
   _setupAppLocator();
   setupUserDependentLocator();
+}
+
+class Mysettings {
+  final SharedPreferences pref;
+
+  Mysettings(this.pref);
 }
