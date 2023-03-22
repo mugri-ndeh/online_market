@@ -9,9 +9,12 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   SignUpCubit() : super(SignUpInitial());
-  TextEditingController emailController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   String? _validateFields() {
     if (emailController.text.isEmpty) {
@@ -20,6 +23,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       return 'Please enter a username';
     } else if (passwordController.text.isEmpty) {
       return 'Please enter a password';
+    } else if (passwordController.text != confirmPasswordController.text) {
+      return 'Passwords donot match';
     } else {
       return null;
     }

@@ -2,124 +2,106 @@ import 'dart:async';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/customer/customer_api.dart';
+import 'package:online_market/presentation/home/screens/search/cubit/search_cubit.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
+import '../../../../services/errors/global_error_handling/custom_consumer.dart';
 import '../product_detail/product_detail.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget {
   const SearchScreen({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
-}
-
-class _SearchScreenState extends State<SearchScreen> {
-  final _searchController = TextEditingController();
-  List<Product> products = [];
-  Timer? debouncer;
-  String query = '';
-
-  Future searchBook(String query) async => debounce(
-        () async {
-          final products = (await UserApi.searchProducts(query))!;
-          if (!mounted) return;
-          setState(() {
-            this.query = query;
-            this.products = products;
-          });
-          print('RES');
-        },
-      );
-
-  void debounce(
-    VoidCallback callback, {
-    Duration duration = const Duration(milliseconds: 1000),
-  }) {
-    if (debouncer != null) {
-      debouncer!.cancel();
-    }
-    debouncer = Timer(duration, callback);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              SizedBox(
+    return BlocProvider(
+      create: (context) => SearchCubit(),
+      child: Scaffold(
+        body: SafeArea(
+          child: CustomBlocConsumer<SearchCubit, SearchState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(
-                            Icons.close,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        Expanded(
-                          child: Constants.formBox(
-                            context: context,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: TextFormField(
-                                      onChanged: (str) {
-                                        searchBook(str);
-                                      },
-                                      style:
-                                          Theme.of(context).textTheme.bodyText2,
-                                      controller: _searchController,
-                                      decoration:
-                                          Constants.inputDecoration('Search')),
+                    const SizedBox(height: 80),
+                    SizedBox(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.close,
                                 ),
-                                IconButton(
-                                    onPressed: () {
-                                      searchBook(_searchController.text);
-                                    },
-                                    icon: Icon(Icons.search))
-                              ],
-                            ),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              Expanded(
+                                child: Constants.formBox(
+                                  context: context,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: TextFormField(
+                                            onChanged: (str) {
+                                              context
+                                                  .read<SearchCubit>()
+                                                  .search();
+                                            },
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            controller: context
+                                                .watch<SearchCubit>()
+                                                .searchController,
+                                            decoration:
+                                                Constants.inputDecoration(
+                                                    'Search')),
+                                      ),
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(Icons.search))
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
-              ),
-              products.isEmpty
-                  ? const Center(
-                      child: Text('No results'),
-                    )
-                  : Expanded(
-                      child: ListView.separated(
-                        itemBuilder: (context, index) => SearchResult(
-                          product: products[index],
-                        ),
-                        separatorBuilder: (context, index) => const Divider(
-                          thickness: 2,
-                        ),
-                        itemCount: products.length,
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
+                          const SizedBox(height: 20),
+                        ],
                       ),
                     ),
-            ],
+                    if (state is SearchLoaded)
+                      state.products.isEmpty
+                          ? const Center(
+                              child: Text('No results'),
+                            )
+                          : Expanded(
+                              child: ListView.separated(
+                                itemBuilder: (context, index) => SearchResult(
+                                  product: state.products[index],
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const Divider(
+                                  thickness: 2,
+                                ),
+                                itemCount: state.products.length,
+                                shrinkWrap: true,
+                                physics: const ClampingScrollPhysics(),
+                              ),
+                            ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
@@ -135,7 +117,7 @@ class SearchResult extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
         onTap: () {
-          push(context, ProductDetail(product: product!));
+          push(context, ProductDetailPage(product: product!));
         },
         child: Container(
           margin: const EdgeInsets.only(top: 8),
@@ -151,7 +133,7 @@ class SearchResult extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(24),
                     child: CachedNetworkImage(
-                      imageUrl: Api.rootFolder + product!.image,
+                      imageUrl: product!.image,
                       fit: BoxFit.contain,
                     )),
               ),
@@ -174,7 +156,7 @@ class SearchResult extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        product!.qty.toString() + ' Available',
+                        product!.availableQuantity.toString() + ' Available',
                         style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ],

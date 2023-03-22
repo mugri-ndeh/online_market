@@ -1,53 +1,71 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/presentation/home/screens/product_detail/product_detail.dart';
 import 'package:online_market/util/helper.dart';
 
-import '../home/screens/product_detail/product_detail.dart';
-import '../home/widgets/product_card.dart';
+import '../../model/product.dart';
+import '../../model/shop.dart';
+import '../../services/repository/seller_repository.dart';
+import '../seller/widgets/seller_product_card.dart';
 
-class ShopDetail extends StatefulWidget {
-  const ShopDetail({Key? key, required this.products}) : super(key: key);
-  final List products;
+class ShopDetail extends StatelessWidget {
+  const ShopDetail({Key? key, required this.shop}) : super(key: key);
+  final Shop shop;
 
-  @override
-  State<ShopDetail> createState() => _ShopDetailState();
-}
-
-class _ShopDetailState extends State<ShopDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Products'),
+        title: const Text('Products'),
         elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 0.7,
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 12,
-                ),
-                scrollDirection: Axis.vertical,
-                itemCount: widget.products.length,
-                itemBuilder: (c, i) => IntrinsicHeight(
-                    child: GestureDetector(
-                  onTap: () {
-                    push(context, ProductDetail(product: widget.products[i]));
-                  },
-                  child: ProductCard(
-                    product: widget.products[i],
+      body: StreamBuilder<QuerySnapshot<Object?>>(
+          stream: SellerRepository.getShopProducts(shop.id),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            List<Product> products = snapshot.data!.docs
+                .map((e) => Product.fromMap(e.data() as Map<String, dynamic>))
+                .toList();
+            if (products.isEmpty) {
+              return const Center(
+                  child: Text('You have no products in this shop'));
+            }
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio: 1.0,
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 12,
+                        mainAxisSpacing: 12,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: products.length,
+                      itemBuilder: (c, i) => IntrinsicHeight(
+                        child: GestureDetector(
+                          onTap: () {
+                            push(context,
+                                ProductDetailPage(product: products[i]));
+                          },
+                          child: SellerProductCard(
+                              product: products[i], shop: shop),
+                        ),
+                      ),
+                    ),
                   ),
-                )),
+                ],
               ),
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
     );
   }
 }

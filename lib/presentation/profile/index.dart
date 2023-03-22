@@ -1,31 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:online_market/services/auth/auth_service.dart';
+import 'package:online_market/services/locator.dart';
 import 'package:online_market/util/contstants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/user_model.dart';
-import '../auth/providers/auth_provider.dart';
 import 'screens/settings/theme_provider.dart';
 import 'screens/edit_profile/edit_profile.dart';
 import 'screens/orders/orders.dart';
 
-class Profile extends StatefulWidget {
-  Profile({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  ProfilePage({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
-  late Authentication auth;
-  late UserModel userModel;
-
+class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    auth = Provider.of<Authentication>(context, listen: false);
-    userModel = auth.loggedUser!;
   }
 
   @override
@@ -47,10 +43,7 @@ class _ProfileState extends State<Profile> {
             _profileCard(
                 title: 'Edit profile',
                 subtitle: 'Edit user details',
-                destination: EditProfile()),
-            const SizedBox(height: 10),
-            const SizedBox(height: 10),
-            _profileCard(title: 'My reviews', subtitle: 'See your reviews'),
+                destination: const EditProfile()),
             const SizedBox(height: 10),
             _profileCard(
                 title: 'Settings',
@@ -79,11 +72,11 @@ class _ProfileState extends State<Profile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.username,
+                  locator<AuthService>().loggedUser!.username,
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  userModel.firstName + ' ' + userModel.lastName,
+                  '${locator<AuthService>().loggedUser!.firstName} ${locator<AuthService>().loggedUser!.lastName}',
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ],

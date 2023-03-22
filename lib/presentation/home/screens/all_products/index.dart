@@ -1,93 +1,88 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_market/main.dart';
 import 'package:online_market/model/category.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/services/common/common_api.dart';
-import 'package:online_market/services/customer/customer_api.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../model/shop.dart';
+import '../../../../services/errors/global_error_handling/custom_consumer.dart';
 import '../../../favourites/favourites_provider.dart';
+import 'cubit/all_products_cubit.dart';
 
-class AllProductsScreen extends StatefulWidget {
-  AllProductsScreen({Key? key}) : super(key: key);
+class AllProductsPage extends StatefulWidget {
+  const AllProductsPage({Key? key}) : super(key: key);
 
   @override
-  State<AllProductsScreen> createState() => _AllProductsScreenState();
+  State<AllProductsPage> createState() => _AllProductsPageState();
 }
 
-class _AllProductsScreenState extends State<AllProductsScreen> {
-  List<Category> categories = [];
-  List<Product> products = [];
-  Future getCategories() async {
-    categories = await CommonApi.getCatgories();
-  }
-
-  Future getProducts() async {
-    products = (await UserApi.getProducts())!;
-  }
-
-  List<Product> getListPro() {
-    List<Product> prods = products
-        .where((element) =>
-            element.category == categories[_selectedIndex].categoryName)
-        .toList();
-    return prods;
-  }
-
+class _AllProductsPageState extends State<AllProductsPage> {
   int _selectedIndex = 0;
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getCategories().then((value) {
-      getProducts().then((value) {
-        setState(() {});
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        iconTheme: Theme.of(context).iconTheme,
-        elevation: 0,
-        title: Text(
-          'All Products',
-          style: Theme.of(context).textTheme.headline4,
+    return BlocProvider(
+      create: (context) => AllProductsCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          iconTheme: Theme.of(context).iconTheme,
+          elevation: 0,
+          title: Text(
+            'All Products',
+            style: Theme.of(context).textTheme.headline4,
+          ),
         ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            SizedBox(
-              height: 40,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: categories.length,
-                  itemBuilder: (c, i) =>
-                      _topTab(c, i, categories[i].categoryName)),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: getListPro().length,
-                itemBuilder: (c, i) {
-                  return ProductCardExtended(
-                    product: getListPro()[i],
-                  );
-                },
-              ),
-            )
-          ],
+        body: CustomBlocConsumer<AllProductsCubit, AllProductsState>(
+          listener: (context, state) {
+            // TODO: implement listener
+          },
+          builder: (context, state) {
+            if (state is AllProductsLoading) {
+              return const LoadingScreen();
+            }
+            if (state is AllProductsLoaded) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      height: 40,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: state.categories.length,
+                          itemBuilder: (c, i) =>
+                              _topTab(c, i, state.categories[i])),
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                      child: ListView.separated(
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.products.length,
+                        itemBuilder: (c, i) {
+                          return ProductCardExtended(
+                            product: state.products[i],
+                            shop: context
+                                .read<AllProductsCubit>()
+                                .getShop(state.products[i]),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const SizedBox(height: 20);
+                        },
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }
+            return const Center();
+          },
         ),
       ),
     );
@@ -98,6 +93,8 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
       onTap: () {
         setState(() {
           _selectedIndex = index;
+          context.read<AllProductsCubit>().filterCategory(
+              context.read<AllProductsCubit>().categories[_selectedIndex]);
         });
       },
       child: Container(
@@ -161,9 +158,11 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
 }
 
 class ProductCardExtended extends StatelessWidget {
-  const ProductCardExtended({Key? key, required this.product})
+  const ProductCardExtended(
+      {Key? key, required this.product, required this.shop})
       : super(key: key);
   final Product product;
+  final Shop shop;
 
   @override
   Widget build(BuildContext context) {
@@ -191,14 +190,10 @@ class ProductCardExtended extends StatelessWidget {
                 height: 150,
                 width: 200,
                 child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8),
-                    ),
                     child: CachedNetworkImage(
-                      imageUrl: Api.rootFolder + product.image,
-                      fit: BoxFit.contain,
-                    )),
+                  imageUrl: product.image,
+                  fit: BoxFit.cover,
+                )),
               ),
               Container(
                 width: 1,
@@ -217,7 +212,7 @@ class ProductCardExtended extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Shop owner',
+                            '${shop.owner.firstName} ${shop.owner.lastName}',
                             style: Theme.of(context).textTheme.caption,
                           ),
                           Text(
@@ -225,7 +220,7 @@ class ProductCardExtended extends StatelessWidget {
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
-                            product.price + 'XAF',
+                            '${product.price}XAF',
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                         ],

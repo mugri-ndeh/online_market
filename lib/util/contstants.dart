@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'palette.dart';
 
 class Assets {
-  static const String logo = '';
+  static const String logo = 'assets/images/illustration-1.png';
 }
 
 class Constants {
@@ -22,11 +22,14 @@ class Constants {
   }
 
   static Container formBox(
-      {required Widget child, required BuildContext context}) {
+      {required Widget child,
+      required BuildContext context,
+      double borderRadius = 4,
+      double padding = 12}) {
     return Container(
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
-          borderRadius: BorderRadius.circular(4),
+          borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
                 color: Colors.grey.withOpacity(0.2),
@@ -34,7 +37,7 @@ class Constants {
                 spreadRadius: 1)
           ]),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        padding: EdgeInsets.symmetric(horizontal: padding),
         child: child,
       ),
     );

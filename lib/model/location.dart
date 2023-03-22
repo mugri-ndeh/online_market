@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class UserLocation {
   String id;
   String town;
@@ -5,25 +7,34 @@ class UserLocation {
   String quarter;
 
   UserLocation({
-    this.region = '',
     this.id = '',
     this.town = '',
+    this.region = '',
     this.quarter = '',
   });
-  factory UserLocation.fromJson(Map<String, dynamic> json) {
-    return UserLocation(
-        region: json['region'],
-        id: json['id'],
-        town: json['town'],
-        quarter: json['quarter']);
+
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'id': id});
+    result.addAll({'town': town});
+    result.addAll({'region': region});
+    result.addAll({'quarter': quarter});
+
+    return result;
   }
 
-  Map<String, String> toJson() {
-    return {
-      'region': region,
-      'id': id,
-      'town': town,
-      'quarter': quarter,
-    };
+  factory UserLocation.fromMap(Map<String, dynamic> map) {
+    return UserLocation(
+      id: map['id'] ?? '',
+      town: map['town'] ?? '',
+      region: map['region'] ?? '',
+      quarter: map['quarter'] ?? '',
+    );
   }
+
+  String toJson() => json.encode(toMap());
+
+  factory UserLocation.fromJson(String source) =>
+      UserLocation.fromMap(json.decode(source));
 }

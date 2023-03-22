@@ -10,6 +10,7 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  another_flushbar: ^1.12.29
   auto_route: ^5.0.4
   cached_network_image: ^3.2.0
   carousel_slider: ^4.1.1
@@ -25,11 +26,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
+  fluttertoast: ^8.1.2
   font_awesome_flutter: ^10.1.0
   get_it: ^7.2.0
   google_fonts: ^4.0.3
   google_nav_bar: ^5.0.5
   http: ^0.13.4
+  image_cropper: ^3.0.1
   image_picker: ^0.8.5+3
   intl_phone_field: ^3.0.1
   localstorage: ^4.0.0+1
@@ -43,7 +46,10 @@ dependencies:
   unicons: ^2.1.0
 
 dev_dependencies:
+  auto_route_generator: ^5.0.3
+  build_runner: null
   flutter_lints: ^2.0.1
+
   flutter_test:
     sdk: flutter
 

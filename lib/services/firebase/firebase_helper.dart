@@ -7,7 +7,16 @@ class CustomFirestore {
   static final _firestore = FirebaseFirestore.instance;
 
   static CollectionReference get usersRef =>
-      _firestore.collection(_USERS_COLLECTION);
+      _firestore.collection(USERS_COLLECTION);
+
+  static CollectionReference get productsRef => _firestore.collection(PRODUCTS);
+
+  static CollectionReference get shopsRef => _firestore.collection(SHOP);
+
+  static CollectionReference get ordersRef => _firestore.collection(ORDER);
+
+  static CollectionReference get categoriesRef =>
+      _firestore.collection(CATEGORIES);
 
   /// Reference to the document of the current user
   static DocumentReference<dynamic> get userRef =>
@@ -17,21 +26,10 @@ class CustomFirestore {
   //     .collection(_GLOBAL_CONFIG_COLLECTION)
   //     .doc(CoreConfig.currentConfig.globalConfigCollection);
 
-  static const _USERS_COLLECTION = 'users';
-  static const _PRODUCTS = 'products';
-  static const _SHOP = 'shops';
-  static const _REVIEW = 'review';
-  // static const _GLOBAL_CONFIG_COLLECTION = 'globalConfig';
-
-  static const CHAT = 'chat';
-  static const GENERAL_COLLECTION = 'general';
-  static const MULTI_PREGNANCY_COLLECTION = 'multi_pregnancy';
-  static const UNDER_18_COLLETION = 'under_18';
-  static const OVER_35_COLLECTION = 'over_35';
-  static const PRE_CLAMPSIA_COLLECTION = 'pre_clampsia';
-  static const DIABETES_COLLECTION = 'diabetes';
-  static const PLACENTA_PRAEVIA_COLLECTION = 'placenta_pravevia';
-
-  static CollectionReference chatForumn(String path) =>
-      _firestore.collection(CHAT).doc(path).collection(path);
+  static const USERS_COLLECTION = 'users';
+  static const PRODUCTS = 'products';
+  static const SHOP = 'shops';
+  static const ORDER = 'orders';
+  static const REVIEW = 'review';
+  static const CATEGORIES = 'categories';
 }

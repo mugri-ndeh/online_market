@@ -10,7 +10,6 @@ class CartHelper with ChangeNotifier {
 
   init() async {
     cartItems = await getCartItems();
-    print('CART HELPER');
     notifyListeners();
   }
 
@@ -18,17 +17,16 @@ class CartHelper with ChangeNotifier {
     init();
   }
 
-  bool isCartitem(Product foodItem) {
+  bool isCartitem(Product cartItem) {
     bool cartitem = false;
     int i;
     for (i = 0; i < cartItems.length; i++) {
-      if (foodItem.id == CartItem.fromJson(cartItems[i]).item!['id']) {
+      if (cartItem.id == CartItem.fromJson(cartItems[i]).item!['id']) {
         cartitem = true;
       }
     }
     isCartItem = cartitem;
     notifyListeners();
-    print(cartitem);
     return cartitem;
   }
 
@@ -40,9 +38,7 @@ class CartHelper with ChangeNotifier {
         shopItem = true;
       }
     }
-    // isCartItem = shopItem
     notifyListeners();
-    // print(cartitem);
     return shopItem;
   }
 
@@ -55,34 +51,15 @@ class CartHelper with ChangeNotifier {
   remove(int id) async {
     await storage.ready;
 
-    // cartItems.removeWhere((element) {
-    //   //print(element.values);
-    //   var val = false;
-    //   print(cartItem.toJson()['id']);
-
-    //   if (element['id'] == cartItem.toJson()['id']) {
-    //     val = true;
-    //   } else {
-    //     val = false;
-    //   }
-    //   return val;
-
-    //   //return element.values == song.toJson().values;
-    // });
-
     cartItems.removeAt(id);
-    print(cartItems);
     _saveToStorage();
     notifyListeners();
-    //storage.deleteItem('favourite $name');
   }
 
   _saveToStorage() async {
     await storage.ready;
-    // List existing = await getFavourites();
-    // existing.add(song.toJson());
     storage.setItem('cart', cartItems);
-    print('SAVED CORRECTLY');
+    getTotal();
     notifyListeners();
   }
 
@@ -98,7 +75,19 @@ class CartHelper with ChangeNotifier {
     await storage.ready;
     await storage.clear();
     cartItems = [];
-    print('Cleared');
+    notifyListeners();
+  }
+
+  int total = 0;
+
+  getTotal() {
+    total = 0;
+    for (int i = 0; i < cartItems.length; i++) {
+      CartItem item = CartItem.fromJson(cartItems[i]);
+      Product foodItem = Product.fromMap(item.item!);
+      total = total +
+          (int.parse(foodItem.price.replaceAll('XAF', '').trim()) * item.qty);
+    }
     notifyListeners();
   }
 }

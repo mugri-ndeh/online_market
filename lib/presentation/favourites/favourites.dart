@@ -1,27 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/api/api.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
 import 'favourites_provider.dart';
 
-class Favourites extends StatefulWidget {
-  const Favourites({Key? key}) : super(key: key);
+class FavouritesPage extends StatefulWidget {
+  const FavouritesPage({Key? key}) : super(key: key);
 
   @override
-  State<Favourites> createState() => _FavouritesState();
+  State<FavouritesPage> createState() => _FavouritesPageState();
 }
 
-class _FavouritesState extends State<Favourites> {
+class _FavouritesPageState extends State<FavouritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
           centerTitle: true,
-          title: Text(
+          title: const Text(
             'Favourites',
             style: TextStyle(color: AppColors.black),
           ),
@@ -35,9 +34,6 @@ class _FavouritesState extends State<Favourites> {
               itemBuilder: ((context, index) => FavouriteCard(
                   foodItem: Product.fromJson(fav.favourites[index]))),
             ),
-            // child: Column(
-            //   children: [FavouriteCard(foodItem: Api().fooditems[3])],
-            // ),
           );
         })));
   }
@@ -73,8 +69,7 @@ class FavouriteCard extends StatelessWidget {
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8)),
                         child: CachedNetworkImage(
-                            imageUrl: Api.rootFolder + foodItem.image,
-                            fit: BoxFit.contain)),
+                            imageUrl: foodItem.image, fit: BoxFit.cover)),
                   ),
                   Positioned(
                     top: 140,

@@ -16,16 +16,11 @@ class GlobalErrorData extends Equatable {
   final dynamic error;
   final StackTrace? stackTrace;
 
-  /// Whether this error should be reported/sent to Crashlytics or another ErrorService.
   ///
   /// If null, [CustomBlocConsumer] will use the implemented logic of [ErrorService.shouldBeReported] to determine whether to report an error or not. E.g. internet errors will never be reported.
   ///
-  /// If true, an error detected by the consumer will be reported, even if filters would usually apply.
-  ///
-  /// If false, the error will be shown to the user, but the error won't be reported to the ErrorService.
   ///
   /// Defaults to null.
-  final bool? reportToServer;
 
   /// Whether a dialog should be displayed.
   ///
@@ -35,7 +30,6 @@ class GlobalErrorData extends Equatable {
   const GlobalErrorData(this.error,
       {this.stackTrace,
       this.showToUser = true,
-      this.reportToServer,
 
       /// Optional, user facing message.
       ///
@@ -64,13 +58,9 @@ class GlobalErrorData extends Equatable {
 
     if (detectedErrorType != ErrorType.Unknown) {
       // If you get an error here, just find out which [error] was actually thrown by debugging and add a message for it in the [errorStrings] section.
-      assert(errorStrings.containsKey(detectedErrorType),
-          "Please implement an String representive / error message for the ${detectedErrorType.toString()} that can be shown to the user.");
       return errorStrings[detectedErrorType]!;
     }
 
-    assert(errorStrings.containsKey(ErrorType.Unknown),
-        "You should have a message for unknown errors that can be displayed to the user. Error was $error");
     return error?.toString() ?? errorStrings[ErrorType.Unknown]!;
   }
 
@@ -80,6 +70,5 @@ class GlobalErrorData extends Equatable {
         error,
         stackTrace,
         showToUser,
-        reportToServer,
       ];
 }

@@ -1,56 +1,55 @@
 import 'dart:convert';
 
+import 'package:online_market/model/product.dart';
+
 class Order {
-  int orderId;
-  List<Map<String, dynamic>>? products;
+  String orderId;
+  List<Product> products;
   int quantity;
   String state;
-  int userId;
+  String userId;
   int priceTotal;
-  String date;
+  DateTime date;
+  Order({
+    required this.orderId,
+    required this.products,
+    required this.quantity,
+    required this.state,
+    required this.userId,
+    required this.priceTotal,
+    required this.date,
+  });
 
-  Order(
-      {this.orderId = 0,
-      this.products,
-      this.quantity = 0,
-      this.state = '',
-      this.priceTotal = 0,
-      this.userId = 0,
-      this.date = ''});
-  factory Order.fromJson(Map<String, dynamic> json) {
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'orderId': orderId});
+    result.addAll({'products': products.map((x) => x.toMap()).toList()});
+    result.addAll({'quantity': quantity});
+    result.addAll({'state': state});
+    result.addAll({'userId': userId});
+    result.addAll({'priceTotal': priceTotal});
+    result.addAll({'date': date.millisecondsSinceEpoch});
+
+    return result;
+  }
+
+  factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
-      orderId: json['id'] is String ? int.parse(json['id']) : json['id'],
-      products: json['items'] == null ? null : jsonDecode(json['items']),
-      quantity: json['qty'] is String ? int.parse(json['qty']) : json['qty'],
-      state: json['state'],
-      userId: json['uid'] is String ? int.parse(json['uid']) : json['uid'] ?? 0,
-      priceTotal: json['price_total'] is String
-          ? int.parse(json['price_total'])
-          : json['price_total'],
-      date: json['date'],
+      orderId: map['orderId'] ?? '',
+      products:
+          List<Product>.from(map['products']?.map((x) => Product.fromMap(x))),
+      quantity: map['quantity']?.toInt() ?? 0,
+      state: map['state'] ?? '',
+      userId: map['userId'] ?? '',
+      priceTotal: map['priceTotal']?.toInt() ?? 0,
+      date: DateTime.fromMillisecondsSinceEpoch(map['date']),
     );
   }
 
-  factory Order.fromBbJson(Map<String, dynamic> json) {
-    return Order(
-      orderId: json['id'],
-      quantity: json['qty'],
-      state: json['state'],
-      priceTotal: json['price_total'],
-      date: json['date'],
-    );
-  }
+  String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': orderId,
-      'food_items': products,
-      'qty': quantity,
-      'o_state': state,
-      'user_id': userId,
-      'price_total': priceTotal,
-    };
-  }
+  factory Order.fromJson(String source) => Order.fromMap(json.decode(source));
 }
 
 class OrderR {

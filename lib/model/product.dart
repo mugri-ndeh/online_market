@@ -1,62 +1,51 @@
+import 'dart:convert';
+
 class Product {
-  int id;
+  String id;
   String name;
   String category;
   String price;
   String image;
-  int shopId;
-  int qty;
+  int availableQuantity;
+  String shopId;
   Product({
-    this.id = 0,
-    this.name = '',
-    this.category = '',
-    this.price = '',
-    this.image = '',
-    this.qty = 0,
-    this.shopId = 0,
+    this.id = '',
+    required this.name,
+    required this.category,
+    required this.price,
+    required this.image,
+    required this.availableQuantity,
+    required this.shopId,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  Map<String, dynamic> toMap() {
+    final result = <String, dynamic>{};
+
+    result.addAll({'id': id});
+    result.addAll({'name': name});
+    result.addAll({'category': category});
+    result.addAll({'price': price});
+    result.addAll({'image': image});
+    result.addAll({'availableQuantity': availableQuantity});
+    result.addAll({'sellerId': shopId});
+
+    return result;
+  }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
     return Product(
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
-      name: json['name'],
-      category: json['category_name'],
-      price: json['price'],
-      image: json['image'],
-      qty: json['quantity'] is String
-          ? int.parse(json['quantity'])
-          : json['quantity'],
-      shopId: json['shop_id'] is String
-          ? int.parse(json['shop_id'])
-          : json['shop_id'],
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      category: map['category'] ?? '',
+      price: map['price'] ?? '',
+      image: map['image'] ?? '',
+      availableQuantity: map['availableQuantity']?.toInt() ?? 0,
+      shopId: map['sellerId'] ?? '',
     );
   }
 
-  factory Product.fromSellerJson(Map<String, dynamic> json) {
-    return Product(
-      id: json['id'] is String ? int.parse(json['id']) : json['id'],
-      name: json['name'],
-      category: json['category_id'].toString(),
-      price: json['price'],
-      image: json['image'],
-      qty: json['quantity'] is String
-          ? int.parse(json['quantity'])
-          : json['quantity'],
-      shopId: json['shop_id'] is String
-          ? int.parse(json['shop_id'])
-          : json['shop_id'],
-    );
-  }
+  String toJson() => json.encode(toMap());
 
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "name": name,
-      "category_name": category,
-      "price": price,
-      "image": image,
-      "quantity": qty,
-      "shop_id": shopId
-    };
-  }
+  factory Product.fromJson(String source) =>
+      Product.fromMap(json.decode(source));
 }

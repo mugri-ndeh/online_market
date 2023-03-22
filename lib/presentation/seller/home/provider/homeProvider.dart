@@ -2,25 +2,21 @@ import 'package:flutter/widgets.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/rating.dart';
 import 'package:online_market/model/shop.dart';
-import 'package:online_market/services/seller/seller_api.dart';
-
-import '../../../auth/providers/auth_provider.dart';
 
 class SellerHomeProvider with ChangeNotifier {
-  SellerHomeProvider({this.auth});
-  Authentication? auth;
+  SellerHomeProvider();
 
-  List<Shop> shops = [];
+  List<Product> shops = [];
   List<Product> products = [];
   List<Rating> rating = [];
 
   Future getShops() async {
-    shops = (await SellApi.getStores(auth!.loggedUser!.uid))!;
+    // shops = (await SellApi.getStores(0))!;
     notifyListeners();
   }
 
   Future getProducts() async {
-    products = (await SellApi.getAllProducts(auth!.loggedUser!.uid))!;
+    // products = (await SellApi.getAllProducts(0))!;
     notifyListeners();
   }
 
@@ -35,6 +31,5 @@ class SellerHomeProvider with ChangeNotifier {
     getShops();
     getProducts();
     print('USER IS');
-    print(auth!.loggedUser!.username);
   }
 }
