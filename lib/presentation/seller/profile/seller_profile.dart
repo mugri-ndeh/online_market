@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/presentation/app_start/app_start_cubit.dart';
 import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/locator.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
@@ -40,7 +40,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
             _profileCard(
                 title: 'Edit profile',
                 subtitle: 'Edit user details',
-                destination: EditProfile()),
+                destination: const EditProfile()),
             const SizedBox(height: 10),
             _profileCard(
                 title: 'My reviews',
@@ -70,10 +70,12 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 15),
         Text(
           'My profile',
           style: Theme.of(context).textTheme.headline1,
         ),
+        const SizedBox(height: 15),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

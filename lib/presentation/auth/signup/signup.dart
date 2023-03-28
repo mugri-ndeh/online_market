@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/main.dart';
 import 'package:online_market/presentation/auth/signup/cubit/sign_up_cubit.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:online_market/util/widgets/custom_input.dart';
@@ -38,6 +38,7 @@ class SignUpPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 10),
                       Text(
                         'Sign Up',
                         style: Theme.of(context).textTheme.headline1,
@@ -47,26 +48,26 @@ class SignUpPage extends StatelessWidget {
                           controller:
                               context.watch<SignUpCubit>().usernameController,
                           obscureText: false,
-                          hint: 'username'),
+                          hint: 'Username'),
                       const SizedBox(height: 10),
                       CustomInputField(
                           controller:
                               context.watch<SignUpCubit>().emailController,
                           obscureText: false,
-                          hint: 'email'),
+                          hint: 'Email'),
                       const SizedBox(height: 10),
                       CustomInputField(
                           controller:
                               context.watch<SignUpCubit>().passwordController,
                           obscureText: true,
-                          hint: 'password'),
+                          hint: 'Password'),
                       const SizedBox(height: 10),
                       CustomInputField(
                           controller: context
                               .watch<SignUpCubit>()
                               .confirmPasswordController,
                           obscureText: true,
-                          hint: 'confirm password'),
+                          hint: 'Confirm Password'),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,

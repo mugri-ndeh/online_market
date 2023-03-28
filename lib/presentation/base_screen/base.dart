@@ -126,7 +126,7 @@ class _BasePageState extends State<BasePage> {
                           });
                         },
                         icon: Icons.shop_outlined,
-                        text: 'Shop',
+                        text: 'Products',
                       ),
                       GButton(
                         padding: const EdgeInsets.all(10),

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 
 class SellerOrdersPage extends StatefulWidget {
   SellerOrdersPage({Key? key}) : super(key: key);

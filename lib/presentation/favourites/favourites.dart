@@ -22,7 +22,11 @@ class _FavouritesPageState extends State<FavouritesPage> {
           centerTitle: true,
           title: const Text(
             'Favourites',
-            style: TextStyle(color: AppColors.black),
+            style: TextStyle(
+                color: AppColors.black,
+              fontSize: 30,
+              fontWeight: FontWeight.bold
+            ),
           ),
           elevation: 0,
         ),

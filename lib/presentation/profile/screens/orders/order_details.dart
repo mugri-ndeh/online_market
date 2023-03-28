@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/model/order.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 
 import '../../widgets.dart';
 

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/locator.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
+import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../model/user_model.dart';
+import '../app_start/app_start_cubit.dart';
 import 'screens/settings/theme_provider.dart';
 import 'screens/edit_profile/edit_profile.dart';
 import 'screens/orders/orders.dart';
@@ -49,6 +52,15 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: 'Settings',
                 subtitle: 'Change theme',
                 destination: SettingsPage()),
+            //const SizedBox(height: 10),
+            // _profileCard(
+            //      title: 'Logout',
+            //      subtitle: 'Quit the application',
+            //      color: AppColors.buttonColor,
+            //      onTap: () async {
+            //        await locator<AuthService>().logout();
+            //        context.read<AppStartCubit>().logout();
+            //      }),
           ],
         )),
       ),
@@ -59,10 +71,12 @@ class _ProfilePageState extends State<ProfilePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(height: 10),
         Text(
           'My profile',
           style: Theme.of(context).textTheme.headline1,
         ),
+        const SizedBox(height: 20),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -88,7 +102,11 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _profileCard(
-      {required String title, required String subtitle, Widget? destination}) {
+      {required String title,
+        required String subtitle,
+        Widget? destination,
+        Function()? onTap,
+        Color? color}) {
     return GestureDetector(
       onTap: () {
         push(context, destination!);

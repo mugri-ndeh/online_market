@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:online_market/model/product.dart';
 import 'package:online_market/model/shop.dart';
 import 'package:online_market/services/repository/user_repository.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 
 import '../../services/repository/seller_repository.dart';
@@ -66,11 +66,12 @@ class _ShopPageState extends State<ShopPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Explore all Shops',
+                'Explore all Products',
                 style: Theme.of(context).textTheme.headline2,
               ),
+              const SizedBox(height: 10),
               Text(
-                'Find the right products for you',
+                'Find the items you have been looking for',
                 style: Theme.of(context).textTheme.bodyText2,
               ),
               const SizedBox(height: 10),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_market/model/order.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
@@ -67,18 +67,19 @@ class _OrdersState extends State<Orders> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 10),
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
                 },
                 child: const Icon(Icons.arrow_back_ios),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
               Text(
                 'My Orders',
                 style: Theme.of(context).textTheme.headline1,
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

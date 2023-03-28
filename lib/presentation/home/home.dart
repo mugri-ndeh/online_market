@@ -5,7 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_market/model/product.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
@@ -27,10 +27,10 @@ class _HomePageState extends State<HomePage> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
   final List<String> imgList = [
-    'https://m.media-amazon.com/images/I/71vvXGmdKWL._AC_SL1500_.jpg',
-    'https://m.media-amazon.com/images/I/71Ps25MnkNL._AC_UY575_.jpg',
-    'https://m.media-amazon.com/images/I/817aOXLoNpL._AC_SL1500_.jpg',
-    'https://m.media-amazon.com/images/I/71rXSVqET9L._AC_SL1257_.jpg'
+    'https://post.healthline.com/wp-content/uploads/2020/09/AN313-Tomatoes-732x549-Thumb.jpg',
+    'https://media.istockphoto.com/id/1334869342/photo/roots-cassava-for-sale-at-fair.jpg?b=1&s=170667a&w=0&k=20&c=EDEmFyrfjByRfiR5Hpl_1r8ALH1ejHVwV3uyKNRAQJ8=',
+    'https://images.unsplash.com/photo-1601648764658-cf37e8c89b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlcHBlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
+    'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFpemUlMjBtYXJrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
   ];
 
   List<Product> promo = [];
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           ],
           centerTitle: true,
           title: Text(
-            'eMarket',
+            'Agro Market',
             style: Theme.of(context).textTheme.headline6,
           ),
           elevation: 0,
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     _jumbotron(context),
                     _heading(context,
-                        heading: 'Clothing', caption: 'Best clothing products'),
+                        heading: 'Food crops', caption: 'Get your products fresh from the market'),
                     const SizedBox(height: 10),
                     _imageCardSlider(
                       url: imgList[2],
@@ -107,9 +107,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     const SizedBox(height: 20),
                     _heading(context,
-                        heading: 'Phones ',
+                        heading: 'Livestock',
                         caption:
-                            'Get thhe mor rescent and up tp date equipment',
+                            'Anything livestock for your feasts ?',
                         destination: AllProductsPage()),
                     const SizedBox(height: 10),
                     _imageCardSlider(
@@ -133,7 +133,7 @@ class _HomePageState extends State<HomePage> {
     String? url,
     required List<Product> prods,
   }) {
-    return Container(
+    return SizedBox(
         height: 282,
         child: ListView.builder(
           itemCount: prods.length,

@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:online_market/main.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:online_market/util/widgets/custom_input.dart';
-
+import 'package:online_market/market_theme.dart';
 import '../../../model/user_model.dart';
 import '../../../services/errors/global_error_handling/custom_consumer.dart';
 import '../../app_start/app_start_cubit.dart';
@@ -49,7 +49,7 @@ class CompleteProfilePage extends StatelessWidget {
                         children: [
                           Text(
                             'Complete Profile',
-                            style: Theme.of(context).textTheme.headline1,
+                            style: MarketTheme.lightTextTheme.headline1,
                           ),
                           IconButton(onPressed: () {}, icon: Icon(Icons.logout))
                         ],

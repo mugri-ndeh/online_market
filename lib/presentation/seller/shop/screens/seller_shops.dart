@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:online_market/model/shop.dart';
 import 'package:online_market/services/repository/seller_repository.dart';
 
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/helper.dart';
 import 'package:online_market/util/palette.dart';
 
@@ -121,6 +121,7 @@ class HeaderWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height: 10,),
             Text(
               'My shops',
               style: Theme.of(context).textTheme.headline4,

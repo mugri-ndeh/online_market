@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         )
       ],
       child: MaterialApp.router(
-        title: 'Emarket',
+        title: 'Agro Market',
         debugShowCheckedModeBanner: false,
         themeMode: ThemeMode.light,
         darkTheme: customDarkTheme(),

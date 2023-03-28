@@ -50,8 +50,8 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   scrollDirection: Axis.horizontal,
                   children: [
                     AnalyticsCard(
-                      color: Colors.redAccent.shade400,
-                      title: 'No Shops',
+                      color: Colors.green.shade500,
+                      title: 'Shops',
                       icon: Icons.shopify,
                       iconColor: AppColors.white,
                       value: '2',
@@ -60,7 +60,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                       color: Colors.orangeAccent.shade400,
                       title: 'Total Products',
                       icon: Icons.shopping_cart,
-                      iconColor: AppColors.success,
+                      iconColor: Colors.white,
                       value: '10',
                     ),
                     AnalyticsCard(

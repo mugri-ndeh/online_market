@@ -86,7 +86,7 @@ class _SellerBase extends State<SellerBasePage> {
                           });
                         },
                         icon: Icons.shop_outlined,
-                        text: 'Shop',
+                        text: 'Farms',
                       ),
                       GButton(
                         padding: const EdgeInsets.all(10),

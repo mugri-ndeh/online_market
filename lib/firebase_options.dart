@@ -47,30 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDhxem6kqETJUAzvU_WdrlYvm1581IAc3A',
-    appId: '1:201804217099:web:dfc9518dc4f8a24e03000e',
-    messagingSenderId: '201804217099',
-    projectId: 'emarket-3689e',
-    authDomain: 'emarket-3689e.firebaseapp.com',
-    storageBucket: 'emarket-3689e.appspot.com',
-    measurementId: 'G-F6R9C8YQ3K',
+    apiKey: 'AIzaSyAiC0PB6h6WwzrvSzJpfUgbtRQCtGPiaes',
+    appId: '1:652439904406:web:af71fbc673be776e2ae2b7',
+    messagingSenderId: '652439904406',
+    projectId: 'emarket-e9032',
+    authDomain: 'emarket-e9032.firebaseapp.com',
+    databaseURL: 'https://emarket-e9032-default-rtdb.firebaseio.com',
+    storageBucket: 'emarket-e9032.appspot.com',
+    measurementId: 'G-KYN1EE88LE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC6oQDSIuql8pN3LxM3gznbxf_PK4GTOVc',
-    appId: '1:201804217099:android:1e227a18554028a703000e',
-    messagingSenderId: '201804217099',
-    projectId: 'emarket-3689e',
-    storageBucket: 'emarket-3689e.appspot.com',
+    apiKey: 'AIzaSyAZiBlM4N4Hu1vN9v3D336ZVg_1KU7jkUI',
+    appId: '1:652439904406:android:52fd3b741db855e22ae2b7',
+    messagingSenderId: '652439904406',
+    projectId: 'emarket-e9032',
+    databaseURL: 'https://emarket-e9032-default-rtdb.firebaseio.com',
+    storageBucket: 'emarket-e9032.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBynzPjUcUxde1Dz806tJ1yZUjxBl-2NOE',
-    appId: '1:201804217099:ios:654994290ec5c9e803000e',
-    messagingSenderId: '201804217099',
-    projectId: 'emarket-3689e',
-    storageBucket: 'emarket-3689e.appspot.com',
-    iosClientId: '201804217099-pj4enm9pol6blasfm5h4to5kuih6g04d.apps.googleusercontent.com',
+    apiKey: 'AIzaSyC1R6q__Yw6qud21z9KHknm58wrHBDJOOk',
+    appId: '1:652439904406:ios:cddc5650ddfe34432ae2b7',
+    messagingSenderId: '652439904406',
+    projectId: 'emarket-e9032',
+    databaseURL: 'https://emarket-e9032-default-rtdb.firebaseio.com',
+    storageBucket: 'emarket-e9032.appspot.com',
+    iosClientId: '652439904406-dsqtkeetjp9j89js2j46sd5brs8i5n0a.apps.googleusercontent.com',
     iosBundleId: 'com.example.onlineMarket',
   );
 }

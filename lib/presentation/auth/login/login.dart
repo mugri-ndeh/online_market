@@ -7,7 +7,7 @@ import 'package:online_market/main.dart';
 import 'package:online_market/presentation/app_start/app_start_cubit.dart';
 import 'package:online_market/presentation/auth/login/cubit/login_cubit.dart';
 import 'package:online_market/routes/routing.gr.dart';
-import 'package:online_market/util/contstants.dart';
+import 'package:online_market/util/constants.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:online_market/util/widgets/custom_buttons.dart';
 import 'package:online_market/util/widgets/custom_input.dart';
@@ -46,6 +46,7 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(height: 20),
                       Text(
                         'Login',
                         style: Theme.of(context).textTheme.headline1,
@@ -55,13 +56,13 @@ class LoginPage extends StatelessWidget {
                           controller:
                               context.watch<LoginCubit>().emailController,
                           obscureText: false,
-                          hint: 'email'),
+                          hint: 'Email'),
                       const SizedBox(height: 10),
                       CustomInputField(
                           controller:
                               context.watch<LoginCubit>().passwordController,
                           obscureText: true,
-                          hint: 'password'),
+                          hint: 'Password'),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -76,12 +77,13 @@ class LoginPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 20),
                       CustomButton(
                           child: const Text('Login'),
                           onTap: () {
                             context.read<LoginCubit>().login();
                           }),
+                      const SizedBox(height: 10),
                       Align(
                         alignment: Alignment.bottomCenter,
                         child: Row(
