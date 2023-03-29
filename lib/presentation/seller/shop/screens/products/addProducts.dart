@@ -72,7 +72,7 @@ class AddProductsPage extends StatelessWidget {
                     TextFormField(
                       controller:
                           context.watch<ShopProductsCubit>().qtyController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       decoration: getInputDecoration(
                           hint: 'Quantity',
                           darkMode:
@@ -114,7 +114,7 @@ class AddProductsPage extends StatelessWidget {
                           onChanged: (value) {
                             context
                                 .read<ShopProductsCubit>()
-                                .updateCategoty(value);
+                                .updateCategory(value);
                           },
                           icon: const Icon(
                             Icons.arrow_drop_down,

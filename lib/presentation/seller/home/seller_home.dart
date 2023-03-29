@@ -9,7 +9,7 @@ import '../../../services/auth/auth_service.dart';
 import 'provider/homeProvider.dart';
 
 class SellerHomePage extends StatefulWidget {
-  SellerHomePage({Key? key}) : super(key: key);
+  const SellerHomePage({Key? key}) : super(key: key);
 
   @override
   State<SellerHomePage> createState() => _SellerHomePageState();
@@ -79,7 +79,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                 style: Theme.of(context).textTheme.headline6,
               ),
               const SizedBox(height: 10),
-              EarningCard(),
+              const EarningCard(),
               const SizedBox(height: 10),
               Row(
                 children: [
@@ -89,7 +89,7 @@ class _SellerHomePageState extends State<SellerHomePage> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(Icons.refresh),
+                    icon: const Icon(Icons.refresh),
                   )
                 ],
               ),
@@ -128,7 +128,7 @@ class EarningCard extends StatelessWidget {
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             Text("Total earnings"),
             Text("1000XAF"),
           ],
@@ -157,6 +157,13 @@ class AnalyticsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 130,
+      width: 120,
+      margin: const EdgeInsets.only(right: 4),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -180,13 +187,6 @@ class AnalyticsCard extends StatelessWidget {
             )
           ],
         ),
-      ),
-      height: 130,
-      width: 120,
-      margin: EdgeInsets.only(right: 4),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
       ),
     );
   }
@@ -242,7 +242,7 @@ class HeaderWidget extends StatelessWidget {
                   )
                 ],
               ),
-              CircleAvatar(radius: 40)
+              const CircleAvatar(radius: 40)
             ],
           )
         ],

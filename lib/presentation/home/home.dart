@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     'https://post.healthline.com/wp-content/uploads/2020/09/AN313-Tomatoes-732x549-Thumb.jpg',
     'https://media.istockphoto.com/id/1334869342/photo/roots-cassava-for-sale-at-fair.jpg?b=1&s=170667a&w=0&k=20&c=EDEmFyrfjByRfiR5Hpl_1r8ALH1ejHVwV3uyKNRAQJ8=',
     'https://images.unsplash.com/photo-1601648764658-cf37e8c89b70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHBlcHBlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
-    'https://images.unsplash.com/photo-1634467524884-897d0af5e104?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFpemUlMjBtYXJrZXR8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60'
+    'https://media.istockphoto.com/id/1438614723/photo/fresh-corn-cobs.jpg?b=1&s=170667a&w=0&k=20&c=4zbwCeURN8pwmWz1LxMD6dcj-pnWNflMQBxko1jAy9U='
   ];
 
   List<Product> promo = [];

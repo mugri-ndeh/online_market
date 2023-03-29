@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/locator.dart';
@@ -14,7 +15,7 @@ import 'screens/edit_profile/edit_profile.dart';
 import 'screens/orders/orders.dart';
 
 class ProfilePage extends StatefulWidget {
-  ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -51,16 +52,16 @@ class _ProfilePageState extends State<ProfilePage> {
             _profileCard(
                 title: 'Settings',
                 subtitle: 'Change theme',
-                destination: SettingsPage()),
-            //const SizedBox(height: 10),
-            // _profileCard(
-            //      title: 'Logout',
-            //      subtitle: 'Quit the application',
-            //      color: AppColors.buttonColor,
-            //      onTap: () async {
-            //        await locator<AuthService>().logout();
-            //        context.read<AppStartCubit>().logout();
-            //      }),
+                destination: const SettingsPage()),
+            const SizedBox(height: 10),
+             _profileCard(
+                  title: 'Logout',
+                  subtitle: 'Quit the application',
+                  color: AppColors.buttonColor,
+                  onTap: (){
+                    locator<AuthService>().logout();
+                    context.read<AppStartCubit>().logout();
+                  }),
           ],
         )),
       ),
@@ -108,13 +109,14 @@ class _ProfilePageState extends State<ProfilePage> {
         Function()? onTap,
         Color? color}) {
     return GestureDetector(
-      onTap: () {
-        push(context, destination!);
-      },
+      onTap: onTap ??
+              () {
+            push(context, destination!);
+          },
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor,
+          color: color ?? Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -130,10 +132,16 @@ class _ProfilePageState extends State<ProfilePage> {
           selectedTileColor: Colors.white,
           title: Text(
             title,
-            style: Theme.of(context).textTheme.headline6,
+            style: color == null
+                ? Theme.of(context).textTheme.headline6
+                : const TextStyle(color: AppColors.white, fontSize: 22),
           ),
-          trailing: const Icon(Icons.arrow_forward_ios),
-          subtitle: Text(subtitle),
+          trailing: Icon(Icons.arrow_forward_ios,
+              color: color == null ? null : AppColors.white),
+          subtitle: Text(
+            subtitle,
+            style: color == null ? null : const TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );

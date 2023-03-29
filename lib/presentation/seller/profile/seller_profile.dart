@@ -50,7 +50,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
             _profileCard(
                 title: 'Settings',
                 subtitle: 'Change theme',
-                destination: SettingsPage()),
+                destination: const SettingsPage()),
             const SizedBox(height: 10),
             _profileCard(
                 title: 'Logout',
@@ -138,7 +138,7 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
               color: color == null ? null : AppColors.white),
           subtitle: Text(
             subtitle,
-            style: color == null ? null : TextStyle(color: Colors.white),
+            style: color == null ? null : const TextStyle(color: Colors.white),
           ),
         ),
       ),

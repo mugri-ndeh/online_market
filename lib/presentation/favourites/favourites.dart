@@ -20,14 +20,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
         appBar: AppBar(
           backgroundColor: AppColors.white,
           centerTitle: true,
-          title: const Text(
+          title: Text(
             'Favourites',
-            style: TextStyle(
-                color: AppColors.black,
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-            ),
-          ),
+            style: Theme.of(context).textTheme.headline6,
+        ),
           elevation: 0,
         ),
         body: SafeArea(child: Consumer<FavouritesHelper>(builder: (_, fav, __) {

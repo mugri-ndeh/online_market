@@ -65,14 +65,18 @@ class _ShopPageState extends State<ShopPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Explore all Products',
-                style: Theme.of(context).textTheme.headline2,
+              Center(
+                child: Text(
+                  'Explore all Products',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
               ),
               const SizedBox(height: 10),
-              Text(
-                'Find the items you have been looking for',
-                style: Theme.of(context).textTheme.bodyText2,
+              Center(
+                child: Text(
+                  'Find the items you have been looking for',
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
               ),
               const SizedBox(height: 10),
               StreamBuilder<QuerySnapshot<Object?>>(

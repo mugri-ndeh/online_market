@@ -72,7 +72,7 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
     emit(ImagePicked(image: image!));
   }
 
-  updateCategoty(value) {
+  updateCategory(value) {
     emit(ProductLoading());
     category = value;
     emit(CategoryPicked(category: value));
@@ -84,6 +84,6 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
     categories = data.docs
         .map((e) => (e.data() as Map<String, dynamic>)['category'].toString())
         .toList();
-    emit(CategoryPicked(category: 'home'));
+    emit(const CategoryPicked(category: 'home'));
   }
 }

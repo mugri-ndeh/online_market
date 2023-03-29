@@ -6,7 +6,11 @@ import 'package:online_market/util/palette.dart';
 import '../../../model/shop.dart';
 
 class SellerProductCard extends StatelessWidget {
-  const SellerProductCard({Key? key, required this.product, required this.shop})
+  const SellerProductCard({
+    Key? key,
+    required this.product,
+    required this.shop
+  })
       : super(key: key);
   final Product product;
   final Shop shop;
@@ -63,7 +67,7 @@ class SellerProductCard extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
-                      '${product.price}XAF',
+                      '${product.price} XAF',
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                   ],

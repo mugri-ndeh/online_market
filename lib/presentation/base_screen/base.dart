@@ -24,10 +24,10 @@ class BasePage extends StatefulWidget {
 
 class _BasePageState extends State<BasePage> {
   final List<Widget> _children = [
-    HomePage(),
-    ShopPage(),
-    FavouritesPage(),
-    ProfilePage(),
+    const HomePage(),
+    const ShopPage(),
+    const FavouritesPage(),
+    const ProfilePage(),
   ];
   int _selectedIndex = 0;
   @override
@@ -36,9 +36,9 @@ class _BasePageState extends State<BasePage> {
     return SafeArea(
       child: AutoTabsRouter(
           routes: [
-            HomeRoute(),
-            ShopRoute(),
-            FavouritesRoute(),
+            const HomeRoute(),
+            const ShopRoute(),
+            const FavouritesRoute(),
             ProfileRoute(),
           ],
           builder: (ctx, child, animation) {
@@ -53,11 +53,11 @@ class _BasePageState extends State<BasePage> {
                       onPressed: () {
                         push(context, const CartPage());
                       },
-                      child: Icon(
+                      tooltip: 'Cart',
+                      child:const Icon(
                         Icons.shopping_cart_outlined,
                         color: AppColors.white,
                       ),
-                      tooltip: 'Cart',
                     ),
                     Positioned(
                         right: 0,
