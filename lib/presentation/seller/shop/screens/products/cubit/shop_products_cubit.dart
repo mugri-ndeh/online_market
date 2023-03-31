@@ -22,7 +22,7 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
   final qtyController = TextEditingController();
   String imageUrl = '';
   String? category;
-  List<String> categories = [];
+  List<String> categories = ['Farm products, Livestock'];
   File? image;
 
   String? validate() {

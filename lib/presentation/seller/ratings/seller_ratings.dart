@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SellerRating extends StatefulWidget {
-  SellerRating({Key? key}) : super(key: key);
+  const SellerRating({Key? key}) : super(key: key);
 
   @override
   State<SellerRating> createState() => _SellerRatingState();
@@ -14,14 +14,14 @@ class _SellerRatingState extends State<SellerRating> {
       appBar: AppBar(
         iconTheme: Theme.of(context).iconTheme,
         titleTextStyle: Theme.of(context).textTheme.headline6,
-        title: Text(
+        title: const Text(
           'My Reviews',
         ),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
       ),
       body: Column(
-        children: [],
+        children: const [],
       ),
     );
   }

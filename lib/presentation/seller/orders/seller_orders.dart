@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:online_market/util/constants.dart';
 
 class SellerOrdersPage extends StatefulWidget {
-  SellerOrdersPage({Key? key}) : super(key: key);
+  const SellerOrdersPage({Key? key}) : super(key: key);
 
   @override
   State<SellerOrdersPage> createState() => _SellerOrdersPageState();
@@ -16,7 +16,7 @@ class _SellerOrdersPageState extends State<SellerOrdersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: !ok
-          ? Center(
+          ? const Center(
               child: Text('You have no orders yet'),
             )
           : Column(
