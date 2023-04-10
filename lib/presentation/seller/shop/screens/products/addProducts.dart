@@ -23,7 +23,7 @@ class AddProductsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           iconTheme: Theme.of(context).iconTheme,
-          titleTextStyle: Theme.of(context).textTheme.headline6,
+          titleTextStyle: Theme.of(context).textTheme.titleLarge,
           title: const Text(
             'Add a Product',
           ),
@@ -105,7 +105,7 @@ class AddProductsPage extends StatelessWidget {
                                     child: Text(
                                       item.toUpperCase(),
                                       style:
-                                          Theme.of(context).textTheme.bodyText2,
+                                          Theme.of(context).textTheme.bodyMedium,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ))
@@ -158,7 +158,7 @@ class AddProductsPage extends StatelessWidget {
                     const SizedBox(height: 10),
                     Text(
                       'Add an image',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                     context.read<ShopProductsCubit>().image == null
                         ? GestureDetector(

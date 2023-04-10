@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../model/shop.dart';
 import '../../../../services/errors/global_error_handling/custom_consumer.dart';
-import '../../../favourites/favourites_provider.dart';
+import '../../../favorites/favorites_provider.dart';
 import 'cubit/all_products_cubit.dart';
 
 class AllProductsPage extends StatefulWidget {

@@ -10,7 +10,7 @@ import 'package:online_market/presentation/auth/complete_profile/complete_profil
 import 'package:online_market/presentation/auth/login/login.dart';
 import 'package:online_market/presentation/auth/signup/signup.dart';
 import 'package:online_market/presentation/base_screen/base.dart';
-import 'package:online_market/presentation/favourites/favourites.dart';
+import 'package:online_market/presentation/favorites/favorites.dart';
 import 'package:online_market/presentation/home/home.dart';
 import 'package:online_market/presentation/profile/index.dart';
 import 'package:online_market/presentation/seller/shop/screens/add_shop/addshops.dart';

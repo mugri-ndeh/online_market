@@ -8,7 +8,7 @@ import 'package:online_market/util/theme.dart';
 import 'package:provider/provider.dart';
 
 import 'presentation/app_start/app_start_cubit.dart';
-import 'presentation/favourites/favourites_provider.dart';
+import 'presentation/favorites/favorites_provider.dart';
 import 'services/errors/global_error_handling/custom_consumer.dart';
 import 'services/locator.dart';
 
@@ -30,6 +30,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
 
+  // return ;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -44,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         title: 'Agro Market',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
         darkTheme: customDarkTheme(),
         theme: customLightTheme(),
         routerDelegate: _appRouter.delegate(),
@@ -53,12 +55,11 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-
-  // return ;
 }
 
 class LoadingScreen extends StatelessWidget {
   const LoadingScreen({Key? key}) : super(key: key);
+
   static String route = '/splashScreen';
   static String routeName = 'splashScreen';
 
@@ -76,6 +77,7 @@ class LoadingScreen extends StatelessWidget {
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
+
   static String route = '/splashScreen';
   static String routeName = 'splashScreen';
 

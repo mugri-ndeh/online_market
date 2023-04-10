@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../cart/cart_provider.dart';
 import '../cart/cart_screen.dart';
-import '../favourites/favourites.dart';
+import '../favorites/favorites.dart';
 import '../profile/index.dart';
 import '../shop/index.dart';
 import '../home/home.dart';

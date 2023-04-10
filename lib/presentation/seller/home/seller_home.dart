@@ -49,11 +49,11 @@ class _SellerHomePageState extends State<SellerHomePage> {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    AnalyticsCard(
-                      color: Colors.green.shade500,
+                    const AnalyticsCard(
+                      color: Color(0xFF39FF9F),
                       title: 'Shops',
                       icon: Icons.shopify,
-                      iconColor: AppColors.white,
+                      iconColor: AppColors.black,
                       value: '2',
                     ),
                     AnalyticsCard(

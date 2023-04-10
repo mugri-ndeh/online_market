@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -17,13 +18,14 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
   ShopProductsCubit() : super(ShopProductsInitial()) {
     getCategories();
   }
+
+  List<String> categories = ['maize','corn','beans'];
+  String? category;
+  File? image;
+  String imageUrl = '';
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final qtyController = TextEditingController();
-  String imageUrl = '';
-  String? category;
-  List<String> categories = ['Farm products, Livestock'];
-  File? image;
 
   String? validate() {
     if (nameController.text.isEmpty) {
@@ -79,6 +81,7 @@ class ShopProductsCubit extends Cubit<ShopProductsState> {
   }
 
   getCategories() async {
+    log('Welcome to this new app');
     emit(ProductLoading());
     var data = await CustomFirestore.categoriesRef.get();
     categories = data.docs

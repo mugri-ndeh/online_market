@@ -121,7 +121,6 @@ class HeaderWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10,),
             Text(
               'My shops',
               style: Theme.of(context).textTheme.headline4,

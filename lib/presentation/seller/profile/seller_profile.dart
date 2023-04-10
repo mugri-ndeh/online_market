@@ -131,14 +131,14 @@ class _SellerProfilePageState extends State<SellerProfilePage> {
           title: Text(
             title,
             style: color == null
-                ? Theme.of(context).textTheme.headline6
-                : const TextStyle(color: AppColors.white, fontSize: 22),
+                ? Theme.of(context).textTheme.titleLarge
+                : const TextStyle(color: AppColors.black, fontSize: 22, fontWeight: FontWeight.bold),
           ),
           trailing: Icon(Icons.arrow_forward_ios,
-              color: color == null ? null : AppColors.white),
+              color: color == null ? null : AppColors.black),
           subtitle: Text(
             subtitle,
-            style: color == null ? null : const TextStyle(color: Colors.white),
+            style: color == null ? null : const TextStyle(color: Colors.black),
           ),
         ),
       ),

@@ -7,7 +7,7 @@ import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
 import '../../../cart/cart_provider.dart';
-import '../../../favourites/favourites.dart';
+import '../../../favorites/favorites.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({

@@ -4,7 +4,7 @@ import 'package:online_market/model/product.dart';
 import 'package:online_market/util/palette.dart';
 import 'package:provider/provider.dart';
 
-import 'favourites_provider.dart';
+import 'favorites_provider.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);

@@ -24,8 +24,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _current = 0;
-  final CarouselController _controller = CarouselController();
   final List<String> imgList = [
     'https://post.healthline.com/wp-content/uploads/2020/09/AN313-Tomatoes-732x549-Thumb.jpg',
     'https://media.istockphoto.com/id/1334869342/photo/roots-cassava-for-sale-at-fair.jpg?b=1&s=170667a&w=0&k=20&c=EDEmFyrfjByRfiR5Hpl_1r8ALH1ejHVwV3uyKNRAQJ8=',
@@ -33,18 +31,11 @@ class _HomePageState extends State<HomePage> {
     'https://media.istockphoto.com/id/1438614723/photo/fresh-corn-cobs.jpg?b=1&s=170667a&w=0&k=20&c=4zbwCeURN8pwmWz1LxMD6dcj-pnWNflMQBxko1jAy9U='
   ];
 
-  List<Product> promo = [];
   List<Product> products = [];
+  List<Product> promo = [];
 
-  getProducts() async {
-    // products = (await UserApi.getProducts())!;
-    setState(() {});
-  }
-
-  getPromo() async {
-    // promo = (await UserApi.getPromo())!;
-    setState(() {});
-  }
+  final CarouselController _controller = CarouselController();
+  int _current = 0;
 
   @override
   void initState() {
@@ -54,79 +45,14 @@ class _HomePageState extends State<HomePage> {
     getPromo();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: Scaffold(
-        drawer: const SideBar(),
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  showCustomSearch(context, size);
-                },
-                icon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? AppColors.white
-                      : AppColors.black,
-                ))
-          ],
-          centerTitle: true,
-          title: Text(
-            'Agro Market',
-            style: Theme.of(context).textTheme.headline6,
-          ),
-          elevation: 0,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        ),
-        body: BlocConsumer<HomeCubit, HomeState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state is HomeLoading) {
-              return LoadingScreen();
-            }
-            if (state is HomeLoaded) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: Constants.bodyHorizontalpadding / 1.5),
-                child: SingleChildScrollView(
-                    child: Column(
-                  children: [
-                    _jumbotron(context),
-                    _heading(context,
-                        heading: 'Food crops', caption: 'Get your products fresh from the market'),
-                    const SizedBox(height: 10),
-                    _imageCardSlider(
-                      url: imgList[2],
-                      prods: state.products
-                          .where((element) => element.category == 'clothing')
-                          .toList(),
-                    ),
-                    const SizedBox(height: 20),
-                    _heading(context,
-                        heading: 'Livestock',
-                        caption:
-                            'Anything livestock for your feasts ?',
-                        destination: AllProductsPage()),
-                    const SizedBox(height: 10),
-                    _imageCardSlider(
-                      url: imgList[1],
-                      prods: state.products
-                          .where((element) => element.category == 'phones')
-                          .toList(),
-                    ),
-                  ],
-                )),
-              );
-            }
-            return Center();
-          },
-        ),
-      ),
-    );
+  getProducts() async {
+    // products = (await UserApi.getProducts())!;
+    setState(() {});
+  }
+
+  getPromo() async {
+    // promo = (await UserApi.getPromo())!;
+    setState(() {});
   }
 
   Widget _imageCardSlider({
@@ -243,6 +169,81 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return BlocProvider(
+      create: (context) => HomeCubit(),
+      child: Scaffold(
+        drawer: const SideBar(),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showCustomSearch(context, size);
+                },
+                icon: Icon(
+                  Icons.search,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? AppColors.white
+                      : AppColors.black,
+                ))
+          ],
+          centerTitle: true,
+          title: Text(
+            'Agro Market',
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        ),
+        body: BlocConsumer<HomeCubit, HomeState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is HomeLoading) {
+              return LoadingScreen();
+            }
+            if (state is HomeLoaded) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Constants.bodyHorizontalpadding / 1.5),
+                child: SingleChildScrollView(
+                    child: Column(
+                  children: [
+                    _jumbotron(context),
+                    _heading(context,
+                        heading: 'Food crops',
+                        caption: 'Get your products fresh from the market'),
+                    const SizedBox(height: 10),
+                    _imageCardSlider(
+                      url: imgList[2],
+                      prods: state.products
+                          .where((element) => element.category == 'food crops')
+                          .toList(),
+                    ),
+                    const SizedBox(height: 20),
+                    _heading(context,
+                        heading: 'Livestock',
+                        caption: 'Anything livestock for your feasts ?',
+                        destination: AllProductsPage()),
+                    const SizedBox(height: 10),
+                    _imageCardSlider(
+                      url: imgList[1],
+                      prods: state.products
+                          .where((element) => element.category == 'livestock')
+                          .toList(),
+                    ),
+                  ],
+                )),
+              );
+            }
+            return Center();
+          },
+        ),
       ),
     );
   }

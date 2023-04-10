@@ -20,7 +20,7 @@ import '../presentation/auth/complete_profile/complete_profile.dart' as _i4;
 import '../presentation/auth/login/login.dart' as _i2;
 import '../presentation/auth/signup/signup.dart' as _i3;
 import '../presentation/base_screen/base.dart' as _i5;
-import '../presentation/favourites/favourites.dart' as _i12;
+import '../presentation/favorites/favorites.dart' as _i12;
 import '../presentation/home/home.dart' as _i10;
 import '../presentation/profile/index.dart' as _i13;
 import '../presentation/seller/base.dart' as _i6;
