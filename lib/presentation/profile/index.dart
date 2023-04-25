@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:online_market/presentation/profile/screens/about/about.dart';
 import 'package:online_market/services/auth/auth_service.dart';
 import 'package:online_market/services/locator.dart';
 import 'package:online_market/util/constants.dart';
@@ -53,6 +54,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: 'Settings',
                 subtitle: 'Change theme',
                 destination: const SettingsPage()),
+            const SizedBox(height: 10),
+             _profileCard(
+                title: 'About Us',
+                subtitle: 'Find out about us',
+                destination: const AboutUs()),
             const SizedBox(height: 10),
              _profileCard(
                   title: 'Logout',

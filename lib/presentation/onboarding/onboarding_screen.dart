@@ -14,7 +14,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       body: Column(
         children: [
-          Image.asset('assets/images/onboarding.png'),
+          Image.asset('assets/images/illustration-1.png'),
         ],
       ),
     );

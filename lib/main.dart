@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp.router(
         title: 'Agro Market',
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         darkTheme: customDarkTheme(),
         theme: customLightTheme(),
         routerDelegate: _appRouter.delegate(),

@@ -12,6 +12,7 @@ import 'package:online_market/presentation/auth/signup/signup.dart';
 import 'package:online_market/presentation/base_screen/base.dart';
 import 'package:online_market/presentation/favorites/favorites.dart';
 import 'package:online_market/presentation/home/home.dart';
+import 'package:online_market/presentation/onboarding/onboarding_screen.dart';
 import 'package:online_market/presentation/profile/index.dart';
 import 'package:online_market/presentation/seller/shop/screens/add_shop/addshops.dart';
 import 'package:online_market/presentation/seller/shop/screens/products/addProducts.dart';
@@ -31,6 +32,7 @@ import '../presentation/seller/shop/screens/seller_shops.dart';
     AutoRoute(page: LoginPage),
     AutoRoute(page: SignUpPage),
     AutoRoute(page: CompleteProfilePage),
+    AutoRoute(page: OnboardingScreen),
     AutoRoute(page: BasePage, name: 'Base', path: '/base', children: [
       AutoRoute(page: HomePage, initial: true),
       AutoRoute(page: ShopPage),
